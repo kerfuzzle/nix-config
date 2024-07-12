@@ -7,6 +7,7 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./mako.nix
+    ./qt.nix
     ./waybar/waybar.nix
   ];
 }
