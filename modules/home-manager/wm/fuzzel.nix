@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   programs.fuzzel = {
     enable = true;
 
@@ -15,9 +15,9 @@
         radius = 0;
       };
 
-      colors = {
-        background = "2E383Cec";
-        text = "D3C6AAFF";
+      colors = with config.colorScheme.palette; {
+        background = "${base01}ec";
+        text = "${base05}FF";
       };
     };
   };
