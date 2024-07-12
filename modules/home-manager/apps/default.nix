@@ -1,5 +1,7 @@
 {
   imports = [
-    ./steam.nix
+    ./discord.nix
+    ./ncmpcpp.nix
+    ./firefox/firefox.nix
   ];
 }

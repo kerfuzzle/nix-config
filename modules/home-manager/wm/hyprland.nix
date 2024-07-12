@@ -1,4 +1,12 @@
-{ config, ... }: {
+{ config, pkgs, ... }: let 
+	screenshot = pkgs.writeShellApplication {
+		name = "screenshot";
+		runtimeInputs = with pkgs; [grim slurp swappy];
+		text = ''
+			pidof slurp || grim -g "$(slurp)" - | swappy -f -
+		'';
+	};
+in {
 	wayland.windowManager.hyprland = {
 		enable = true;
 		
@@ -9,6 +17,7 @@
 				"XDG_SESSION_TYPE,wayland"
 				"GBM_BACKEND,nvidia-drm"
 				"__GLX_VENDOR_LIBRARY_NAME,nvidia"
+				"XCURSOR_SIZE,24"
 			];
 			"$mainMod" = "SUPER";
 			"$terminal" = "alacritty";
@@ -22,17 +31,19 @@
 			exec-once = "waybar";
 
 			monitor = [
-				"eDP-1,1920x1080@144,0x0,1.5"
+				"eDP-1,1920x1080@144,0x0,1"
 				#"HDMI-A-2,1920x1080@144,0x1920,1"
 			];
 			
 			general = {
-				gaps_out = 10;
+				gaps_out = 7;
+				gaps_in = 5;
+				border_size = 2;
 			};
 
 			decoration = {
-				rounding = 0;
-				inactive_opacity = 0.9;
+				rounding = 10;
+				inactive_opacity = 0.8;
 			};
 
 			animation = [
@@ -44,6 +55,10 @@
 				scroll_method = "2fg";
 				natural_scroll = true;
 				sensitivity = -0.2;
+
+				touchpad = {
+					clickfinger_behavior = true;
+				};
 			};
 			
 			gestures = {
@@ -53,16 +68,21 @@
 				workspace_swipe_min_speed_to_force = 15;
 			};
 
+			cursor = {
+				inactive_timeout = 15;
+			};
+
 			misc = {
 				disable_hyprland_logo = true;
 			};
 
 			bind = [
 				"$mainMod, Q, exec, $terminal"
-				"$mainMod, R, exec, $launcher"
+				"$mainMod, R, exec, pidof fuzzel | $launcher"
 				"$mainMod, M, exit"
 				"$mainMod, F, fullscreen"
 				"$mainMod, C, killactive"
+				"$mainMod, A, exec, ${screenshot}/bin/screenshot"
 				"$mainMod, L, exec, loginctl lock-session"
 				"$mainMod, W, exec, $file"
 				"$mainMod, S, togglespecialworkspace, magic"

@@ -21,7 +21,7 @@ in {
 		settings = {
 			mainBar = {
 			  reload_style_on_change = true;
-				height = 20;
+				height = 25;
 				margin = "0 0 0 0";
 				layer = "top";
 				position = "top";

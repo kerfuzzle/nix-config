@@ -85,6 +85,7 @@
       neovim
       helix
       glxinfo
+      cfspeedtest
     ];
   };
   

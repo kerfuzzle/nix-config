@@ -3,17 +3,17 @@
 		enable = true;
 		settings = {
 			window = {
-				opacity = 0.8;
+				opacity = 0.7;
 			};
 			font = {
 				normal = {
 					family = "JetBrainsMono Nerd Font";
 					style = "Regular";
 				};
-				size = 8;
+				size = 11;
 			};
 			scrolling = {
-				history = 200;
+				history = 500;
 			};
 		};
 	};
