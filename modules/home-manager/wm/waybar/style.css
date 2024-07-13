@@ -72,3 +72,9 @@ button:hover {
 #clock {
   font-size: 14px;
 }
+
+#mpd.playing {
+  border-left: 1px solid white;
+  margin-left: 5px;
+  padding-left: 3px;
+}

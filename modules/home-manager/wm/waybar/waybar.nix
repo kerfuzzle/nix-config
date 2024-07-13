@@ -13,6 +13,10 @@ let
 		reboot = "󰜉";
 		lock = "";
 		hibernate = "󰒲";
+		volume = ["" "" ""];
+		muted = "";
+		headphone = "󰋋";
+		headphone-muted = "󰟎";
 	};
 in {
 	programs.waybar = {
@@ -25,9 +29,9 @@ in {
 				margin = "0 0 0 0";
 				layer = "top";
 				position = "top";
-				modules-left = ["hyprland/workspaces" "hyprland/window"];
+				modules-left = ["hyprland/workspaces" "hyprland/window" "mpd"];
 				modules-center = ["clock"];
-				modules-right = ["cpu" "temperature" "memory" "backlight" "battery" "power-profiles-daemon" "network" "group/power"];
+				modules-right = ["cpu" "temperature" "memory" "backlight" "pulseaudio" "battery" "power-profiles-daemon" "network" "group/power"];
 
 				"hyprland/workspaces" = {
 					format = "{icon}";
@@ -167,9 +171,24 @@ in {
 				"temperature#gpu" = {
 					thermal-zone = 1;
 				};
-        
-				wireplumber = {
-					format = "{volume}%";
+
+				pulseaudio = with icons; {
+					format = "{icon} {volume}%";
+					format-muted = "{icon} —%";
+					format-icons = {
+						headphone = headphone;
+						headphone-muted = headphone-muted;
+						default = volume;
+						default-muted = muted;
+					};
+					on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+					scroll-step = 0.5;
+				};
+
+				mpd = {
+					format = "{title} — {artist}";
+					format-stopped = "";
+					format-pasued = "";
 				};
 			};
 		};
