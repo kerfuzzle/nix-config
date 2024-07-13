@@ -151,13 +151,13 @@ in {
 				"custom/shutdown" = with icons; {
 					format = "${shutdown}";
 					tooltip = false;
-					on-click = "shutdown now";
+					on-click = "poweroff";
 				};
 
 				"custom/reboot" = with icons; {
 					format = "${reboot}";
 					tooltip = false;
-					on-click = "reboot";
+					on-click = "poweroff --reboot";
 				};
 
 				temperature = {

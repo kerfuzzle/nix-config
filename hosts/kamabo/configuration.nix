@@ -13,7 +13,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.efi.canTouchEfiVariables = true;
   services.logind.powerKey = "ignore";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -35,6 +35,7 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "uk";
+    earlySetup = true;
   };
 
   # Enable the X11 windowing system.
@@ -70,20 +71,15 @@
      packages = with pkgs; [
       firefox
       tree
-      neofetch
+      fastfetch
       vim
-      waybar
-      fuzzel
-      alacritty
       yazi
       thefuck
       btop
-      git
       zathura
       swayimg
       hyprpicker
       neovim
-      helix
       glxinfo
       cfspeedtest
     ];
