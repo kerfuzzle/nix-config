@@ -13,7 +13,6 @@
 
   userChromeCss = ./another-oneline.css;
 in {
-  imports = [ ./engines.nix ];
   programs.firefox = {
     enable = true;
 
@@ -35,6 +34,7 @@ in {
       DisableTelemetry = true;
       DisableSetDesktopBackground = true;
       PromptForDownloadLocation = false;
+      ExtensionSettings = import ./extensions.nix;
     };
     
     profiles."${config.home.username}" = {
@@ -64,7 +64,7 @@ in {
       search = {
         force = true;
         default = "DuckDuckGo";
-        # Engines are in engines.nix
+        engines = import ./engines.nix { pkgs = pkgs; };
       };
     };
   };

@@ -12,11 +12,11 @@ in {
 		
 		settings = {
 			env = [
-				"WLR_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
-			  "LIBVA_DRIVER_NAME,nvidia"
-				"XDG_SESSION_TYPE,wayland"
-				"GBM_BACKEND,nvidia-drm"
-				"__GLX_VENDOR_LIBRARY_NAME,nvidia"
+				#"WLR_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
+			  #"LIBVA_DRIVER_NAME,nvidia"
+				#"XDG_SESSION_TYPE,wayland"
+				#"GBM_BACKEND,nvidia-drm"
+				#"__GLX_VENDOR_LIBRARY_NAME,nvidia"
 				"XCURSOR_SIZE,24"
 			];
 			"$mainMod" = "SUPER";
@@ -24,6 +24,7 @@ in {
 			"$launcher" = "fuzzel";
 			"$file" = "yazi";
 			"$bctl" = "brightnessctl";
+			"$browser" = "firefox";
 			xwayland = {
 				force_zero_scaling = true;
 			};
@@ -32,7 +33,7 @@ in {
 
 			monitor = [
 				"eDP-1,1920x1080@144,0x0,1"
-				#"HDMI-A-2,1920x1080@144,0x1920,1"
+				"HDMI-A-2,1920x1080@144,1920x0,1"
 			];
 			
 			general = {
@@ -53,12 +54,17 @@ in {
 			input = {
 				kb_layout  = "gb";
 				scroll_method = "2fg";
-				natural_scroll = true;
+				natural_scroll = false;
 				sensitivity = -0.2;
 
 				touchpad = {
 					clickfinger_behavior = true;
 				};
+			};
+
+			device = {
+				name = "corsair-corsair-gaming-harpoon-rgb-mouse";
+				sensitivity = -0.8;
 			};
 			
 			gestures = {
@@ -83,6 +89,7 @@ in {
 				"$mainMod, F, fullscreen"
 				"$mainMod, C, killactive"
 				"$mainMod, A, exec, ${screenshot}/bin/screenshot"
+				"$mainMod, E, exec, $browser"
 				"$mainMod, L, exec, loginctl lock-session"
 				"$mainMod, W, exec, $file"
 				"$mainMod, S, togglespecialworkspace, magic"

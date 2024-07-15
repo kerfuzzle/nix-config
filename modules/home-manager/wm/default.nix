@@ -6,6 +6,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./hyprpaper.nix
+    ./wlogout.nix
     ./mako.nix
     ./qt.nix
     ./gtk.nix

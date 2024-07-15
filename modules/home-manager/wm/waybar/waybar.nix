@@ -1,4 +1,4 @@
-{ pkgs , ... }: 
+{ pkgs , ... }: with builtins;
 let
 	icons = { 
 		cpu = "";
@@ -9,7 +9,7 @@ let
 		plugged = "󱐋";
 		wifi = " ";
 		wired = " ";
-		shutdown = "󰐥";
+		power = "󰐥";
 		reboot = "󰜉";
 		lock = "";
 		hibernate = "󰒲";
@@ -17,6 +17,38 @@ let
 		muted = "";
 		headphone = "󰋋";
 		headphone-muted = "󰟎";
+
+		format-jp = {
+			"1" = "一";
+			"2" = "二";
+			"3" = "三";
+			"4" = "四";
+			"5" = "五";
+			"6" = "六";
+			"7" = "七";
+			"8" = "八";
+			"9" = "九";
+			"10" = "十";
+			"magic" = "*";
+		};
+
+		format-greek = {
+			"1" = "α";
+			"2" = "β";
+			"3" = "γ";
+			"4" = "δ";
+			"5" = "ε";
+			"6" = "ζ";
+			"7" = "η";
+			"8" = "θ";
+			"9" = "ι";
+			"10" = "κ";
+			"magic" = "*";
+		};
+
+		format-decimal = {
+			"magic" = "*";
+		};
 	};
 in {
 	programs.waybar = {
@@ -26,12 +58,13 @@ in {
 			mainBar = {
 			  reload_style_on_change = true;
 				height = 25;
-				margin = "0 0 0 0";
+				spacing = 0;
+				margin = "5 5 0 5";
 				layer = "top";
 				position = "top";
-				modules-left = ["hyprland/workspaces" "hyprland/window" "mpd"];
+				modules-left = ["hyprland/workspaces" "hyprland/window" "mpris"];
 				modules-center = ["clock"];
-				modules-right = ["cpu" "temperature" "memory" "backlight" "pulseaudio" "battery" "power-profiles-daemon" "network" "group/power"];
+				modules-right = ["group/cpu-info" "temperature#gpu" "memory" "backlight" "pulseaudio" "battery" "power-profiles-daemon" "network" "custom/wlogout"];
 
 				"hyprland/workspaces" = {
 					format = "{icon}";
@@ -39,30 +72,20 @@ in {
 					persistent-workspaces = {
 						"*" = 5;
 					};
-					format-icons = {
-						"1" = "一";
-						"2" = "二";
-						"3" = "三";
-						"4" = "四";
-						"5" = "五";
-						"6" = "六";
-						"7" = "七";
-						"8" = "八";
-						"9" = "九";
-						"10" = "十";
-						"magic" = "*";
-					};
+					format-icons = icons.format-decimal;
 				};
 
 				"hyprland/window" = {
 					rewrite = {
 						"(.*)Mozilla Firefox" = "Firefox";
+						"(.*)Discord" = "Discord";
 					};
+					seperate-outputs = true;
 				};
 
 				clock = {
-        	format = "{:%R}";
-        	format-alt = "{:%a %b %d}";
+        	format = "{:%R %D}";
+        	format-alt = "{:%T %a %b %d}";
         	tooltip-format = "<tt><small>{calendar}</small></tt>";
 					calendar = {
 						mode = "year";
@@ -77,13 +100,28 @@ in {
 					};
 				};
 
+				"group/cpu-info" = {
+					orientation = "inherit";
+					modules = ["cpu" "temperature#cpu"];
+				};
+
 				cpu = with icons; {
 					interval = 5;
-					format = "CPU {usage}%";
-				  format-alt = "CPU {usage}% {avg_frequency:0.1f}GHz";
+					format = "CPU {usage}% ";
+				  format-alt = "CPU {usage}% {avg_frequency:0.1f}GHz ";
 					min-length = 6;
 					max-length = 100;
 				};
+
+				"temperature#cpu" = {
+					thermal-zone = 7;
+				};
+				
+				"temperature#gpu" = {
+					thermal-zone = 1;
+					format = "GPU {temperatureC}°C";
+				};
+
 
 				memory = with icons; {
 					interval = 30;
@@ -114,7 +152,8 @@ in {
 					format-warning = "{icon} {capacity}%";
 					format-critical = "{icon} {capacity}%";
 					format-charging = "${plugged} {capacity}%";
-					format-plugged = "${plugged} {capacity}%";
+					format-plugged = "${plugged} {capacity}% {power:0.1f}W";
+					format-plugged-alt = "${plugged} {capacity}% {power:0.1f}W";
 					format-full = "{icon} {capacity}%";
 					format-icons = battery;
 				};
@@ -125,56 +164,21 @@ in {
 				};
 
 				network = with icons; {
-					format-ethernet = "${wired}";
-					format-wifi = "${wifi}";
+					format-ethernet = "${wired} {ifname}";
+					format-wifi = "${wifi} {essid}";
 					tooltip-format-ethernet = "{ifname}";
 					tooltip-format-wifi = "{signalStrength}% {essid}";
 				};
 
-				"group/power" = {
-					orientation = "inherit";
-					drawer = {
-						transition-duration = 500;
-						transition-left-to-right = false;
-					};
-					modules = ["custom/shutdown" "custom/lock" "custom/hibernate" "custom/reboot"];
-				};
-
-				"custom/lock" = with icons; {
-					format = "${lock}";
+				"custom/wlogout" = with icons; {
+					on-click = "pidof wlogout || wlogout";
 					tooltip = false;
-					on-click = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-				};
-
-				"custom/hibernate" = with icons; {
-					format = "${hibernate}";
-					tooltip = false;
-					on-click = "systemctl hibernate";
-				};
-
-				"custom/shutdown" = with icons; {
-					format = "${shutdown}";
-					tooltip = false;
-					on-click = "poweroff";
-				};
-
-				"custom/reboot" = with icons; {
-					format = "${reboot}";
-					tooltip = false;
-					on-click = "poweroff --reboot";
-				};
-
-				temperature = {
-					thermal-zone = 7;
-				};
-
-				"temperature#gpu" = {
-					thermal-zone = 1;
+					format = power;
 				};
 
 				pulseaudio = with icons; {
 					format = "{icon} {volume}%";
-					format-muted = "{icon} —%";
+					format-muted = "{icon} — %";
 					format-icons = {
 						headphone = headphone;
 						headphone-muted = headphone-muted;
@@ -185,10 +189,12 @@ in {
 					scroll-step = 0.5;
 				};
 
-				mpd = {
-					format = "{title} — {artist}";
-					format-stopped = "";
-					format-pasued = "";
+				mpris = {
+					dynamic-order = ["title" "artist"];
+					dynamic-separator = " — ";
+					dynamic-len = 40;
+					format = "{dynamic}";
+					tooltip-format = "{player} ({status}): {title}, {artist}, {album} {position}/{length}";
 				};
 			};
 		};

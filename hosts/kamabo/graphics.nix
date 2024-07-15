@@ -29,4 +29,6 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  programs.gamemode.enable = true;
 }

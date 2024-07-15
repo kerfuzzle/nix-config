@@ -1,11 +1,9 @@
-{
+{ settings, ... }: {
 	services.hyprpaper = {
 		enable = true;
-		settings = let
-			wall = "/home/kerfuzzle/images/walls/forest-2.jpg";
-		in {
-			preload = [wall];
-			wallpaper = [",${wall}"];
+		settings = {
+			preload = [settings.wallpaper];
+			wallpaper = [",${settings.wallpaper}"];
 			ipc = "off";
 			splash = false;
 		};
