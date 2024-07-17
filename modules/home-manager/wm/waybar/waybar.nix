@@ -90,12 +90,13 @@ in {
 					calendar = {
 						mode = "year";
 						mode-mon-col = 3;
+						weeks-pos = "right";
 						format = {
-							months = "{}";
-							days = "{}";
-							weeks = "{}";
-							weekdays = "{}";
-							today  = "{}";
+							months = "<span color='#ffead3'><b>{}</b></span>";
+							days = "<span color='#ecc6d9'><b>{}</b></span>";
+							weeks = "<span color='#7fbbb3'><b>W{}</b></span>";
+							weekdays = "<span color='#83C092'><b>{}</b></span>";
+							today  = "<span color='#e67e80'><b><u>{}</u></b></span>";
 						};
 					};
 				};
@@ -171,7 +172,7 @@ in {
 				};
 
 				"custom/wlogout" = with icons; {
-					on-click = "pidof wlogout || wlogout";
+					on-click = "pidof wlogout || wlogout -b 1 -L 500 -R 500";
 					tooltip = false;
 					format = power;
 				};

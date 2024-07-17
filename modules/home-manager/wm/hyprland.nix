@@ -1,12 +1,24 @@
 { config, pkgs, ... }: let 
-	screenshot = pkgs.writeShellApplication {
-		name = "screenshot";
+	screenshot-swappy = pkgs.writeShellApplication {
+		name = "screenshot-swappy";
 		runtimeInputs = with pkgs; [grim slurp swappy];
 		text = ''
 			pidof slurp || grim -g "$(slurp)" - | swappy -f -
 		'';
 	};
+
+	screenshot-copy = pkgs.writeShellApplication {
+		name = "screenshot-copy";
+		runtimeInputs = with pkgs; [grim slurp wl-clipboard];
+		text = ''
+			pidof slurp || grim -g "$(slurp)" - | wl-copy
+		'';
+	};
 in {
+	home.packages = with pkgs; [
+		wl-clipboard
+	];
+
 	wayland.windowManager.hyprland = {
 		enable = true;
 		
@@ -25,6 +37,7 @@ in {
 			"$file" = "yazi";
 			"$bctl" = "brightnessctl";
 			"$browser" = "firefox";
+			"$picker" = "hyprpicker -a";
 			xwayland = {
 				force_zero_scaling = true;
 			};
@@ -88,7 +101,9 @@ in {
 				"$mainMod, M, exit"
 				"$mainMod, F, fullscreen"
 				"$mainMod, C, killactive"
-				"$mainMod, A, exec, ${screenshot}/bin/screenshot"
+				"$mainMod, A, exec, ${screenshot-copy}/bin/screenshot-copy"
+				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
+				"$mainMod SHIFT, C, exec, $picker"
 				"$mainMod, E, exec, $browser"
 				"$mainMod, L, exec, loginctl lock-session"
 				"$mainMod, W, exec, $file"

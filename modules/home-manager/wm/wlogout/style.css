@@ -1,0 +1,30 @@
+* {
+	background-image: none;
+	box-shadow: none;
+    border: none;
+}
+
+window {
+	background-color: rgba(12, 12, 12, 0.9);
+    font-size: 50;
+    font-family: JetBrains Mono NerdFont;
+}
+
+button {
+    transition: all 0.2s ease-in-out;
+    border-radius: 15;
+	text-decoration-color: #FFFFFF;
+    color: #FFFFFF;
+	background-color: #1E1E1E;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 25%;
+    margin: 10px;
+}
+
+button:focus, button:active, button:hover {
+	background-color: #AE2951;
+    padding-top: 30px;
+    padding-bottom: 30px;
+	outline-style: none;
+}

@@ -1,4 +1,4 @@
-{
+{ settings, ... }: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
       };
       background = [
         {
-          path = "/home/kerfuzzle/images/walls/forest-2.jpg";
+          path = settings.wallpaper;
           blur_passes = 2;
           blur_size = 5;
           brightness = 0.6;

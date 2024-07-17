@@ -19,6 +19,11 @@ button:hover {
   outline: none;
 }
 
+tooltip {
+  background: rgba(30, 35, 38, 0.9);
+  border: 1px solid rgba(100, 114, 125, 0.5);
+}
+
 window#waybar {
   background: transparent;
   color: white;
@@ -60,7 +65,7 @@ window#waybar {
 }
 
 #workspaces button.special {
-  color: #DBBC7F
+  color: #DBBC7F;
 }
 
 #workspaces button.active.special {
