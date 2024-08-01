@@ -32,6 +32,18 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+      tentatek = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          settings = import ./hosts/tentatek/settings.nix;
+        };
+        
+        modules = [
+          ./hosts/tentatek/configuration.nix
+          ./modules/nixos
+          inputs.home-manager.nixosModules.default
+        ];
+      };
     };
 
     #homeConfigurations = {
