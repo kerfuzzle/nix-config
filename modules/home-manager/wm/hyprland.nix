@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let 
+{ config, pkgs, settings, ... }: let 
 	screenshot-swappy = pkgs.writeShellApplication {
 		name = "screenshot-swappy";
 		runtimeInputs = with pkgs; [grim slurp swappy];
@@ -44,10 +44,7 @@ in {
 
 			exec-once = "waybar";
 
-			monitor = [
-				"eDP-1,1920x1080@144,0x0,1"
-				"HDMI-A-2,1920x1080@144,1920x0,1"
-			];
+			monitor = settings.monitors;
 			
 			general = {
 				gaps_out = 7;
