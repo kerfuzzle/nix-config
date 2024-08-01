@@ -9,7 +9,6 @@
     [
       ./hardware-configuration.nix
       ./graphics.nix
-      ./udev.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -69,6 +68,7 @@
   users.users.kerfuzzle = {
      isNormalUser = true;
      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+     shell = pkgs.zsh;
      packages = with pkgs; [
       firefox
       tree
