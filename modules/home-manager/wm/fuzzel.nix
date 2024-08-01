@@ -4,7 +4,7 @@
 
     settings = {
       main = {
-        prompt = "_";
+        prompt = "> ";
 
         icons-enabled = false;
 
@@ -18,6 +18,7 @@
       colors = with config.colorScheme.palette; {
         background = "${base01}ec";
         text = "${base05}FF";
+        border = "${base06}ff";
       };
     };
   };

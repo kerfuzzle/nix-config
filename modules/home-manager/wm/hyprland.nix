@@ -68,7 +68,7 @@ in {
 				kb_layout  = "gb";
 				scroll_method = "2fg";
 				natural_scroll = false;
-				sensitivity = -0.2;
+				sensitivity = -0.1;
 
 				touchpad = {
 					clickfinger_behavior = true;
@@ -105,7 +105,8 @@ in {
 				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
 				"$mainMod SHIFT, C, exec, $picker"
 				"$mainMod, E, exec, $browser"
-				"$mainMod, L, exec, loginctl lock-session"
+				"$mainMod, L, exec, pidof wlogout || wlogout -b 1 -L 500 -R 500"
+				"$mainMod, F, togglefloating"
 				"$mainMod, W, exec, $file"
 				"$mainMod, S, togglespecialworkspace, magic"
 				"$mainMod SHIFT, S, movetoworkspace, special:magic"

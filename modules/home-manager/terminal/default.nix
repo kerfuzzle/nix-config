@@ -4,5 +4,7 @@
     ./git.nix
     ./helix.nix
     ./zsh.nix
+    ./starship.nix
+    ./fastfetch.nix
   ];
 }

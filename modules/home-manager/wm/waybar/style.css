@@ -79,8 +79,6 @@ window#waybar {
 }
 
 
-
-
 .modules-right > widget > *, .modules-left > widget > *, .modules-center > widget > * {
   background: rgba(30, 35, 38, 0.8);
   border-radius: 18px;
@@ -98,6 +96,12 @@ window#waybar {
 
 /* Hide the hyprland/window widget if it's empty */
 window#waybar.empty #window {
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+#mpris.stopped {
   padding: 0;
   margin: 0;
   background: none;

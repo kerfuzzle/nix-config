@@ -6,5 +6,6 @@
     ./pipewire.nix
     ./plymouth.nix
     ./nh.nix
+    ./networking.nix
   ];
 }
