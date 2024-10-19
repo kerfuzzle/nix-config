@@ -53,7 +53,7 @@ let
 in {
 	programs.waybar = {
 		enable = true;
-		style = ./style.css;
+		style = ./style_blue.css;
 		settings = {
 			mainBar = {
 			  reload_style_on_change = true;
@@ -84,7 +84,7 @@ in {
 				};
 
 				clock = {
-        	format = "{:%R %D}";
+        	format = "{:%R %d/%m/%y}";
         	format-alt = "{:%T %a %b %d}";
         	tooltip-format = "<tt><small>{calendar}</small></tt>";
 					calendar = {

@@ -2,10 +2,11 @@
   description = "kerfuzzle's nix config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,6 +16,11 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @inputs: {
@@ -23,7 +29,7 @@
       kamabo = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          settings = import ./hosts/kamabo/settings.nix;  
+          settings = import ./hosts/kamabo/settings.nix; 
         };
         
         modules = [

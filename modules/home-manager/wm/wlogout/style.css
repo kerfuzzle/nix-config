@@ -23,7 +23,7 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #AE2951;
+	background-color: #758ECE;
     padding-top: 30px;
     padding-bottom: 30px;
 	outline-style: none;

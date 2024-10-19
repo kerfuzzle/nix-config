@@ -4,11 +4,12 @@
 
     settings = {
       main = {
-        prompt = "> ";
+        prompt = "\"❯ \"";
 
         icons-enabled = false;
 
-        horizontal-pad = 8;      
+        horizontal-pad = 8;
+				font = "monospace:size=10";
       };
 
       border = {
@@ -16,10 +17,14 @@
       };
 
       colors = with config.colorScheme.palette; {
-        background = "${base01}ec";
-        text = "${base05}FF";
-        border = "${base06}ff";
-      };
+	 	 		background = "${base00}ef";
+				text = "${base05}ff";
+				match = "${base0A}ff";
+	 			selection = "${base03}ff";
+	 			selection-text = "${base05}ff";
+	  		selection-match = "${base0A}ff";
+	  		border = "${base0D}ff";
+			};
     };
   };
 }

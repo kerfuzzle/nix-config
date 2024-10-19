@@ -24,7 +24,7 @@ in {
 		
 		settings = {
 			env = [
-				#"WLR_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
+				"WLR_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
 			  #"LIBVA_DRIVER_NAME,nvidia"
 				#"XDG_SESSION_TYPE,wayland"
 				#"GBM_BACKEND,nvidia-drm"
@@ -53,7 +53,7 @@ in {
 			};
 
 			decoration = {
-				rounding = 10;
+				rounding = 5;
 				inactive_opacity = 0.8;
 			};
 
@@ -64,7 +64,7 @@ in {
 			input = {
 				kb_layout  = "gb";
 				scroll_method = "2fg";
-				natural_scroll = false;
+				natural_scroll = true;
 				sensitivity = -0.1;
 
 				touchpad = {
@@ -96,7 +96,7 @@ in {
 				"$mainMod, Q, exec, $terminal"
 				"$mainMod, R, exec, pidof fuzzel | $launcher"
 				"$mainMod, M, exit"
-				"$mainMod, F, fullscreen"
+				"$mainMod SHIFT, F, fullscreen"
 				"$mainMod, C, killactive"
 				"$mainMod, A, exec, ${screenshot-copy}/bin/screenshot-copy"
 				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
