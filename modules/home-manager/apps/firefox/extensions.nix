@@ -11,5 +11,6 @@ in
     (ext "ublock-origin" "uBlock0@raymondhill.net")
     (ext "sponsorblock" "sponsorBlocker@ajay.app")
     (ext "simple-tab-groups" "simple-tab-groups@drive4ik")
+		(ext "multi-account-containers" "@testpilot-containers")
   ]
 

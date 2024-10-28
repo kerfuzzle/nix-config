@@ -24,7 +24,7 @@ in {
 		
 		settings = {
 			env = [
-				"WLR_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
+				"AQ_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
 			  #"LIBVA_DRIVER_NAME,nvidia"
 				#"XDG_SESSION_TYPE,wayland"
 				#"GBM_BACKEND,nvidia-drm"
@@ -80,7 +80,7 @@ in {
 			gestures = {
 				workspace_swipe = true;
 				workspace_swipe_distance = 100;
-				workspace_swipe_create_new = false;
+				workspace_swipe_create_new = true;
 				workspace_swipe_min_speed_to_force = 15;
 			};
 
