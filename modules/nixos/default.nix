@@ -6,5 +6,7 @@
     ./pipewire.nix
     ./plymouth.nix
     ./networking.nix
+		./printing.nix
+    ./cifs.nix
   ];
 }
