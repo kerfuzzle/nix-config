@@ -24,11 +24,6 @@ in {
 		
 		settings = {
 			env = [
-				"AQ_DRM_DEVICES,${config.lib.file.mkOutOfStoreSymlink "/dev/dri/by-path/pci-0000:00:02.0-card"}"
-			  #"LIBVA_DRIVER_NAME,nvidia"
-				#"XDG_SESSION_TYPE,wayland"
-				#"GBM_BACKEND,nvidia-drm"
-				#"__GLX_VENDOR_LIBRARY_NAME,nvidia"
 				"XCURSOR_SIZE,24"
 			];
 			"$mainMod" = "SUPER";
@@ -64,7 +59,7 @@ in {
 			input = {
 				kb_layout  = "gb";
 				scroll_method = "2fg";
-				natural_scroll = true;
+				natural_scroll = false;
 				sensitivity = -0.1;
 
 				touchpad = {
@@ -74,7 +69,7 @@ in {
 
 			device = {
 				name = "corsair-corsair-gaming-harpoon-rgb-mouse";
-				sensitivity = -0.8;
+				sensitivity = -1.5;
 			};
 			
 			gestures = {
@@ -91,7 +86,7 @@ in {
 			misc = {
 				disable_hyprland_logo = true;
 			};
-
+			
 			bind = [
 				"$mainMod, Q, exec, $terminal"
 				"$mainMod, R, exec, pidof fuzzel | $launcher"

@@ -11,7 +11,7 @@
 			up = "${pkgs.nix}/bin/nix flake update /home/${settings.username}/nix";
 			hyrel = "hyprctl reload";
 			battery = "cat /sys/class/power_supply/BAT0/capacity";
-		};	
+		};
 
 		profileExtra = "[[ $(tty) == /dev/tty1 ]]&&exec Hyprland";
 	};
