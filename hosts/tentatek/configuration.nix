@@ -42,7 +42,7 @@
   # services.xserver.enable = true;
 
   programs.hyprland.enable = true;
-  programs.zsh.enable = true; 
+  programs.zsh.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -58,8 +58,6 @@
     enable = true;
     pulse.enable = true;
   };
-
-  services.power-profiles-daemon.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
