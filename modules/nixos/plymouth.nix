@@ -1,6 +1,7 @@
 { pkgs, ... }: let
   jetBrainsMono = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ];};
 in  {
+	stylix.targets.plymouth.enable = false;
   boot = {
     plymouth = {
       enable = true;
