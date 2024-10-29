@@ -10,7 +10,7 @@
     }
     {
       name = "channel";
-      value = "24.05";
+      value = "unstable";
     }
   ];
   prefix = "@";

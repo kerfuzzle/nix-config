@@ -4,7 +4,7 @@
     ./music.nix
     ./media.nix
     ./gaming.nix
-    ./vscodium.nix
+    ./vscode.nix
     ./ncmpcpp.nix
     ./firefox/firefox.nix
   ];

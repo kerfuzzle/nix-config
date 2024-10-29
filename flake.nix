@@ -15,6 +15,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+		stylix = {
+			url = "github:danth/stylix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		rip2 = {
+			url = "github:MilesCranmer/rip2";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
     nix-colors.url = "github:misterio77/nix-colors";
 
     nixvim = {
@@ -36,6 +46,7 @@
           ./hosts/kamabo/configuration.nix
           ./modules/nixos
           inputs.home-manager.nixosModules.default
+					inputs.stylix.nixosModules.stylix
         ];
       };
       tentatek = nixpkgs.lib.nixosSystem {
@@ -48,6 +59,7 @@
           ./hosts/tentatek/configuration.nix
           ./modules/nixos
           inputs.home-manager.nixosModules.default
+					inputs.stylix.nixosModules.stylix
         ];
       };
     };

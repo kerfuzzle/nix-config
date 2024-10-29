@@ -8,7 +8,7 @@
       };
       background = [
         {
-          path = settings.wallpaper;
+          path = "${settings.wallpaper}";
           blur_passes = 2;
           blur_size = 5;
           brightness = 0.6;
@@ -26,7 +26,7 @@
           valign = "center";
         }
         {
-          text = "<i>$USER@kamabo</i>";
+          text = "<i>$USER@${settings.hostname}</i>";
           font_size = 16;
           font_family = "JetBrainsMono Nerd Font";
           position = "0, 510";

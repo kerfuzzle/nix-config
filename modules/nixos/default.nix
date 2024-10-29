@@ -8,5 +8,7 @@
     ./networking.nix
 		./printing.nix
     ./cifs.nix
-  ];
+		./rip2.nix
+		./stylix.nix
+	];
 }

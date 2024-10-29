@@ -2,7 +2,8 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
-
+	
+	stylix.targets.nixvim.enable = false;
   programs.nixvim = {
     enable = true;
 
@@ -47,6 +48,7 @@
         servers = {
           ts_ls.enable = true;
 					eslint.enable = true;
+					nixd.enable = true;
         };
       };
 
