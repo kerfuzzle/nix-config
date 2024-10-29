@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ./graphics.nix
+			./rgb.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
