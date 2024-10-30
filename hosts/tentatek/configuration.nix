@@ -68,31 +68,7 @@
      isNormalUser = true;
      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
      shell = pkgs.zsh;
-     packages = with pkgs; [
-      firefox
-      tree
-      fastfetch
-      vim
-      yazi
-      thefuck
-      btop
-      zathura
-      swayimg
-      hyprpicker
-      neovim
-      glxinfo
-      cfspeedtest
-    ];
   };
-  
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-     home-manager
-     zsh
-     ly
-     brightnessctl
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

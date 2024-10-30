@@ -27,12 +27,13 @@ in {
 				"XCURSOR_SIZE,24"
 			];
 			"$mainMod" = "SUPER";
-			"$terminal" = "alacritty";
-			"$launcher" = "fuzzel";
-			"$file" = "yazi";
-			"$bctl" = "brightnessctl";
-			"$browser" = "firefox";
-			"$picker" = "hyprpicker -a";
+			"$terminal" = "${pkgs.alacritty}/bin/alacritty";
+			"$launcher" = "${pkgs.fuzzel}/bin/fuzzel";
+			"$file" = "${pkgs.nautilus}/bin/nautilus";
+			"$bctl" = "${pkgs.brightnessctl}/bin/brightnessctl";
+			"$browser" = "${pkgs.firefox}/bin/firefox";
+			"$picker" = "${pkgs.hyprpicker}/bin/hyprpicker -a -t";
+			"$power_menu" = "${pkgs.wlogout}/bin/wlogout";
 			xwayland = {
 				force_zero_scaling = true;
 			};
@@ -97,7 +98,7 @@ in {
 				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
 				"$mainMod SHIFT, C, exec, $picker"
 				"$mainMod, E, exec, $browser"
-				"$mainMod, L, exec, pidof wlogout || wlogout -b 1 -L 500 -R 500"
+				"$mainMod, L, exec, pidof wlogout || $power_menu -b 1 -L 500 -R 500"
 				"$mainMod, F, togglefloating"
 				"$mainMod, W, exec, $file"
 				"$mainMod, S, togglespecialworkspace, magic"

@@ -7,6 +7,7 @@
     ./starship.nix
     ./neovim.nix
     ./fastfetch.nix
-    ./extras.nix
+    ./utils.nix
+		./btop.nix
   ];
 }
