@@ -7,5 +7,6 @@
     ./vscode.nix
     ./ncmpcpp.nix
     ./firefox/firefox.nix
-  ];
+		./utils.nix
+	];
 }
