@@ -11,6 +11,7 @@
       done
     '';
   };
+	bctl = "${pkgs.brightnessctl}/bin/brightnessctl";
 in {
   services.hypridle = {
     enable = true;
@@ -23,14 +24,14 @@ in {
 
       listener = [
         {
-          timeout = 150;
+          timeout = 180;
           on-timeout = "${dim-screen}/bin/dim-screen";
-          on-resume = "brightnessctl -r";
+          on-resume = "${bctl} -r";
         }
         {
-          timeout = 150;
-          on-timeout = "brightnessctl -sd asus::kbd_backlight set 0";
-          on-resume = "brightnessctl -rd asus::kbd_backlight";
+          timeout = 180;
+          on-timeout = "${bctl} -sd asus::kbd_backlight set 0";
+          on-resume = "${bctl} -rd asus::kbd_backlight";
         }
         {
           timeout = 300;
