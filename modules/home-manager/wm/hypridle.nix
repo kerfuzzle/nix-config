@@ -1,4 +1,5 @@
-{ pkgs, ...}: let 
+{ pkgs, ... }: let
+	bctl = "${pkgs.brightnessctl}/bin/brightnessctl";
   dim-screen = pkgs.writeShellApplication {
     name = "dim-screen";
     runtimeInputs = [pkgs.brightnessctl];
@@ -11,7 +12,6 @@
       done
     '';
   };
-	bctl = "${pkgs.brightnessctl}/bin/brightnessctl";
 in {
   services.hypridle = {
     enable = true;
