@@ -1,9 +1,9 @@
 { config, ... }: {
   services.mpd = {
-    enable = true;
+    enable = false;
     musicDirectory = "${config.home.homeDirectory}/music";
     network.startWhenNeeded = true;
   };
 
-  services.mpdris2.enable = true;
+  services.mpdris2.enable = false;
 }
