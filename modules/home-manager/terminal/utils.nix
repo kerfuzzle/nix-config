@@ -6,5 +6,6 @@
 		fastfetch
 		yazi
 		glxinfo
+		ffmpeg
 	];
 }

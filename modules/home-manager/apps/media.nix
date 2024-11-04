@@ -4,5 +4,7 @@
     nautilus
 		zathura
 		swayimg
+		mpv
+		gimp
   ];
 }

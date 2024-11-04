@@ -13,6 +13,8 @@
 		fonts = {
 			sizes = {
 				terminal = 10;
+				applications = 10;
+				popups = 8;
 			};
 			monospace = {
 				package = pkgs.nerdfonts.override { fonts = ["JetBrainsMono"]; };
