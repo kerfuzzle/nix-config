@@ -34,6 +34,8 @@ in {
 			"$browser" = "${pkgs.firefox}/bin/firefox";
 			"$picker" = "${pkgs.hyprpicker}/bin/hyprpicker -a -t";
 			"$power_menu" = "${pkgs.wlogout}/bin/wlogout";
+			"$unipicker" = "${pkgs.unipicker}/bin/unipicker";
+			"$copy" = "${pkgs.wl-clipboard}/bin/wl-copy";
 			xwayland = {
 				force_zero_scaling = true;
 			};
@@ -101,6 +103,7 @@ in {
 				"$mainMod, L, exec, pidof wlogout || $power_menu -b 1 -L 500 -R 500"
 				"$mainMod, F, togglefloating"
 				"$mainMod, W, exec, $file"
+				"$mainMod, U, exec, $unipicker --command '$launcher --dmenu' --copy-command $copy"
 				"$mainMod, S, togglespecialworkspace, magic"
 				"$mainMod SHIFT, S, movetoworkspace, special:magic"
 
