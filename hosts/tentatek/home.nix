@@ -1,4 +1,4 @@
-{ config, inputs, settings, pkgs, ... }: {
+{ config, inputs, settings, pkgs, lib, ... }: {
 	home = {
 		username = settings.username;
 		homeDirectory = "/home/${settings.username}";
@@ -17,4 +17,6 @@
 			no_hardware_cursors = true;
 		};
 	};
+
+	services.hypridle.enable = lib.mkForce false;
 }
