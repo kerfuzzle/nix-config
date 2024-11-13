@@ -55,6 +55,11 @@ in {
 				inactive_opacity = 0.8;
 			};
 
+			windowrulev2 = [
+				"opacity 1.0 1.0 override, title:(YouTube)"
+				"opacity 1.0 1.0 override, class:^(discord)"
+			];
+
 			animation = [
 				"specialWorkspace, 1, 7, default, slidevert"	
 			];
