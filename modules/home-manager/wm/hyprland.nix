@@ -117,7 +117,9 @@ in {
 				",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
 				",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
 				",XF86MonBrightnessDown, exec, $bctl s 10%-"
+				"CTRL,XF86MONBrightnessDown, exec, $bctl s 1%-"
 				",XF86MonBrightnessUp, exec, $bctl s 10%+"
+				"CTRL,XF86MONBrightnessUp, exec, $bctl s 1%+"
 			] # Adding binds to switch/move windows between workspaces
 			++ (
 				builtins.concatLists (builtins.genList(
