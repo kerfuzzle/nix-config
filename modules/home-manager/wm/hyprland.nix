@@ -58,6 +58,7 @@ in {
 			windowrulev2 = [
 				"opacity 1.0 1.0 override, title:(YouTube)"
 				"opacity 1.0 1.0 override, class:^(discord)"
+				"opacity 1.0 1.0 override, class:^(Code)"
 			];
 
 			animation = [
