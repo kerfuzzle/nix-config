@@ -7,5 +7,6 @@
 		yazi
 		glxinfo
 		ffmpeg
+		toipe
 	];
 }
