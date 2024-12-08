@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     obs-studio
-    nautilus
+    pcmanfm
 		zathura
 		swayimg
 		mpv

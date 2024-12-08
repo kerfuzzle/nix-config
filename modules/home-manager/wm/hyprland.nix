@@ -14,6 +14,19 @@
 			pidof slurp || grim -g "$(slurp)" - | wl-copy
 		'';
 	};
+
+	screen-record = pkgs.writeShellApplication {
+		name = "screen-record";
+		runtimeInputs = with pkgs; [slurp wf-recorder libnotify];
+		text = ''
+			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
+			region=$(slurp)
+			id=$(notify-send "Recording..." -p)
+			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
+			wf-recorder -g "$region" -p r=30,crf=40 -f ${config.home.homeDirectory}/videos/"$dateTime".mp4
+			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
+		'';
+	};
 in {
 	home.packages = with pkgs; [
 		wl-clipboard
@@ -29,7 +42,7 @@ in {
 			"$mainMod" = "SUPER";
 			"$terminal" = "${pkgs.alacritty}/bin/alacritty";
 			"$launcher" = "${pkgs.fuzzel}/bin/fuzzel";
-			"$file" = "${pkgs.nautilus}/bin/nautilus";
+			"$file" = "${pkgs.pcmanfm}/bin/pcmanfm";
 			"$bctl" = "${pkgs.brightnessctl}/bin/brightnessctl";
 			"$browser" = "${pkgs.firefox}/bin/firefox";
 			"$picker" = "${pkgs.hyprpicker}/bin/hyprpicker -a -t";
@@ -100,11 +113,11 @@ in {
 			bind = [
 				"$mainMod, Q, exec, $terminal"
 				"$mainMod, R, exec, pidof fuzzel | $launcher"
-				"$mainMod, M, exit"
 				"$mainMod SHIFT, F, fullscreen"
 				"$mainMod, C, killactive"
 				"$mainMod, A, exec, ${screenshot-copy}/bin/screenshot-copy"
 				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
+				"$mainMod SHIFT, P, exec, ${screen-record}/bin/screen-record"
 				"$mainMod SHIFT, C, exec, $picker"
 				"$mainMod, E, exec, $browser"
 				"$mainMod, L, exec, pidof wlogout || $power_menu -b 1 -L 500 -R 500"
