@@ -6,7 +6,7 @@
   ];
 
   programs.cava = {
-    enable = false;
+    enable = true;
     settings = {
       color = {
         foreground = "'#${config.stylix.base16Scheme.base0D}'";
