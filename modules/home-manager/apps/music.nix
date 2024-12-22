@@ -3,6 +3,7 @@
     cider
     musikcube
     playerctl
+		abcde
   ];
 
   programs.cava = {
