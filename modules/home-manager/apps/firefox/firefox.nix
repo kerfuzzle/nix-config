@@ -59,6 +59,7 @@ in {
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.theme.content-theme" = 0;
         "browser.theme.toolbar-theme" = 0;
+				"browser.tabs.closeWindowWithLastTab" = false;
       };
 
       search = {
