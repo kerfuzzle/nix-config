@@ -4,6 +4,7 @@
     musikcube
     playerctl
 		abcde
+		whipper
   ];
 
   programs.cava = {
