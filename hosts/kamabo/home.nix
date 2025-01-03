@@ -1,4 +1,5 @@
 { config, inputs, settings, pkgs, ... }: {
+	imports = [ ./battery.nix ];
 	home = {
 		username = settings.username;
 		homeDirectory = "/home/${settings.username}";
