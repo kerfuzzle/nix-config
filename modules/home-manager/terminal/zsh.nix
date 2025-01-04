@@ -10,7 +10,7 @@
 			reb = "builtin command sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake ~/nix";
 			up = "${pkgs.nix}/bin/nix flake update /home/${settings.username}/nix";
 			hyrel = "hyprctl reload";
-			battery = "cat /sys/class/power_supply/BAT0/capacity";
+			battery = "${pkgs.inxi}/bin/inxi -B";
 		};
 
 		profileExtra = "[[ $(tty) == /dev/tty1 ]]&&exec Hyprland";
