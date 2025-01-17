@@ -8,5 +8,7 @@
 		glxinfo
 		ffmpeg
 		toipe
+		zip
+		unzip
 	];
 }
