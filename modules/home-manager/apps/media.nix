@@ -6,5 +6,6 @@
 		swayimg
 		mpv
 		gimp
+		libreoffice
   ];
 }
