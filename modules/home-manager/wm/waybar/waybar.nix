@@ -139,6 +139,7 @@ in {
 					format = "{icon} {percent}%";
 					format-icons = backlight;
 					tooltip = false;
+					on-click = "${pkgs.brightnessctl}/bin/brightnessctl s 100%";
 				};
 
 				battery = with icons; {

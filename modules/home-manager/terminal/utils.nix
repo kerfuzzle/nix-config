@@ -10,5 +10,6 @@
 		toipe
 		zip
 		unzip
+		poppler_utils
 	];
 }
