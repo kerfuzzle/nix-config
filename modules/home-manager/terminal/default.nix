@@ -9,5 +9,6 @@
     ./fastfetch.nix
     ./utils.nix
 		./btop.nix
+		./tex.nix
   ];
 }
