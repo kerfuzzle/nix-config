@@ -42,7 +42,7 @@
   fileSystems."/var/log" =
     { device = "/dev/disk/by-uuid/2d96074b-f973-45f6-add6-22693fd6619a";
       fsType = "btrfs";
-      options = [ "subvol=log" "compress=ztsd" "noatime" ];
+      options = [ "subvol=log" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
