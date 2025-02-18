@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.fuzzel = {
     enable = true;
 
@@ -10,6 +10,8 @@
 
         horizontal-pad = 8;
 				font = lib.mkForce "monospace:size=10";
+
+				terminal = "${pkgs.alacritty}/bin/alacritty -e";
       };
 
       border = {
