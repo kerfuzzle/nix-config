@@ -11,5 +11,6 @@
 		./rip2.nix
 		./stylix.nix
 		./greetd.nix
+		./kernel.nix
 	];
 }
