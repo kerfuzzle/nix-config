@@ -1,4 +1,4 @@
-{ config, pkgs, settings, ... }: let 
+{ config, pkgs, settings, inputs, ... }: let 
 	screenshot-swappy = pkgs.writeShellApplication {
 		name = "screenshot-swappy";
 		runtimeInputs = with pkgs; [grim slurp swappy];
@@ -31,9 +31,13 @@ in {
 	home.packages = with pkgs; [
 		wl-clipboard
 	];
-
+	
 	wayland.windowManager.hyprland = {
 		enable = true;
+		plugins = [
+			pkgs.hyprlandPlugins.hyprspace
+			pkgs.hyprlandPlugins.hyprsplit
+		];
 		
 		settings = {
 			env = [
@@ -109,6 +113,17 @@ in {
 			misc = {
 				disable_hyprland_logo = true;
 			};
+
+			plugin = {
+				hyprsplit = {
+					num_workspaces = 5;
+				};
+
+				overview = {
+					exitOnClick = true;
+					exitOnSwitch = true;
+				};
+			};
 			
 			bind = [
 				"$mainMod, Q, exec, $terminal"
@@ -126,6 +141,8 @@ in {
 				"$mainMod, U, exec, $unipicker --command '$launcher --dmenu' --copy-command $copy"
 				"$mainMod, S, togglespecialworkspace, magic"
 				"$mainMod SHIFT, S, movetoworkspace, special:magic"
+				# Code 49 is `
+				"$mainMod, code:49, overview:toggle"
 
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 				",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
@@ -144,11 +161,11 @@ in {
 						in
 							builtins.toString(x + 1 - (c * 10));
 					in [
-						"$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-						"$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+						"$mainMod, ${ws}, split:workspace, ${toString (x + 1)}"
+						"$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString (x + 1)}"
 					]
 				)
-				10)
+				5)
 			); 
 			bindm = [
 				"$mainMod, mouse:272, movewindow"

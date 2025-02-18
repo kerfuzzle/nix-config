@@ -13,6 +13,6 @@
 			battery = "${pkgs.inxi}/bin/inxi -B";
 		};
 
-		profileExtra = "[[ $(tty) == /dev/tty1 ]]&&exec Hyprland";
+		#profileExtra = "[[ $(tty) == /dev/tty1 ]]&&exec Hyprland";
 	};
 }

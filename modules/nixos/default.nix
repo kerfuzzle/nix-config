@@ -10,5 +10,6 @@
     ./cifs.nix
 		./rip2.nix
 		./stylix.nix
+		./greetd.nix
 	];
 }
