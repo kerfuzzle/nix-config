@@ -63,7 +63,7 @@ in {
 			
 			general = {
 				gaps_out = 7;
-				gaps_in = 5;
+				gaps_in = 3;
 				border_size = 2;
 			};
 
@@ -122,6 +122,8 @@ in {
 				overview = {
 					exitOnClick = true;
 					exitOnSwitch = true;
+					reverseSwipe = true;
+					showEmptyWorkspace = false;
 				};
 			};
 			
