@@ -79,6 +79,21 @@ in {
     definedAliases = ["${prefix}nw"];
   };
 
+	"noogle" = {
+		urls = [
+			{
+				template = "https://noogle.dev/q";
+				params = [
+					{
+						name = "term";
+						value = "{searchTerms}";	
+					}
+				];
+			}
+		];
+		definedAliases = ["${prefix}ng"];
+	};
+
   "MDN" = {
     urls = [
       {
