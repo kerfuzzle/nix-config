@@ -12,7 +12,7 @@
 		postPatch = ''
    		patchShebangs scripts/build-udev-rules.sh
     	substituteInPlace scripts/build-udev-rules.sh \
-      	--replace /usr/bin/env "${pkgs.coreutils}/bin/chmod"
+      	--replace /usr/bin/env "${lib.getExe' pkgs.coreutils "chmod"}"
 		'';
 	};
 in {

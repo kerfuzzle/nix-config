@@ -1,4 +1,4 @@
-{ pkgs , ... }: with builtins;
+{ pkgs , lib, ... }: with builtins;
 let
 	icons = { 
 		cpu = "";
@@ -139,7 +139,7 @@ in {
 					format = "{icon} {percent}%";
 					format-icons = backlight;
 					tooltip = false;
-					on-click = "${pkgs.brightnessctl}/bin/brightnessctl s 100%";
+					on-click = "${lib.getExe pkgs.brightnessctl} s 100%";
 				};
 
 				battery = with icons; {

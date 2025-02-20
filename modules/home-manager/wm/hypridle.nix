@@ -1,5 +1,5 @@
-{ pkgs, ... }: let
-	bctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+{ pkgs, lib, ... }: let
+	bctl = lib.getExe pkgs.brightnessctl;
   dim-screen = pkgs.writeShellApplication {
     name = "dim-screen";
     runtimeInputs = [pkgs.brightnessctl];
@@ -17,7 +17,7 @@ in {
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock"; # Avoids starting multiple hyprlock instances
+        lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
@@ -25,7 +25,7 @@ in {
       listener = [
         {
           timeout = 180;
-          on-timeout = "${dim-screen}/bin/dim-screen";
+          on-timeout = "${lib.getExe dim-screen}/bin/dim-screen";
           on-resume = "${bctl} -r";
         }
         {

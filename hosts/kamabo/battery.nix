@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, lib, ... }: let
 	lowThreshold = 20;
 	criticalThreshold = 10;
 	batteryNotifier = pkgs.writeShellApplication {
@@ -27,6 +27,6 @@
 in {
 	systemd.user.services.battery-notifier = {
 		Install.WantedBy = [ "graphical-session.target" ];
-		Service.ExecStart = "${batteryNotifier}/bin/battery-notifier";
+		Service.ExecStart = lib.getExe batteryNotifier;
 	};
 }

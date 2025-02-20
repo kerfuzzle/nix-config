@@ -1,4 +1,4 @@
-{ config, pkgs, settings, inputs, ... }: let 
+{ config, pkgs, settings, inputs, lib, ... }: let 
 	screenshot-swappy = pkgs.writeShellApplication {
 		name = "screenshot-swappy";
 		runtimeInputs = with pkgs; [grim slurp swappy];
@@ -44,15 +44,15 @@ in {
 				"XCURSOR_SIZE,24"
 			];
 			"$mainMod" = "SUPER";
-			"$terminal" = "${pkgs.alacritty}/bin/alacritty";
-			"$launcher" = "${pkgs.fuzzel}/bin/fuzzel";
-			"$file" = "${pkgs.pcmanfm}/bin/pcmanfm";
-			"$bctl" = "${pkgs.brightnessctl}/bin/brightnessctl";
-			"$browser" = "${pkgs.firefox}/bin/firefox";
-			"$picker" = "${pkgs.hyprpicker}/bin/hyprpicker -a -t";
-			"$power_menu" = "${pkgs.wlogout}/bin/wlogout";
-			"$unipicker" = "${pkgs.unipicker}/bin/unipicker";
-			"$copy" = "${pkgs.wl-clipboard}/bin/wl-copy";
+			"$terminal" = lib.getExe pkgs.alacritty;
+			"$launcher" = lib.getExe pkgs.fuzzel;
+			"$file" = lib.getExe pkgs.pcmanfm;
+			"$bctl" = lib.getExe pkgs.brightnessctl;
+			"$browser" = lib.getExe pkgs.firefox;
+			"$picker" = "${lib.getExe pkgs.hyprpicker} -a -t";
+			"$power_menu" = lib.getExe pkgs.wlogout;
+			"$unipicker" = lib.getExe pkgs.unipicker;
+			"$copy" = lib.getExe' pkgs.wl-clipboard "wl-copy";
 			xwayland = {
 				force_zero_scaling = true;
 			};
@@ -131,20 +131,28 @@ in {
 				"$mainMod, Q, exec, $terminal"
 				"$mainMod, R, exec, pidof fuzzel | $launcher"
 				"$mainMod SHIFT, F, fullscreen"
-				"$mainMod, C, killactive"
-				"$mainMod, A, exec, ${screenshot-copy}/bin/screenshot-copy"
-				"$mainMod SHIFT, A, exec, ${screenshot-swappy}/bin/screenshot-swappy"
-				"$mainMod SHIFT, P, exec, ${screen-record}/bin/screen-record"
-				"$mainMod SHIFT, C, exec, $picker"
+				"$mainMod, C, killactive"	
 				"$mainMod, E, exec, $browser"
 				"$mainMod, L, exec, pidof wlogout || $power_menu -b 1 -L 500 -R 500"
 				"$mainMod, F, togglefloating"
 				"$mainMod, W, exec, $file"
 				"$mainMod, U, exec, $unipicker --command '$launcher --dmenu' --copy-command $copy"
-				"$mainMod, S, togglespecialworkspace, magic"
-				"$mainMod SHIFT, S, movetoworkspace, special:magic"
+				
+				# Screenshots and screen recording
+				"$mainMod, A, exec, ${lib.getExe screenshot-copy}"
+				"$mainMod SHIFT, A, exec, ${lib.getExe screenshot-swappy}"
+				"$mainMod SHIFT, P, exec, ${lib.getExe screen-record}"
+				"$mainMod SHIFT, C, exec, $picker"
+
 				# Code 49 is `
 				"$mainMod, code:49, overview:toggle"
+				# Move focus between windows
+				"$mainMod, Tab, cyclenext, visible"
+				# Move focus between monitors
+				"$mainMod SHIFT, Tab, focusmonitor, +1"
+				# Move window to and from scratchpad
+				"$mainMod, S, togglespecialworkspace, magic"
+				"$mainMod SHIFT, S, movetoworkspace, special:magic"
 
 				",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 				",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"

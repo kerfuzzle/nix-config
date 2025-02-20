@@ -11,7 +11,7 @@
         horizontal-pad = 8;
 				font = lib.mkForce "monospace:size=10";
 
-				terminal = "${pkgs.alacritty}/bin/alacritty -e";
+				terminal = "${lib.getExe pkgs.alacritty} -e";
       };
 
       border = {

@@ -4,13 +4,13 @@
 		enableCompletion = true;
 		syntaxHighlighting.enable = true;
 		
-		shellAliases = with pkgs; {
-			ls = "${pkgs.eza}/bin/eza --icons";
-			tree = "${pkgs.eza}/bin/eza --tree --icons";
-			reb = "builtin command sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake ~/nix";
+		shellAliases = with pkgs; rec {
+			ls = "${lib.getExe pkgs.eza} --icons";
+			tree = "${ls} --tree";
+			reb = "builtin command sudo ${lib.getExe pkgs.nixos-rebuild} switch --flake ~/nix";
 			up = "${pkgs.nix}/bin/nix flake update /home/${settings.username}/nix";
 			hyrel = "hyprctl reload";
-			battery = "${pkgs.inxi}/bin/inxi -B";
+			battery = "${lib.getExe pkgs.inxi} -B";
 		};
 
 		#profileExtra = "[[ $(tty) == /dev/tty1 ]]&&exec Hyprland";
