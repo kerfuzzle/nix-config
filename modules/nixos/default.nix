@@ -12,5 +12,6 @@
 		./stylix.nix
 		./greetd.nix
 		./kernel.nix
+		./cachix.nix
 	];
 }
