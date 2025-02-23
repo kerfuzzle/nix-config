@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, lib, ... }: let
 
 	openrgb-pipeline = pkgs.openrgb-with-all-plugins.overrideAttrs {
 		version = "pipeline";
