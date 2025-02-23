@@ -13,5 +13,6 @@
 		./greetd.nix
 		./kernel.nix
 		./cachix.nix
+		./store.nix
 	];
 }
