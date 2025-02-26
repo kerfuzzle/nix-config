@@ -48,7 +48,7 @@
           outer_color = "rgb(133, 146, 137)";
           check_color = "rgb(219,188,127)";
           fail_color = "rgb(230,126,128)";
-          capslock_color = "rgb(127,187,179)";
+          capslock_color = "rgb(3,123,247)";
           placeholder_text = "<i>password</i>";
           fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
         }
