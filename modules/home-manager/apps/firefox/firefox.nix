@@ -13,7 +13,9 @@
 
   userChromeCss = ./another-oneline.css;
 in {
-  programs.firefox = {
+	stylix.targets.firefox.profileNames = [ config.home.username ];
+  
+	programs.firefox = {
     enable = true;
 
     policies = {
