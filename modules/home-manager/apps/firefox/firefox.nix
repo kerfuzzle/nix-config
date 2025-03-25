@@ -66,7 +66,7 @@ in {
 
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "ddg";
         engines = import ./engines.nix { pkgs = pkgs; };
       };
     };

@@ -16,9 +16,9 @@
   prefix = "@";
   snowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in {
-  "Bing".metaData.hidden = true;
-  "eBay".metaData.hidden = true;
-  "Google".metaData.hidden = true;
+  "bing".metaData.hidden = true;
+  "ebay".metaData.hidden = true;
+  "google".metaData.hidden = true;
 
   "nixpkgs" = {
     urls = [
