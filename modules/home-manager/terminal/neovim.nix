@@ -17,16 +17,25 @@
     opts = {
 			number = true;
 			shiftwidth = 2;
+
 			tabstop = 2;
 			expandtab = false;
 			mouse = "";
     };
+		
+		extraPlugins = with pkgs.vimPlugins; [
+			ultisnips
+		];
 
     plugins = {
       lualine.enable = true;
       startify.enable = true;
       ccc.enable = true;
-
+			
+			vimtex = {
+				enable = true;
+			};
+			
       cmp = {
         enable = true;
         settings = {
@@ -40,6 +49,7 @@
           ];
         };
       };
+			cmp-vimtex.enable = true;
 			cmp-nvim-lsp.enable = true;
 			cmp-nvim-lsp-signature-help.enable = true;
       cmp-treesitter.enable = true;
