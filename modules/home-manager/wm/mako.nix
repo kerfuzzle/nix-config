@@ -2,9 +2,9 @@
   services.mako = {
     enable = true;
     settings = {
-			borderRadius = 10;
-    	padding = "10";
-    	defaultTimeout = 0;
+			border-radius = 10;
+    	padding = 10;
+    	default-timeout = 0;
 		};
   };
 }

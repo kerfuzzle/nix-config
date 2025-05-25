@@ -17,6 +17,8 @@ let
 		muted = "";
 		headphone = "󰋋";
 		headphone-muted = "󰟎";
+		idle-active = "";
+		idle-inactive = "";
 
 		format-jp = {
 			"1" = "一";
@@ -65,7 +67,7 @@ in {
 				position = "top";
 				modules-left = ["hyprland/workspaces" "hyprland/window" "mpris"];
 				modules-center = ["clock"];
-				modules-right = ["group/cpu-info" "temperature#gpu" "memory" "backlight" "pulseaudio" "battery" "power-profiles-daemon" "network" "custom/wlogout"];
+				modules-right = ["group/cpu-info" "temperature#gpu" "memory" "backlight" "pulseaudio" "battery" "idle_inhibitor" "power-profiles-daemon" "network" "custom/wlogout"];
 
 				"hyprland/workspaces" = {
 					format = "{icon}";
@@ -159,6 +161,14 @@ in {
 					format-plugged-alt = "${plugged} {capacity}% {power:0.1f}W";
 					format-full = "{icon} {capacity}%";
 					format-icons = battery;
+				};
+
+				idle_inhibitor = with icons; {
+					format = "{icon} ";
+					format-icons = {
+						activated = idle-active;
+						deactivated = idle-inactive;
+					};
 				};
 
 				power-profiles-daemon = {
