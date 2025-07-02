@@ -14,5 +14,7 @@
 		./kernel.nix
 		./cachix.nix
 		./store.nix
+		./webcam.nix
+		./tablet.nix
 	];
 }

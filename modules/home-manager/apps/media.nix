@@ -7,5 +7,6 @@
 		mpv
 		gimp
 		libreoffice
+		xournalpp
   ];
 }
