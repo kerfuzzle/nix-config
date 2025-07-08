@@ -16,5 +16,6 @@
 		./store.nix
 		./webcam.nix
 		./tablet.nix
+		./zsh.nix
 	];
 }

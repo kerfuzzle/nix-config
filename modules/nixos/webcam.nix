@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 	services.usbmuxd.enable = true;
 	environment.systemPackages = with pkgs; [
 		droidcam
@@ -9,7 +9,7 @@
 		"v4l2loopback"
 	];
 	
-	boot.extraModulePackages = [
-		pkgs.linuxPackages.v4l2loopback
+	boot.extraModulePackages = with config.boot.kernelPackages; [
+		v4l2loopback
 	];
 }
