@@ -52,5 +52,5 @@ in {
   };
 
 	fileSystems."/persist".neededForBoot = true;
-	fileSystems."/var/log".neededforBoot = true;
+	fileSystems."/var/log".neededForBoot = true;
 }
