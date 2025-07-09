@@ -17,5 +17,6 @@
 		./webcam.nix
 		./tablet.nix
 		./zsh.nix
+		./impermenance.nix
 	];
 }
