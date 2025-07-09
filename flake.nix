@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+		impermanence.url = "github:nix-community/impermanence";
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +55,8 @@
 
           ./hosts/kamabo/configuration.nix
           ./modules/nixos
+
+					inputs.impermanence.nixosModules.impermanence
           inputs.home-manager.nixosModules.default
 					inputs.stylix.nixosModules.stylix
         ];
