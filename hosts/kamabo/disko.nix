@@ -1,9 +1,22 @@
-{ device ? throw "Set this to your disk device, e.g. /dev/sda", ... }: let 
-  makeSubvolume = { mountpoint, atime ? false }: {
-    inherit mountpoint;
-    mountOptions = ["compress=zstd" "discard=async"] ++ (if atime then [] else ["noatime"]);
-  };
-in {
+{
+  device ? throw "Set this to your disk device, e.g. /dev/sda",
+  ...
+}:
+let
+  makeSubvolume =
+    {
+      mountpoint,
+      atime ? false,
+    }:
+    {
+      inherit mountpoint;
+      mountOptions = [
+        "compress=zstd"
+        "discard=async"
+      ] ++ (if atime then [ ] else [ "noatime" ]);
+    };
+in
+{
   disko.devices = {
     disk.main = {
       inherit device;
@@ -21,7 +34,7 @@ in {
               mountOptions = [ "umask=0077" ];
             };
           };
-          
+
           luks = {
             size = "100%";
             content = {
@@ -31,10 +44,15 @@ in {
               passwordFile = "/tmp/secret.key";
               content = {
                 type = "btrfs";
-                extraArgs = ["-f"];
+                extraArgs = [ "-f" ];
                 subvolumes = {
                   "/root" = (makeSubvolume { mountpoint = "/"; });
-                  "/home" = (makeSubvolume { mountpoint = "/home"; atime = true; });
+                  "/home" = (
+                    makeSubvolume {
+                      mountpoint = "/home";
+                      atime = true;
+                    }
+                  );
                   "/nix" = (makeSubvolume { mountpoint = "/nix"; });
                   "/persist" = (makeSubvolume { mountpoint = "/persist"; });
                   "/var/log" = (makeSubvolume { mountpoint = "/var/log"; });
@@ -51,6 +69,6 @@ in {
     };
   };
 
-	fileSystems."/persist".neededForBoot = true;
-	fileSystems."/var/log".neededForBoot = true;
+  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/var/log".neededForBoot = true;
 }

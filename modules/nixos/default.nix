@@ -6,17 +6,17 @@
     ./pipewire.nix
     ./plymouth.nix
     ./networking.nix
-		./printing.nix
+    ./printing.nix
     ./cifs.nix
-		./rip2.nix
-		./stylix.nix
-		./greetd.nix
-		./kernel.nix
-		./cachix.nix
-		./store.nix
-		./webcam.nix
-		./tablet.nix
-		./zsh.nix
-		./impermenance.nix
-	];
+    ./rip2.nix
+    ./stylix.nix
+    ./greetd.nix
+    ./kernel.nix
+    ./cachix.nix
+    ./store.nix
+    ./webcam.nix
+    ./tablet.nix
+    ./zsh.nix
+    ./impermenance.nix
+  ];
 }

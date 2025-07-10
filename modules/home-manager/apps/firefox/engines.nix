@@ -1,4 +1,5 @@
-{ pkgs }: let 
+{ pkgs }:
+let
   nix-params = [
     {
       name = "type";
@@ -15,7 +16,8 @@
   ];
   prefix = "@";
   snowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-in {
+in
+{
   "bing".metaData.hidden = true;
   "ebay".metaData.hidden = true;
   "google".metaData.hidden = true;
@@ -28,7 +30,7 @@ in {
       }
     ];
     icon = snowflake;
-    definedAliases = ["${prefix}np"];
+    definedAliases = [ "${prefix}np" ];
   };
 
   "nix options" = {
@@ -39,7 +41,7 @@ in {
       }
     ];
     icon = snowflake;
-    definedAliases = ["${prefix}no"];
+    definedAliases = [ "${prefix}no" ];
   };
 
   "home-manger options" = {
@@ -60,7 +62,7 @@ in {
     ];
     iconUpdateUrl = "https://home-manager-options.extranix.com/images/favicon.png";
     updateInterval = 7 * 24 * 60 * 60 * 1000;
-    definedAliases = ["${prefix}hopts"];
+    definedAliases = [ "${prefix}hopts" ];
   };
 
   "nix wiki" = {
@@ -76,23 +78,23 @@ in {
       }
     ];
     icon = snowflake;
-    definedAliases = ["${prefix}nw"];
+    definedAliases = [ "${prefix}nw" ];
   };
 
-	"noogle" = {
-		urls = [
-			{
-				template = "https://noogle.dev/q";
-				params = [
-					{
-						name = "term";
-						value = "{searchTerms}";	
-					}
-				];
-			}
-		];
-		definedAliases = ["${prefix}ng"];
-	};
+  "noogle" = {
+    urls = [
+      {
+        template = "https://noogle.dev/q";
+        params = [
+          {
+            name = "term";
+            value = "{searchTerms}";
+          }
+        ];
+      }
+    ];
+    definedAliases = [ "${prefix}ng" ];
+  };
 
   "MDN" = {
     urls = [
@@ -107,6 +109,6 @@ in {
       }
     ];
     icon = "https://developer.mozilla.org/static/img/favicon32.png";
-    definedAliases = ["${prefix}mdn"];
+    definedAliases = [ "${prefix}mdn" ];
   };
 }

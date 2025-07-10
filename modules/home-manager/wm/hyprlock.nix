@@ -1,5 +1,6 @@
-{ settings, lib, ... }: {
-	stylix.targets.hyprlock.enable = false;
+{ settings, lib, ... }:
+{
+  stylix.targets.hyprlock.enable = false;
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -9,7 +10,7 @@
       };
       background = [
         {
-					path = "${settings.wallpaper}";
+          path = "${settings.wallpaper}";
           blur_passes = 2;
           blur_size = 5;
           brightness = 0.6;

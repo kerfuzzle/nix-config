@@ -1,7 +1,8 @@
-{ lib, pkgs, ... }: let 
+{ lib, pkgs, ... }:
+let
   power-change = pkgs.writeShellApplication {
     name = "power-change";
-    runtimeInputs = with pkgs; [power-profiles-daemon];
+    runtimeInputs = with pkgs; [ power-profiles-daemon ];
     text = ''
       while getops 'pu:' OPTION; do
         case "$OPTION" in
@@ -20,7 +21,8 @@
       done
     '';
   };
-in {
+in
+{
   services.udev = {
     enable = true;
     extraRules = ''

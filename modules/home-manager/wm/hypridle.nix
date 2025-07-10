@@ -1,8 +1,9 @@
-{ pkgs, lib, ... }: let
-	bctl = lib.getExe pkgs.brightnessctl;
+{ pkgs, lib, ... }:
+let
+  bctl = lib.getExe pkgs.brightnessctl;
   dim-screen = pkgs.writeShellApplication {
     name = "dim-screen";
-    runtimeInputs = [pkgs.brightnessctl];
+    runtimeInputs = [ pkgs.brightnessctl ];
     text = ''
       brightnessctl -sq
       until [ "$(brightnessctl g)" -lt 1921 ]
@@ -12,7 +13,8 @@
       done
     '';
   };
-in {
+in
+{
   services.hypridle = {
     enable = true;
     settings = {

@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: let 
+{ config, pkgs, ... }:
+let
   locked-false = {
     Value = false;
     Status = "locked";
@@ -12,10 +13,11 @@
   downloadDir = "${config.home.homeDirectory}/downloads";
 
   userChromeCss = ./another-oneline.css;
-in {
-	stylix.targets.firefox.profileNames = [ config.home.username ];
-  
-	programs.firefox = {
+in
+{
+  stylix.targets.firefox.profileNames = [ config.home.username ];
+
+  programs.firefox = {
     enable = true;
 
     policies = {
@@ -38,7 +40,7 @@ in {
       PromptForDownloadLocation = false;
       ExtensionSettings = import ./extensions.nix;
     };
-    
+
     profiles."${config.home.username}" = {
       userChrome = builtins.readFile userChromeCss;
       settings = {
@@ -61,7 +63,7 @@ in {
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.theme.content-theme" = 0;
         "browser.theme.toolbar-theme" = 0;
-				"browser.tabs.closeWindowWithLastTab" = false;
+        "browser.tabs.closeWindowWithLastTab" = false;
       };
 
       search = {

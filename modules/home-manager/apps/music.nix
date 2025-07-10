@@ -1,10 +1,11 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   home.packages = with pkgs; [
     cider
     musikcube
     playerctl
-		abcde
-		whipper
+    abcde
+    whipper
   ];
 
   programs.cava = {

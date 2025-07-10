@@ -15,22 +15,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-		impermanence.url = "github:nix-community/impermanence";
+    impermanence.url = "github:nix-community/impermanence";
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
-  	};
+    };
 
-		stylix = {
-			url = "github:danth/stylix";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		rip2 = {
-			url = "github:MilesCranmer/rip2";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+    rip2 = {
+      url = "github:MilesCranmer/rip2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -40,47 +40,51 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... } @inputs: {
-    homeManagerModules.default = ./modules/home-manager;
-    nixosConfigurations = {
-      kamabo = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          settings = import ./hosts/kamabo/settings.nix; 
-        };
-        
-        modules = [
-          inputs.disko.nixosModules.default
-          (import ./hosts/kamabo/disko.nix { device = "/dev/nvme0n1"; })
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".nixfmt-tree;
 
-          ./hosts/kamabo/configuration.nix
-          ./modules/nixos
+      homeManagerModules.default = ./modules/home-manager;
+      nixosConfigurations = {
+        kamabo = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            settings = import ./hosts/kamabo/settings.nix;
+          };
 
-					inputs.impermanence.nixosModules.impermanence
-          inputs.home-manager.nixosModules.default
-					inputs.stylix.nixosModules.stylix
-        ];
-      };
-      tentatek = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          settings = import ./hosts/tentatek/settings.nix;
+          modules = [
+            inputs.disko.nixosModules.default
+            (import ./hosts/kamabo/disko.nix { device = "/dev/nvme0n1"; })
+
+            ./hosts/kamabo/configuration.nix
+            ./modules/nixos
+
+            inputs.impermanence.nixosModules.impermanence
+            inputs.home-manager.nixosModules.default
+            inputs.stylix.nixosModules.stylix
+          ];
         };
-        
-        modules = [
-          ./hosts/tentatek/configuration.nix
-          ./modules/nixos
-          inputs.home-manager.nixosModules.default
-					inputs.stylix.nixosModules.stylix
-        ];
+        tentatek = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            settings = import ./hosts/tentatek/settings.nix;
+          };
+
+          modules = [
+            ./hosts/tentatek/configuration.nix
+            ./modules/nixos
+            inputs.home-manager.nixosModules.default
+            inputs.stylix.nixosModules.stylix
+          ];
+        };
       };
+
+      #homeConfigurations = {
+      #  kerfuzzle = inputs.home-manager.lib.homeManagerConfiguration {
+      #    pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      #    modules = [ ./hosts/kamabo/home.nix ];
+      #  };
+      #};
     };
-
-    #homeConfigurations = {
-    #  kerfuzzle = inputs.home-manager.lib.homeManagerConfiguration {
-    #    pkgs = nixpkgs.legacyPackages."x86_64-linux";
-    #    modules = [ ./hosts/kamabo/home.nix ];
-    #  };
-    #};
-  };
 }

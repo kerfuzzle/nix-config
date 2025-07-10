@@ -1,41 +1,42 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
   ];
-	
-	stylix.targets.nixvim.enable = false;
+
+  stylix.targets.nixvim.enable = false;
   programs.nixvim = {
     enable = true;
 
     colorschemes.catppuccin = {
-			enable = true;
-			settings = {
-				flavour = "frappe";
-			};
-		};
+      enable = true;
+      settings = {
+        flavour = "frappe";
+      };
+    };
 
     opts = {
-			number = true;
-			shiftwidth = 2;
+      number = true;
+      shiftwidth = 2;
 
-			tabstop = 2;
-			expandtab = false;
-			mouse = "";
+      tabstop = 2;
+      expandtab = false;
+      mouse = "";
     };
-		
-		extraPlugins = with pkgs.vimPlugins; [
-			ultisnips
-		];
+
+    extraPlugins = with pkgs.vimPlugins; [
+      ultisnips
+    ];
 
     plugins = {
       lualine.enable = true;
       startify.enable = true;
       ccc.enable = true;
-			
-			vimtex = {
-				enable = true;
-			};
-			
+
+      vimtex = {
+        enable = true;
+      };
+
       cmp = {
         enable = true;
         settings = {
@@ -44,47 +45,47 @@
             { name = "nvim_lsp"; }
             { name = "path"; }
             { name = "buffer"; }
-						{ name = "treesitter"; }
-						{ name = "nvim_lsp_signature_help"; }
+            { name = "treesitter"; }
+            { name = "nvim_lsp_signature_help"; }
           ];
         };
       };
-			cmp-vimtex.enable = true;
-			cmp-nvim-lsp.enable = true;
-			cmp-nvim-lsp-signature-help.enable = true;
+      cmp-vimtex.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-nvim-lsp-signature-help.enable = true;
       cmp-treesitter.enable = true;
-      
+
       lsp = {
         enable = true;
         servers = {
           ts_ls.enable = true;
-					eslint.enable = true;
-					nixd.enable = true;
+          eslint.enable = true;
+          nixd.enable = true;
         };
       };
 
-			lspkind = {
-				enable = true;
-				cmp.enable = true;
-			};
+      lspkind = {
+        enable = true;
+        cmp.enable = true;
+      };
 
-			lsp-format.enable = true;
-			
-			typescript-tools.enable = true;
+      lsp-format.enable = true;
+
+      typescript-tools.enable = true;
 
       treesitter = {
         enable = true;
-				folding = false;
-				nixvimInjections = true;
-				nixGrammars = true;
-				grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+        folding = false;
+        nixvimInjections = true;
+        nixGrammars = true;
+        grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
 
-				settings = { 
-					highlight.enable = true;
-					indent.enable = true;
-				};
+        settings = {
+          highlight.enable = true;
+          indent.enable = true;
+        };
       };
-			treesitter-context.enable = true;
+      treesitter-context.enable = true;
     };
   };
 }

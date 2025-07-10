@@ -2,25 +2,33 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, settings, lib, pkgs, ... }:
+{
+  config,
+  settings,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./graphics.nix
-			./asus.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./graphics.nix
+    ./asus.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   services.logind.powerKey = "ignore";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   networking.hostName = settings.hostname; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -28,37 +36,37 @@
     font = "Lat2-Terminus16";
     keyMap = "uk";
     earlySetup = true;
-  }; 
+  };
 
-	#services.power-profiles-daemon.enable = true;
-	services.tlp = {
-		enable = true;
-		settings = {
-			CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-			CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-			CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-			CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-		};
-	};
-	#services.auto-cpufreq  = {
-	#	enable = true;
-	#	settings = {
-	#		battery = {
-	#			governor = "powersave";
-	#			turbo = "never";
-	#		};
-	#		charger = {
-	#			governor = "performance";
-	#			turbo = "auto";
-	#		};
-	#	};
-	#};
+  #services.power-profiles-daemon.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    };
+  };
+  #services.auto-cpufreq  = {
+  #	enable = true;
+  #	settings = {
+  #		battery = {
+  #			governor = "powersave";
+  #			turbo = "never";
+  #		};
+  #		charger = {
+  #			governor = "performance";
+  #			turbo = "auto";
+  #		};
+  #	};
+  #};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kerfuzzle = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     shell = pkgs.zsh;
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -81,4 +89,3 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-

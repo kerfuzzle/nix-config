@@ -2,28 +2,36 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, settings, lib, pkgs, ... }:
+{
+  config,
+  settings,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./graphics.nix
-			./rgb.nix
-			./keyboard.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./graphics.nix
+    ./rgb.nix
+    ./keyboard.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   services.logind.powerKey = "ignore";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   networking.hostName = settings.hostname; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -66,9 +74,9 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kerfuzzle = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-     shell = pkgs.zsh;
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -115,4 +123,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

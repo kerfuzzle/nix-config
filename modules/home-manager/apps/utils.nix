@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
-	home.packages = with pkgs; [
-		qalculate-gtk
-		anki
-		simple-scan
-	];
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    qalculate-gtk
+    anki
+    simple-scan
+  ];
 }

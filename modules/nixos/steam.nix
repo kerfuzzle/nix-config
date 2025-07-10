@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   allowedUnfree = [
     "steam"
     "steam-original"

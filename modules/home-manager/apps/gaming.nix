@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     mangohud
-		prismlauncher
-		olympus
+    prismlauncher
+    olympus
   ];
 }

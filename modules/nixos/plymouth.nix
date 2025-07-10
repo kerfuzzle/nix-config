@@ -1,11 +1,13 @@
-{ pkgs, ... }: let
+{ pkgs, ... }:
+let
   jetBrainsMono = pkgs.nerd-fonts.jetbrains-mono;
-in  {
-	stylix.targets.plymouth.enable = false;
+in
+{
+  stylix.targets.plymouth.enable = false;
   boot = {
     plymouth = {
       enable = true;
-			font = "${jetBrainsMono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf";
+      font = "${jetBrainsMono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf";
       extraConfig = ''
         DeviceScale=1
       '';
