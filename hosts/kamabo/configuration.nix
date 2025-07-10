@@ -17,6 +17,17 @@
     ./asus.nix
   ];
 
+  droidcam = {
+    enable = true;
+    iosUSBSupport = true;
+  };
+
+  impermanence.enable = false;
+  smbNas.enable = true;
+  tailscale.enable = true;
+  steam.enable = true;
+  graphicsTablet.enable = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

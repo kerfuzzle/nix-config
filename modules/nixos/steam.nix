@@ -1,14 +1,18 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
-  allowedUnfree = [
-    "steam"
-    "steam-original"
-    "steam-run"
-    "steam-unwrapped"
-  ];
+  options.steam.enable = lib.mkEnableOption "steam";
 
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
+  config = lib.mkIf config.steam.enable {
+    allowedUnfree = [
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
+    ];
+
+    programs.steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
   };
 }

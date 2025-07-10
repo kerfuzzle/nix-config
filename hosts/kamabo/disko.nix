@@ -1,5 +1,6 @@
 {
   device ? throw "Set this to your disk device, e.g. /dev/sda",
+  lib,
   ...
 }:
 let
@@ -13,7 +14,7 @@ let
       mountOptions = [
         "compress=zstd"
         "discard=async"
-      ] ++ (if atime then [ ] else [ "noatime" ]);
+      ] ++ (lib.lists.optional (!atime) "noatime");
     };
 in
 {
