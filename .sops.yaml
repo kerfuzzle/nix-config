@@ -1,0 +1,7 @@
+keys:
+  - &kerfuzzle age17ay8zfsy80gnhmlg3ge6c4dmt2swacw4f3yfl8vk5zd95qnhx3jsmepge5
+creation_rules:
+  - path_regex: secrets/*
+    key_groups:
+    - age:
+        - *kerfuzzle

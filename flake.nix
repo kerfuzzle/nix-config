@@ -1,5 +1,5 @@
 {
-  description = "kerfuzzle's nix config flake";
+  description = "kerfuzzle's nix-config flake";
 
   inputs = {
     # Official nixpkgs sources
@@ -57,14 +57,17 @@
 
   outputs =
     { self, nixpkgs, ... }@inputs:
-    {
+		let 
+			inherit (self) outputs;
+			lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
+    in {
       formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".nixfmt-tree;
 
       homeManagerModules.default = ./modules/home-manager;
       nixosConfigurations = {
         kamabo = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs;
+            inherit inputs outputs lib;
             settings = import ./hosts/kamabo/settings.nix;
           };
 
@@ -81,6 +84,7 @@
             inputs.impermanence.nixosModules.impermanence
             inputs.home-manager.nixosModules.default
             inputs.stylix.nixosModules.stylix
+						inputs.sops-nix.nixosModules.sops
           ];
         };
         tentatek = nixpkgs.lib.nixosSystem {

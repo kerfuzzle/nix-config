@@ -1,6 +1,7 @@
 {
   imports = [
     ./network
+		./users
     ./home-manager.nix
     ./allow-unfree.nix
     ./steam.nix
@@ -17,5 +18,6 @@
     ./zsh.nix
     ./impermenance.nix
     ./nvidia.nix
+		./sops.nix
   ];
 }

@@ -41,6 +41,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   services.logind.powerKey = "ignore";
 
+	hostConfig = {
+		username = "kerfuzzle";
+		sops.enable = true;
+	};
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -66,26 +71,6 @@
       CPU_ENERGY_PERF_POLICY_ON_AC = "power";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
     };
-  };
-  #services.auto-cpufreq  = {
-  #	enable = true;
-  #	settings = {
-  #		battery = {
-  #			governor = "powersave";
-  #			turbo = "never";
-  #		};
-  #		charger = {
-  #			governor = "performance";
-  #			turbo = "auto";
-  #		};
-  #	};
-  #};
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kerfuzzle = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
