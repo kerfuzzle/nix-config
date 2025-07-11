@@ -1,10 +1,19 @@
 { config, lib, ... }:
+let
+  hostConfig = config.hostConfig;
+in
 {
-  options.impermanence = {
+  options.hostConfig.impermanence = {
     enable = lib.mkEnableOption "impermanence";
+    oldRootCount = lib.mkOption {
+      description = "How many old roots should be backed up";
+      type = lib.types.ints.positive;
+      default = 5;
+      example = 10;
+    };
   };
 
-  config = lib.mkIf config.impermanence.enable {
+  config = lib.mkIf hostConfig.impermanence.enable {
     environment.persistence."/persist" = {
       enable = true;
       hideMounts = true;
@@ -58,7 +67,7 @@
         				}
         				
         				# Keep only the 5 most recent root backups
-        				for i in $(ls -t /btrfs_tmp/old_roots/ | tail +6); do
+        				for i in $(ls -t /btrfs_tmp/old_roots/ | tail +${hostConfig.impermanence.oldRootCount + 1}); do
         					delete_subvolume_recursively "$i"
         				done
         				

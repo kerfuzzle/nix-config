@@ -21,7 +21,6 @@
     iosUSBSupport = true;
   };
 
-  impermanence.enable = false;
   smbNas.enable = true;
   tailscale.enable = true;
   steam.enable = true;
@@ -44,6 +43,10 @@
   hostConfig = {
     username = "kerfuzzle";
     sops.enable = true;
+    impermanence = {
+      enable = false;
+      oldRootCount = 10;
+    };
   };
 
   nix.settings.experimental-features = [
