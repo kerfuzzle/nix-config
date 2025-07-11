@@ -19,7 +19,7 @@ in {
 			shell = pkgs.zsh;
 			isNormalUser = true;
 			extraGroups = [ "wheel" ];
-			hashedPassword = "test";
+			hashedPasswordFile = config.sops.secrets."login/${hostConfig.username}-password".path;
 		};
 	};
 }
