@@ -67,7 +67,7 @@ in
         				}
         				
         				# Keep only the 5 most recent root backups
-        				for i in $(ls -t /btrfs_tmp/old_roots/ | tail +${hostConfig.impermanence.oldRootCount + 1}); do
+        				for i in $(ls -t -1 /btrfs_tmp/old_roots/ | tail +${hostConfig.impermanence.oldRootCount + 1}); do
         					delete_subvolume_recursively "$i"
         				done
         				
