@@ -16,5 +16,6 @@
     ./tablet.nix
     ./zsh.nix
     ./impermenance.nix
+    ./nvidia.nix
   ];
 }

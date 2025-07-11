@@ -13,7 +13,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./graphics.nix
     ./asus.nix
   ];
 
@@ -27,6 +26,15 @@
   tailscale.enable = true;
   steam.enable = true;
   graphicsTablet.enable = true;
+
+  nvidia = {
+    enable = true;
+    hybrid = {
+      enable = true;
+      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:0:2:0";
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
