@@ -1,3 +1,4 @@
-{ lib, ... }: {
-	configRoot = ../.;
+{ lib, ... }:
+{
+  configRoot = ../.;
 }

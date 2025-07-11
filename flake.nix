@@ -57,10 +57,11 @@
 
   outputs =
     { self, nixpkgs, ... }@inputs:
-		let 
-			inherit (self) outputs;
-			lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
-    in {
+    let
+      inherit (self) outputs;
+      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
+    in
+    {
       formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".nixfmt-tree;
 
       homeManagerModules.default = ./modules/home-manager;
@@ -84,7 +85,7 @@
             inputs.impermanence.nixosModules.impermanence
             inputs.home-manager.nixosModules.default
             inputs.stylix.nixosModules.stylix
-						inputs.sops-nix.nixosModules.sops
+            inputs.sops-nix.nixosModules.sops
           ];
         };
         tentatek = nixpkgs.lib.nixosSystem {

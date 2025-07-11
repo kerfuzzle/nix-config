@@ -41,10 +41,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   services.logind.powerKey = "ignore";
 
-	hostConfig = {
-		username = "kerfuzzle";
-		sops.enable = true;
-	};
+  hostConfig = {
+    username = "kerfuzzle";
+    sops.enable = true;
+  };
 
   nix.settings.experimental-features = [
     "nix-command"
