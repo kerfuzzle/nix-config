@@ -72,4 +72,5 @@ in
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
+  fileSystems."/home".neededForBoot = true;
 }

@@ -44,7 +44,7 @@
     username = "kerfuzzle";
     sops.enable = true;
     impermanence = {
-      enable = false;
+      enable = true;
       oldRootCount = 10;
     };
   };
