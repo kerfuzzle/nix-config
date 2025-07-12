@@ -20,5 +20,6 @@
     ./nvidia.nix
     ./sops.nix
     ./sudo.nix
+    ./lanzaboote.nix
   ];
 }

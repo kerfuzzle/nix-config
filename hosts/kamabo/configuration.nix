@@ -47,6 +47,7 @@
       enable = true;
       oldRootCount = 10;
     };
+    lanzaboote.enable = true;
   };
 
   nix.settings.experimental-features = [

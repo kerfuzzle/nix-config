@@ -27,6 +27,12 @@
     # Ephemeral system roots
     impermanence.url = "github:nix-community/impermanence";
 
+    # Secure boot support
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Tiling Wayland compositor
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -82,6 +88,7 @@
             ./hosts/kamabo/configuration.nix
             ./modules/nixos
 
+            inputs.lanzaboote.nixosModules.lanzaboote
             inputs.impermanence.nixosModules.impermanence
             inputs.home-manager.nixosModules.default
             inputs.stylix.nixosModules.stylix

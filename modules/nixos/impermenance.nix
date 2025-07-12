@@ -18,6 +18,7 @@ in
       enable = true;
       hideMounts = true;
       directories = [
+        "/var/lib/sbctl"
         "/var/lib/nixos"
         "/var/lib/bluetooth"
         "/var/lib/systemd/coredump/"
@@ -70,7 +71,7 @@ in
         				for i in $(ls -t -1 /btrfs_tmp/old_roots/ | tail +${
               toString (hostConfig.impermanence.oldRootCount + 1)
             }); do
-        					delete_subvolume_recursively "$i"
+        					delete_subvolume_recursively "/btrfs_tmp/old_roots/$i"
         				done
         				
         				# Create a new subolume in the mounted root
