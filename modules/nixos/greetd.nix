@@ -6,11 +6,11 @@
   ...
 }:
 {
-  options.greetd.enable = lib.mkEnableOption "greetd" // {
+  options.hostConfig.greetd.enable = lib.mkEnableOption "greetd" // {
     default = true;
   };
 
-  config = lib.mkIf config.greetd.enable {
+  config = lib.mkIf config.hostConfig.greetd.enable {
     services.greetd = {
       enable = true;
       settings = rec {

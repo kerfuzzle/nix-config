@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  options.pipewire.enable = lib.mkEnableOption "pipewire" // {
+  options.hostConfig.pipewire.enable = lib.mkEnableOption "pipewire" // {
     default = true;
   };
   config =
@@ -13,7 +13,7 @@
         };
       };
     in
-    lib.mkIf config.pipewire.enable {
+    lib.mkIf config.hostConfig.pipewire.enable {
       security.rtkit.enable = true;
       services.pipewire = {
         enable = true;

@@ -1,16 +1,19 @@
 { config, lib, ... }:
+let
+  printingConfig = config.hostConfig.printing;
+in
 {
-  options.printing = {
-    printers = lib.mkEnableOption "printers" // {
+  options.hostConfig.printing = {
+    printers.enable = lib.mkEnableOption "printers" // {
       default = true;
     };
-    scanners = lib.mkEnableOption "scanners" // {
+    scanners.enable = lib.mkEnableOption "scanners" // {
       default = true;
     };
   };
 
   config = {
-    services = lib.mkIf config.printing.printers {
+    services = lib.mkIf printingConfig.printers.enable {
       printing.enable = true;
 
       avahi = {
@@ -20,6 +23,6 @@
       };
     };
 
-    hardware.sane.enable = config.printing.scanners;
+    hardware.sane.enable = printingConfig.scanners.enable;
   };
 }

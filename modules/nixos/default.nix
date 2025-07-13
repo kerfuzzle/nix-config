@@ -4,7 +4,7 @@
     ./users
     ./home-manager.nix
     ./allow-unfree.nix
-    ./steam.nix
+    ./gaming.nix
     ./pipewire.nix
     ./plymouth.nix
     ./rip2.nix

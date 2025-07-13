@@ -8,11 +8,11 @@ let
   jetBrainsMono = pkgs.nerd-fonts.jetbrains-mono;
 in
 {
-  options.plymouth.enable = lib.mkEnableOption "plymouth" // {
+  options.hostConfig.plymouth.enable = lib.mkEnableOption "plymouth" // {
     default = true;
   };
 
-  config = lib.mkIf config.plymouth.enable {
+  config = lib.mkIf config.hostConfig.plymouth.enable {
     stylix.targets.plymouth.enable = false;
     boot = {
       plymouth = {

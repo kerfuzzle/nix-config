@@ -4,19 +4,22 @@
   lib,
   ...
 }:
+let
+  hostConfig = config.hostConfig;
+in
 {
-  options.droidcam = {
+  options.hostConfig.droidcam = {
     enable = lib.mkEnableOption "droidcam";
     iosUSBSupport = lib.mkEnableOption "ios USB support for droidcam" // {
       default = true;
     };
   };
 
-  config = lib.mkIf config.droidcam.enable {
+  config = lib.mkIf hostConfig.droidcam.enable {
     services.usbmuxd.enable = true;
     environment.systemPackages = [
       pkgs.droidcam
-    ] ++ (lib.lists.optional config.droidcam.iosUSBSupport pkgs.libimobiledevice);
+    ] ++ (lib.lists.optional hostConfig.droidcam.iosUSBSupport pkgs.libimobiledevice);
 
     boot.kernelModules = [
       "v4l2loopback"

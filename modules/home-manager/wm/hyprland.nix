@@ -76,6 +76,8 @@ in
       "$power_menu" = lib.getExe pkgs.wlogout;
       "$unipicker" = lib.getExe pkgs.unipicker;
       "$copy" = lib.getExe' pkgs.wl-clipboard "wl-copy";
+      "$wpctl" = lib.getExe' pkgs.wireplumber "wpctl";
+      "$player_ctl" = lib.getExe pkgs.playerctl;
       xwayland = {
         force_zero_scaling = true;
       };
@@ -188,10 +190,13 @@ in
           "$mainMod SHIFT, S, movetoworkspace, special:magic"
           "$mainMod SHIFT, G, split:grabroguewindows"
 
-          ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-          ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioMicMute, exec, $wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ",XF86AudioMute, exec, $wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ",XF86AudioLowerVolume, exec, $wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioRaiseVolume, exec, $wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioPrev, exec, $player_ctl next"
+          ",XF86AudioNext, exec, $player_ctl previous"
+          ",XF86AudioPlay, exec, $player_ctl play-pause"
           ",XF86MonBrightnessDown, exec, $bctl s 10%-"
           "CTRL,XF86MONBrightnessDown, exec, $bctl s 1%-"
           ",XF86MonBrightnessUp, exec, $bctl s 10%+"

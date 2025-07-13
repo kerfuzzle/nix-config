@@ -1,10 +1,10 @@
 { config, lib, ... }:
 {
-  options.smbNas.enable = lib.mkEnableOption {
+  options.hostConfig.smbClient.enable = lib.mkEnableOption {
     description = "Whether to try and connect to tailscale NAS using CIFS";
   };
 
-  config = lib.mkIf config.smbNas.enable {
+  config = lib.mkIf config.hostConfig.smbClient.enable {
     fileSystems."/mnt/share" = {
       device = "//100.93.207.105/kerfuzzle-nas";
       fsType = "cifs";

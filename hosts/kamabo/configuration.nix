@@ -16,25 +16,6 @@
     ./asus.nix
   ];
 
-  droidcam = {
-    enable = true;
-    iosUSBSupport = true;
-  };
-
-  smbNas.enable = true;
-  tailscale.enable = true;
-  steam.enable = true;
-  graphicsTablet.enable = true;
-
-  nvidia = {
-    enable = true;
-    hybrid = {
-      enable = true;
-      nvidiaBusId = "PCI:1:0:0";
-      intelBusId = "PCI:0:2:0";
-    };
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -42,13 +23,51 @@
 
   hostConfig = {
     username = "kerfuzzle";
+
     sops.enable = true;
+
     impermanence = {
       enable = true;
       oldRootCount = 10;
     };
+
     lanzaboote.enable = true;
+
+    nvidia = {
+      enable = true;
+      hybrid = {
+        enable = true;
+        nvidiaBusId = "PCI:1:0:0";
+        intelBusId = "PCI:0:2:0";
+      };
+    };
+
+    droidcam = {
+      enable = true;
+      iosUSBSupport = true;
+    };
+
+    theming = {
+      stylix = {
+        enable = true;
+      };
+      base16Scheme = "catppuccin-frappe";
+    };
+
+    gaming = {
+      steam.enable = true;
+      gamemode.enable = true;
+    };
+
+    tailscale.enable = true;
+
+    smbClient.enable = true;
+
+    graphicsTablet.enable = true;
   };
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
