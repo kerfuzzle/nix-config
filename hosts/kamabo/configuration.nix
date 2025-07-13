@@ -67,7 +67,6 @@
   };
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
