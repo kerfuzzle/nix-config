@@ -14,7 +14,7 @@
         requests = [
           [
             "temperature"
-            "2500"
+            "3000"
           ]
         ];
       };
