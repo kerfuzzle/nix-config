@@ -71,7 +71,7 @@ in
       "$launcher" = lib.getExe pkgs.fuzzel;
       "$file" = lib.getExe pkgs.pcmanfm;
       "$bctl" = lib.getExe pkgs.brightnessctl;
-      "$browser" = lib.getExe pkgs.firefox;
+      "$browser" = "firefox";
       "$picker" = "${lib.getExe pkgs.hyprpicker} -a -t";
       "$power_menu" = lib.getExe pkgs.wlogout;
       "$unipicker" = lib.getExe pkgs.unipicker;

@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, config, ... }:
 let
   nix-params = [
     {
@@ -16,99 +16,104 @@ let
   ];
   prefix = "@";
   snowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+  weekly = 7 * 24 * 60 * 60 * 1000;
 in
 {
-  "bing".metaData.hidden = true;
-  "ebay".metaData.hidden = true;
-  "google".metaData.hidden = true;
+  programs.firefox.profiles.${config.home.username}.search.engines = {
+    bing.metaData.hidden = true;
+    ebay.metaData.hidden = true;
+    google.metaData.hidden = true;
 
-  "nixpkgs" = {
-    urls = [
-      {
-        template = "https://search.nixos.org/packages";
-        params = nix-params;
-      }
-    ];
-    icon = snowflake;
-    definedAliases = [ "${prefix}np" ];
-  };
+    nixpkgs = {
+      urls = [
+        {
+          template = "https://search.nixos.org/packages";
+          params = nix-params;
+        }
+      ];
+      icon = snowflake;
+      definedAliases = [ "${prefix}np" ];
+    };
 
-  "nix options" = {
-    urls = [
-      {
-        template = "https://search.nixos.org/options";
-        params = nix-params;
-      }
-    ];
-    icon = snowflake;
-    definedAliases = [ "${prefix}no" ];
-  };
+    "NixOS Options" = {
+      urls = [
+        {
+          template = "https://search.nixos.org/options";
+          params = nix-params;
+        }
+      ];
+      icon = snowflake;
+      definedAliases = [ "${prefix}no" ];
+    };
 
-  "home-manger options" = {
-    urls = [
-      {
-        template = "https://home-manager-options.extranix.com";
-        params = [
-          {
-            name = "query";
-            value = "{searchTerms}";
-          }
-          {
-            name = "release";
-            value = "master";
-          }
-        ];
-      }
-    ];
-    iconUpdateUrl = "https://home-manager-options.extranix.com/images/favicon.png";
-    updateInterval = 7 * 24 * 60 * 60 * 1000;
-    definedAliases = [ "${prefix}hopts" ];
-  };
+    "home-manager Options" = {
+      urls = [
+        {
+          template = "https://home-manager-options.extranix.com";
+          params = [
+            {
+              name = "query";
+              value = "{searchTerms}";
+            }
+            {
+              name = "release";
+              value = "master";
+            }
+          ];
+        }
+      ];
+      icon = "https://home-manager-options.extranix.com/images/favicon.png";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}ho" ];
+    };
 
-  "nix wiki" = {
-    urls = [
-      {
-        template = "https://wiki.nixos.org/w/index.php";
-        params = [
-          {
-            name = "search";
-            value = "{searchTerms}";
-          }
-        ];
-      }
-    ];
-    icon = snowflake;
-    definedAliases = [ "${prefix}nw" ];
-  };
+    "NixOS Wiki" = {
+      urls = [
+        {
+          template = "https://wiki.nixos.org/w/index.php";
+          params = [
+            {
+              name = "search";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = snowflake;
+      definedAliases = [ "${prefix}nw" ];
+    };
 
-  "noogle" = {
-    urls = [
-      {
-        template = "https://noogle.dev/q";
-        params = [
-          {
-            name = "term";
-            value = "{searchTerms}";
-          }
-        ];
-      }
-    ];
-    definedAliases = [ "${prefix}ng" ];
-  };
+    noogle = {
+      urls = [
+        {
+          template = "https://noogle.dev/q";
+          params = [
+            {
+              name = "term";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      definedAliases = [ "${prefix}ng" ];
+      icon = snowflake;
+    };
 
-  "MDN" = {
-    urls = [
-      {
-        template = "https://developer.mozilla.org/en-US/search";
-        params = [
-          {
-            name = "q";
-            value = "{searchTerms}";
-          }
-        ];
-      }
-    ];
-    icon = "https://developer.mozilla.org/static/img/favicon32.png";
-    definedAliases = [ "${prefix}mdn" ];
+    MDN = {
+      urls = [
+        {
+          template = "https://developer.mozilla.org/en-US/search";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://developer.mozilla.org/favicon.svg";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}mdn" ];
+    };
   };
 }

@@ -1,0 +1,104 @@
+{ config, ... }:
+{
+  programs.firefox.policies = rec {
+    # Updates are managed by nix
+    DisableAppUpdate = true;
+
+    # Change download directory to use lowercase
+    DefaultDownloadDirectory = "${config.home.homeDirectory}/downloads";
+    DownloadDirectory = DefaultDownloadDirectory;
+    PromptForDownloadLocation = false;
+
+    # Telemetry
+    DisableTelemetry = true;
+    DisableFirefoxStudies = true;
+
+    # Disable firefox account features
+    DisableFirefoxAccounts = true;
+    DisableAccounts = true;
+    DisablePocket = true;
+
+    # Tracking Protection
+    EnableTrackingProtection = {
+      Value = true;
+      Locked = true;
+      Cryptomining = true;
+      Fingerprinting = true;
+    };
+
+    # Disable password manager
+    PasswordManagerEnabled = false;
+    OfferToSaveLogins = false;
+
+    # Disable features that wouldn't work
+    DisableFirefoxScreenshots = true;
+    DisableSetDesktopBackground = true;
+
+    # Disable annoying pages on first launch and after an update
+    SkipTermsOfUse = true;
+    OverrideFirstRunPage = "";
+    OverridePostUpdatePage = "";
+
+    # Search Suggestions
+    FirefoxSuggest = {
+      WebSuggestions = false;
+      SponsoredSuggestions = false;
+      ImproveSuggest = false;
+    };
+    FirefoxHome = {
+      Search = true;
+      TopSites = false;
+      SponsoredTopSites = false;
+      Highlights = false;
+      Pocket = false;
+      SponsoredPocket = false;
+      Snippets = false;
+    };
+
+    # Misc
+    DontCheckDefaultBrowser = true;
+    DisableProfileImport = true;
+    NoDefaultBookmarks = true;
+    ExtensionSettings = import ./extensions.nix;
+
+    # Override specific preferences for all profiles
+    Preferences =
+      let
+        lock = value: {
+          Value = value;
+          Status = "locked";
+        };
+      in
+      {
+        # Enable userChrome.css
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = lock true;
+        # Enable Global Privacy Control
+        "privacy.globalprivacycontrol.enabled" = lock true;
+        # Disable the weirdly named and annoying search engine dropdown
+        "browser.urlbar.scotchBonnet.enableOverride" = lock false;
+        # Disable warning when visiting about:config
+        "browser.aboutConfig.showWarning" = lock false;
+        # Prevent the browser from closing when the last tab is closed
+        "browser.tabs.closeWindowWithLastTab" = lock false;
+        # Disable firefox view
+        "browser.tabs.firefox-view" = lock false;
+        # Disable form autofill
+        "browser.formfill.enable" = lock false;
+        # Disable search suggestions
+        "browser.search.suggest.enabled" = lock false;
+        "browser.search.suggest.enabled.private" = lock false;
+        "browser.urlbar.suggest.searches" = lock false;
+        "browser.topsites.contile.enable" = lock false;
+        # Clean up new tab page
+        "browser.newtabpage.activity-stream.feeds.section.topstories" = lock false;
+        "browser.newtabpage.activity-stream.feeds.snippets" = lock false;
+        "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock false;
+        "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = lock false;
+        "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = lock false;
+        "browser.newtabpage.activity-stream.section.highlights.includeVisited" = lock false;
+        "browser.newtabpage.activity-stream.showSponsored" = lock false;
+        "browser.newtabpage.activity-stream.system.showSponsored" = lock false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock false;
+      };
+  };
+}
