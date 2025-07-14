@@ -23,6 +23,7 @@ in
     bing.metaData.hidden = true;
     ebay.metaData.hidden = true;
     google.metaData.hidden = true;
+		wikipedia.metaData.alias = "${prefix}w";
 
     nixpkgs = {
       urls = [
