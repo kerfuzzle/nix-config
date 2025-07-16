@@ -64,6 +64,15 @@
     smbClient.enable = true;
 
     graphicsTablet.enable = true;
+
+    networkmanager = {
+      enable = true;
+      standardWirelessNetworks = [
+        "home"
+        "tether"
+        "cafe"
+      ];
+    };
   };
 
   hardware.bluetooth.enable = true;
