@@ -62,15 +62,15 @@
     tailscale.enable = true;
 
     smbClient = {
-			enable = true;
-			shares = [
-				{
-					name = "kerfuzzle-nas";
-					# Uses tailscale ip
-					device = "//100.93.207.105/kerfuzzle-nas";
-				}
-			];
-		};
+      enable = true;
+      shares = [
+        {
+          name = "kerfuzzle-nas";
+          # Uses tailscale ip
+          device = "//100.93.207.105/kerfuzzle-nas";
+        }
+      ];
+    };
 
     graphicsTablet.enable = true;
 

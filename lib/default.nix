@@ -7,6 +7,6 @@
       builtins.map (e: {
         name = namef e;
         value = valuef e;
-      })
+      }) list
     );
 }
