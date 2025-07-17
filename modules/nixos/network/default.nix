@@ -1,6 +1,6 @@
 {
   imports = [
-    ./cifs.nix
+    ./smbClient.nix
     ./printing.nix
     ./tailscale.nix
     ./networkmanager.nix
