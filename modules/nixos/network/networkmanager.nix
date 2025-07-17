@@ -2,7 +2,8 @@
 let
   cfg = config.hostConfig.networkmanager;
 
-  mkWirelessNetwork = id: rec {
+  # Base config needed for all wireless networks
+  mkBaseWirelessNetwork = id: rec {
     connection = {
       id = id;
       type = "wifi";
@@ -11,16 +12,38 @@ let
       ssid = "\$${id}_ssid";
       mode = "infrastructure";
     };
-    wifi-security = {
-      key-mgmt = "wpa-psk";
-      auth-alg = "open";
-      psk = "\$${id}_psk";
-    };
-    ipv4 = {
-      method = "auto";
-    };
+    ipv4.method = "auto";
     ipv6 = ipv4;
+
   };
+
+  # Adds additonal config needed for a standard wpa-psk network
+  mkStandardWirelessNetwork =
+    id:
+    (mkBaseWirelessNetwork id)
+    // {
+      wifi-security = {
+        auth-alg = "open";
+        key-mgmt = "wpa-psk";
+        psk = "\$${id}_psk";
+      };
+    };
+
+  # Adds additonal config needed for a network with user authentication
+  mkEapWirelessNetwork =
+    id:
+    (mkBaseWirelessNetwork id)
+    // {
+      wifi-security = {
+        key-mgmt = "wpa-eap";
+      };
+      "802-1x" = {
+        eap = "peap";
+        identity = "\$${id}_identity";
+        password = "\$${id}_password";
+        phase2-auth = "mschapv2";
+      };
+    };
 
   networkSecret = {
     sopsFile = lib.custom.configRoot + /secrets/networks.yaml;
@@ -65,16 +88,27 @@ in
       ))
     ];
 
+    # Tell sops to create a file that contains variables for all of the network secrets
     sops.templates.ssid-list.content = lib.concatStringsSep "\n" (
-      builtins.map (network: ''
-        		${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
-        		${network}_psk="${config.sops.placeholder."networks/${network}/psk"}"
-        		'') cfg.standardWirelessNetworks
+      lib.concatLists [
+        # Generate lines for standard networks
+        (builtins.map (network: ''
+          							${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
+          							${network}_psk="${config.sops.placeholder."networks/${network}/psk"}"
+          							'') cfg.standardWirelessNetworks)
+        # Generate lines for user auth networks
+        (builtins.map (network: ''
+          												${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
+          												${network}_identity="${config.sops.placeholder."networks/${network}/identity"}"
+          												${network}_password="${config.sops.placeholder."networks/${network}/password"}"
+          												'') cfg.eapWirelessNetworks)
+      ]
     );
 
     networking.networkmanager = {
       enable = true;
       ensureProfiles = {
+        # Point network manager to the enviroment file made by sops
         environmentFiles = [ config.sops.templates.ssid-list.path ];
 
         #secrets.entries = builtins.concatLists [
@@ -86,12 +120,19 @@ in
         #	}) cfg.standardWirelessNetworks)
         #];
 
+        # Define profiles for both types of networks
         profiles = lib.mkMerge [
           (builtins.listToAttrs (
-            builtins.map (network: {
-              name = network;
-              value = mkWirelessNetwork network;
-            }) cfg.standardWirelessNetworks
+            lib.concatLists [
+              (builtins.map (network: {
+                name = network;
+                value = mkStandardWirelessNetwork network;
+              }) cfg.standardWirelessNetworks)
+              (builtins.map (network: {
+                name = network;
+                value = mkEapWirelessNetwork network;
+              }) cfg.eapWirelessNetworks)
+            ]
           ))
         ];
       };
