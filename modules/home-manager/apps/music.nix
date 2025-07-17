@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    cider
+    kew
     musikcube
     playerctl
     abcde

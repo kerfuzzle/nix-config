@@ -3,8 +3,8 @@
     enable = true;
     asusdConfig.text = ''
       			(
-      				bat_charge_limit: 80,
-      			)
-      		'';
+            	bat_charge_limit: 80,
+            )
+    '';
   };
 }

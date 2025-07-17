@@ -17,15 +17,17 @@ in
     environment.persistence."/persist" = {
       enable = true;
       hideMounts = true;
-      directories = with lib.lists; [
-        "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
-        "/etc/ssh"
-      ]
-			++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
-			++ (optional config.networking.networkmanager.enable "/etc/NetworkManager/system-connections")
-			++ (optional config.boot.lanzaboote.enable config.boot.lanzaboote.pkiBundle)
-			++ (optional config.services.tailscale.enable "/var/lib/tailscale");
+      directories =
+        with lib.lists;
+        [
+          "/var/lib/nixos"
+          "/var/lib/systemd/coredump"
+          "/etc/ssh"
+        ]
+        ++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
+        ++ (optional config.networking.networkmanager.enable "/etc/NetworkManager/system-connections")
+        ++ (optional config.boot.lanzaboote.enable config.boot.lanzaboote.pkiBundle)
+        ++ (optional config.services.tailscale.enable "/var/lib/tailscale");
 
       files = [
         "/etc/machine-id"

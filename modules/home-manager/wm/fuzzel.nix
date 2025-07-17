@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -17,7 +16,7 @@
         horizontal-pad = 8;
         font = lib.mkForce "monospace:size=10";
 
-        terminal = "${lib.getExe pkgs.alacritty} -e";
+        terminal = "${lib.getExe config.programs.alacritty.package} -e";
       };
 
       border = {

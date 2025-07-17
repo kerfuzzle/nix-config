@@ -67,7 +67,7 @@ in
         "XCURSOR_SIZE,24"
       ];
       "$mainMod" = "SUPER";
-      "$terminal" = lib.getExe pkgs.alacritty;
+      "$terminal" = lib.getExe config.programs.alacritty.package;
       "$launcher" = lib.getExe pkgs.fuzzel;
       "$file" = lib.getExe pkgs.pcmanfm;
       "$bctl" = lib.getExe pkgs.brightnessctl;

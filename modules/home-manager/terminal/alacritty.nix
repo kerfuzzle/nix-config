@@ -1,7 +1,13 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   programs.alacritty = {
     enable = true;
+    package = pkgs.alacritty-graphics;
     settings = {
       window = {
         opacity = lib.mkForce 0.7;
