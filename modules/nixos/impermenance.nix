@@ -17,14 +17,16 @@ in
     environment.persistence."/persist" = {
       enable = true;
       hideMounts = true;
-      directories = [
-        "/var/lib/sbctl"
+      directories = with lib.lists; [
         "/var/lib/nixos"
-        "/var/lib/bluetooth"
-        "/var/lib/systemd/coredump/"
-        "/etc/NetworkManager/system-connections/"
+        "/var/lib/systemd/coredump"
         "/etc/ssh"
-      ];
+      ]
+			++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
+			++ (optional config.networking.networkmanager.enable "/etc/NetworkManager/system-connections")
+			++ (optional config.boot.lanzaboote.enable config.boot.lanzaboote.pkiBundle)
+			++ (optional config.services.tailscale.enable "/var/lib/tailscale");
+
       files = [
         "/etc/machine-id"
       ];
