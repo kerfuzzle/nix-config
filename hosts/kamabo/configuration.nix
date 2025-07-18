@@ -82,6 +82,11 @@
         "cafe"
       ];
     };
+
+    batteryControl = {
+      enable = true;
+      chargeLimit = 80;
+    };
   };
 
   hardware.bluetooth.enable = true;
@@ -103,15 +108,6 @@
   };
 
   #services.power-profiles-daemon.enable = true;
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "power";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    };
-  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

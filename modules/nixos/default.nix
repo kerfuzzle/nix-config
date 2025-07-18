@@ -21,5 +21,6 @@
     ./sops.nix
     ./sudo.nix
     ./lanzaboote.nix
+    ./tlp.nix
   ];
 }
