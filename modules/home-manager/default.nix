@@ -1,6 +1,6 @@
 {
   imports = [
-    ./wm
+    ./desktop
     ./terminal
     ./apps
     ./services
