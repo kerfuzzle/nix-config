@@ -1,8 +1,8 @@
 {
   imports = [
+    ./hyprland
     ./fuzzel.nix
     ./hypridle.nix
-    ./hyprland.nix
     ./hyprlock.nix
     ./hyprpaper.nix
     ./hyprsunset.nix

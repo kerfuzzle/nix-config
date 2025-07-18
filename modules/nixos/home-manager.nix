@@ -1,7 +1,20 @@
-{ settings, inputs, ... }:
+{
+  settings,
+  inputs,
+  outputs,
+  lib,
+  ...
+}:
 {
   home-manager = {
-    extraSpecialArgs = { inherit inputs settings; };
+    extraSpecialArgs = {
+      inherit
+        inputs
+        outputs
+        lib
+        settings
+        ;
+    };
     users = {
       "${settings.username}" =
         { ... }:

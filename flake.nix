@@ -39,6 +39,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland Plugins
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     # Automatic global theming
     stylix = {
       url = "github:danth/stylix";
@@ -65,10 +75,13 @@
     { self, nixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
-      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
+      lib = nixpkgs.lib.extend (
+        self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; } // inputs.home-manager.lib
+      );
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".nixfmt-tree;
+      overlays = import ./overlays { inherit inputs lib; };
 
       homeManagerModules.default = ./modules/home-manager;
       nixosConfigurations = {

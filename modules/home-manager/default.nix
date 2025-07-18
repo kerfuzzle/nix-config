@@ -1,3 +1,4 @@
+{ outputs, ... }:
 {
   imports = [
     ./desktop
@@ -7,4 +8,6 @@
     ./nix-colors.nix
     ../nixos/allow-unfree.nix
   ];
+
+  nixpkgs.overlays = [ outputs.overlays.default ];
 }
