@@ -9,5 +9,5 @@
     ../nixos/allow-unfree.nix
   ];
 
-  nixpkgs.overlays = [ outputs.overlays.default ];
+  nixpkgs.overlays = outputs.overlays.all;
 }

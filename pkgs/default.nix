@@ -31,13 +31,14 @@ pkgs: {
       libnotify
     ];
     text = ''
-            			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
-            			region=$(slurp)
-            			id=$(notify-send "Recording..." -p)
-            			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
-      						mkdir "$HOME/videos"
-            			wf-recorder -g "$region" -p r=30,crf=40 -f "$HOME/videos/$dateTime.mp4"
-            			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
-            		'';
+                  			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
+                  			region=$(slurp)
+                  			id=$(notify-send "Recording..." -p)
+                  			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
+      									outDir="$HOME/media/videos"
+      									mkdir -p "$outDir"
+                  			wf-recorder -g "$region" -p r=30,crf=40 -f "$outDir/$dateTime.mp4"
+                  			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
+                  		'';
   };
 }

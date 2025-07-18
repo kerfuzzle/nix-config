@@ -1,5 +1,5 @@
 { inputs, lib, ... }:
-let
+rec {
   additions = final: _prev: {
     custom = import (lib.custom.configRoot + /pkgs) final.pkgs;
   };
@@ -9,14 +9,9 @@ let
       system = final.system;
     };
   };
-in
-{
-  default =
-    final: prev:
-    lib.mergeAttrsList (
-      builtins.map (overlay: (overlay final prev)) [
-        additions
-        stable-packages
-      ]
-    );
+
+  all = [
+    additions
+    stable-packages
+  ];
 }
