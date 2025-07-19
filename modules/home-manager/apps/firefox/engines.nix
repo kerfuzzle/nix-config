@@ -126,12 +126,33 @@ in
               name = "q";
               value = "{searchTerms}";
             }
+            {
+              name = "type";
+              value = "code";
+            }
           ];
         }
       ];
       icon = "https://github.githubassets.com/favicons/favicon-dark.svg";
       updateInterval = weekly;
       definedAliases = [ "${prefix}gh" ];
+    };
+
+    WolframAlpha = {
+      urls = [
+        {
+          template = "https://www.wolframalpha.com/input";
+          params = [
+            {
+              name = "i";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://www.wolframalpha.com/_next/static/images/favicon_1zbE9hjk.ico";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}wa" ];
     };
   };
 }
