@@ -4,8 +4,8 @@
     # Updates are managed by nix
     DisableAppUpdate = true;
 
-    # Change download directory to use lowercase
-    DefaultDownloadDirectory = "${config.home.homeDirectory}/downloads";
+    # Force download directory to match the xdg defined dir
+    DefaultDownloadDirectory = config.xdg.userDirs.download;
     DownloadDirectory = DefaultDownloadDirectory;
     PromptForDownloadLocation = false;
 

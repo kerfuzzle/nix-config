@@ -116,5 +116,22 @@ in
       updateInterval = weekly;
       definedAliases = [ "${prefix}mdn" ];
     };
+
+    GitHub = {
+      urls = [
+        {
+          template = "https://github.com/search";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://github.githubassets.com/favicons/favicon-dark.svg";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}gh" ];
+    };
   };
 }
