@@ -1,5 +1,6 @@
 {
   settings,
+  config,
   inputs,
   outputs,
   lib,
@@ -14,6 +15,8 @@
         lib
         settings
         ;
+      inherit (config) hostConfig;
+      nixosConfig = config;
     };
     users = {
       "${settings.username}" =
