@@ -19,7 +19,8 @@ in
     services.usbmuxd.enable = hostConfig.droidcam.iosUSBSupport;
     environment.systemPackages = [
       pkgs.droidcam
-    ] ++ (lib.lists.optional hostConfig.droidcam.iosUSBSupport pkgs.libimobiledevice);
+    ]
+    ++ (lib.lists.optional hostConfig.droidcam.iosUSBSupport pkgs.libimobiledevice);
 
     boot.kernelModules = [
       "v4l2loopback"

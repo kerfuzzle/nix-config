@@ -154,7 +154,7 @@ in
           format = "CPU {usage}% ";
           format-alt = "CPU {usage}% {avg_frequency:0.1f}GHz ";
           min-length = 6;
-         max-length = 100;
+          max-length = 100;
         };
 
         "temperature#cpu" = {

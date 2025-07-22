@@ -14,7 +14,8 @@ let
       mountOptions = [
         "compress=zstd"
         "discard=async"
-      ] ++ (lib.lists.optional (!atime) "noatime");
+      ]
+      ++ (lib.lists.optional (!atime) "noatime");
     };
 in
 {
