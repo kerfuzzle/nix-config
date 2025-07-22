@@ -10,5 +10,6 @@
     ./utils.nix
     ./btop.nix
     ./tex.nix
+    ./yazi.nix
   ];
 }

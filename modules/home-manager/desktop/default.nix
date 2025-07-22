@@ -9,6 +9,6 @@
     ./wlogout/wlogout.nix
     ./mako.nix
     ./waybar/waybar.nix
-    ./xdg.nix
+    ./xdg
   ];
 }
