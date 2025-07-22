@@ -22,66 +22,67 @@
       wpctl = lib.getExe' pkgs.wireplumber "wpctl";
       playerctl = lib.getExe pkgs.playerctl;
       brightnessctl = lib.getExe pkgs.brightnessctl;
+
+      mkTerminalLaunch = app: "${alacritty} -e ${app}";
     in
     {
       "$mainMod" = "SUPER";
 
-      bind =
-        [
-          # -- Programs
-          # Terminal
-          "$mainMod, Q, exec, ${alacritty}"
-          # Launcher
-          "$mainMod, R, exec, pidof fuzzel | ${fuzzel}"
-          # firefox
-          "$mainMod, E, exec, ${firefox}"
-          "$mainMod, L, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
-          "$mainMod, F, togglefloating"
-          "$mainMod, W, exec, ${yazi}"
-          "$mainMod, U, exec, ${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}"
+      bind = [
+        # -- Programs
+        # Terminal
+        "$mainMod, Q, exec, ${alacritty}"
+        # Launcher
+        "$mainMod, R, exec, pidof fuzzel | ${fuzzel}"
+        # firefox
+        "$mainMod, E, exec, ${firefox}"
+        "$mainMod, L, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
+        "$mainMod, F, togglefloating"
+        "$mainMod, W, exec, ${mkTerminalLaunch yazi}"
+        "$mainMod, U, exec, ${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}"
 
-          # -- Screenshots and screen recording
-          "$mainMod, A, exec, ${screenshot-copy}"
-          "$mainMod SHIFT, A, exec, ${screenshot-swappy}"
-          "$mainMod SHIFT, P, exec, ${screen-record}"
-          "$mainMod SHIFT, C, exec, ${hyprpicker} -a -t"
+        # -- Screenshots and screen recording
+        "$mainMod, A, exec, ${screenshot-copy}"
+        "$mainMod SHIFT, A, exec, ${screenshot-swappy}"
+        "$mainMod SHIFT, P, exec, ${screen-record}"
+        "$mainMod SHIFT, C, exec, ${hyprpicker} -a -t"
 
-          # -- Audio
-          ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ",XF86AudioPrev, exec, ${playerctl} previous"
-          ",XF86AudioNext, exec, ${playerctl} next"
-          ",XF86AudioPlay, exec, ${playerctl} play-pause"
+        # -- Audio
+        ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioPrev, exec, ${playerctl} previous"
+        ",XF86AudioNext, exec, ${playerctl} next"
+        ",XF86AudioPlay, exec, ${playerctl} play-pause"
 
-          # -- Window/Workspace management
-          # Fullscreen
-          "$mainMod SHIFT, F, fullscreen"
-          # Close focused window
-          "$mainMod, c, killactive"
-          # Code 49 is `, toggle hyprspace overview
-          "$mainMod, code:49, overview:toggle"
-          # Move focus between windows
-          "$mainMod, Tab, cyclenext, visible"
-          # Move focus between monitors
-          "$mainMod SHIFT, Tab, focusmonitor, +1"
-          # Move window to and from scratchpad
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
-          # Bind to move windows from unplugged monitors onto current monitor
-          "$mainMod SHIFT, G, split:grabroguewindows"
-        ] # Adding binds to switch/move windows between workspaces
-        ++ (builtins.concatLists (
-          builtins.genList (
-            x:
-            let
-              ws = toString (x + 1);
-            in
-            [
-              "$mainMod, ${ws}, split:workspace, ${toString ws}"
-              "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString ws}"
-            ]
-          ) 5
-        ));
+        # -- Window/Workspace management
+        # Fullscreen
+        "$mainMod SHIFT, F, fullscreen"
+        # Close focused window
+        "$mainMod, c, killactive"
+        # Code 49 is `, toggle hyprspace overview
+        "$mainMod, code:49, overview:toggle"
+        # Move focus between windows
+        "$mainMod, Tab, cyclenext, visible"
+        # Move focus between monitors
+        "$mainMod SHIFT, Tab, focusmonitor, +1"
+        # Move window to and from scratchpad
+        "$mainMod, S, togglespecialworkspace, magic"
+        "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        # Bind to move windows from unplugged monitors onto current monitor
+        "$mainMod SHIFT, G, split:grabroguewindows"
+      ] # Adding binds to switch/move windows between workspaces
+      ++ (builtins.concatLists (
+        builtins.genList (
+          x:
+          let
+            ws = toString (x + 1);
+          in
+          [
+            "$mainMod, ${ws}, split:workspace, ${toString ws}"
+            "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString ws}"
+          ]
+        ) 5
+      ));
 
       # Repeating binds
       binde = [

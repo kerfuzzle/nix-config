@@ -45,6 +45,7 @@
       # Disable unfocus transparency for some applications
       windowrulev2 = builtins.map (e: "opacity 1.0 1.0 override, " + e) [
         "title:(.*)(- YouTube)(.*)"
+        "title:(.*)(Apple Music)(.*)"
         "title:(.*)(.pdf)(.*)"
         "title:(Picture-in-Picture)"
         "class:^(discord)"

@@ -22,6 +22,7 @@
     ./sudo.nix
     ./lanzaboote.nix
     ./tlp.nix
+    ./hyprland.nix
   ];
 
   nix.settings.experimental-features = [

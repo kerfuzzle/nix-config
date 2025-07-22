@@ -33,10 +33,60 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Tiling Wayland compositor
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # -- Hypr Ecosystem
+    # Doesn't follow nixpkgs to avoid caching issues
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    # Wallpaper
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+      };
+    };
+
+    # Idle daemon
+    hypridle = {
+      url = "github:hyprwm/hypridle";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprland-protocols.follows = "hyprland/hyprland-protocols";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      };
+    };
+
+    # Blue light filter
+    hyprsunset = {
+      url = "github:hyprwm/hyprsunset";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprland-protocols.follows = "hyprland/hyprland-protocols";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      };
+    };
+
+    # Screen lock
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        nixpkgs.follows = "hyprland/nixpkgs";
+        systems.follows = "hyprland/systems";
+        hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprutils.follows = "hyprland/hyprutils";
+        hyprlang.follows = "hyprland/hyprlang";
+        hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      };
     };
 
     # Hyprland Plugins

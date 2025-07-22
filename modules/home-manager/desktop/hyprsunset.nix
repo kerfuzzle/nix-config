@@ -1,6 +1,9 @@
+{ inputs, pkgs, ... }:
 {
   services.hyprsunset = {
-    enable = true;
+    enable = false;
+    extraArgs = [ "--verbose" ];
+    package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
     transitions = {
       sunrise = {
         calendar = "*-*-* 06:00:00";

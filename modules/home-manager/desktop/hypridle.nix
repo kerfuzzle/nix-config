@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 let
   bctl = lib.getExe pkgs.brightnessctl;
   dim-screen = pkgs.writeShellApplication {
@@ -17,6 +22,7 @@ in
 {
   services.hypridle = {
     enable = true;
+    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances

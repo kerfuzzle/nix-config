@@ -1,7 +1,14 @@
-{ settings, lib, ... }:
+{
+  settings,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   stylix.targets.hyprlock.enable = false;
   programs.hyprlock = {
+    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
     enable = true;
     settings = {
       general = {
