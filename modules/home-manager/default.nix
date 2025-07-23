@@ -22,8 +22,9 @@
     homeDirectory = "/home/${username}";
     stateVersion = nixosConfig.system.stateVersion;
 
-    sessionVariables = {
+    sessionVariables = rec {
       FLAKE = "${homeDirectory}/nix-config";
+      NH_FLAKE = FLAKE;
     };
   };
 }
