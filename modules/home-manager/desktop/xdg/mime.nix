@@ -1,5 +1,21 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
+  home.packages = with pkgs; [
+    handlr-regex
+    # Replace xterm with default terminal
+    (writeShellApplication {
+      name = "xterm";
+      runtimeInputs = [ handlr-regex ];
+      text = ''handlr launch x-scheme-handler/terminal -- "$@"'';
+    })
+    # Replace xdg-open with handlr
+    (writeShellApplication {
+      name = "xdg-open";
+      runtimeInputs = [ handlr-regex ];
+      text = ''handlr open -- "$@"'';
+    })
+  ];
+
   xdg = {
     mime.enable = true;
     mimeApps =
@@ -188,6 +204,9 @@
             "application/x-tar*"
             "application/x-rar*"
             "application/x-7z*"
+          ];
+          "Alacritty" = [
+            "x-scheme-handler/terminal"
           ];
           "discord" = [ "x-scheme-handler/discord" ];
           "com.github.xournalpp.xournalpp" = [
