@@ -13,7 +13,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    #./asus.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
