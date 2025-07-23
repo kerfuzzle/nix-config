@@ -5,14 +5,56 @@
   ...
 }:
 {
-  home.packages = with pkgs; [ wl-clipboard ];
+  home.packages = with pkgs; [
+    wl-clipboard
+    trash-cli
+  ];
 
   programs.yazi = {
     enable = true;
 
-    plugins = { inherit (pkgs.yaziPlugins) smart-enter smart-paste wl-clipboard; };
+    plugins = {
+      inherit (pkgs.yaziPlugins)
+        smart-enter
+        smart-paste
+        wl-clipboard
+        restore
+        ;
+    };
     keymap = {
       mgr.prepend_keymap = [
+        {
+          on = [
+            "d"
+            "r"
+          ];
+          run = "plugin restore";
+          desc = "Restore last deleted files/folders";
+        }
+        {
+          on = [
+            "d"
+            "R"
+          ];
+          run = "shell --block -- clear && trash-restore ~";
+          desc = "Restore deleted file (Interactive)";
+        }
+        {
+          on = [
+            "d"
+            "d"
+          ];
+          run = "remove";
+          desc = "Trash selected files";
+        }
+        {
+          on = [
+            "d"
+            "p"
+          ];
+          run = "remove --permanently";
+          desc = "Permanently delete selected files";
+        }
         {
           on = "<C-y>";
           run = "plugin wl-clipboard";
