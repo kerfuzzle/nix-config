@@ -810,11 +810,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753044964,
-        "narHash": "sha256-etkR2MZTTHb6p0KOR1NDbPKC+wZ+G8rKw/mJNTQ9oPA=",
+        "lastModified": 1753378338,
+        "narHash": "sha256-Ctk7zophp8obM/u9S2c8a6nOWV+VeIzq6ma+dI5BE3s=",
         "owner": "hyprwm",
         "repo": "hyprsunset",
-        "rev": "f075fc4dd15800d6153dcb0f8c3ee3383ae7d732",
+        "rev": "962f519df793ea804810b1ddebfc8a88b80a845c",
         "type": "github"
       },
       "original": {

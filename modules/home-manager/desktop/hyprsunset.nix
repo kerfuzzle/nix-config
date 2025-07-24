@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
   services.hyprsunset = {
-    enable = false;
+    enable = true;
     extraArgs = [ "--verbose" ];
     package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
     transitions = {
