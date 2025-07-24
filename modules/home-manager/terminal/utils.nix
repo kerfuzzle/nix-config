@@ -9,8 +9,6 @@
     glxinfo
     ffmpeg
     toipe
-    zip
-    unzip
     poppler_utils
   ];
 }

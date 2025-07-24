@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     wl-clipboard
     trash-cli
+    ouch
   ];
 
   programs.yazi = {
@@ -19,10 +20,16 @@
         smart-paste
         wl-clipboard
         restore
+        ouch
         ;
     };
     keymap = {
       mgr.prepend_keymap = [
+        {
+          on = "C";
+          run = "plugin ouch";
+          desc = "Compress with ouch";
+        }
         {
           on = [
             "d"
