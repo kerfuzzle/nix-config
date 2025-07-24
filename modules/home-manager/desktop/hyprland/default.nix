@@ -9,7 +9,7 @@
 let
   ruleToString = name: value: (builtins.map (v: "${v}, ${name}") value);
   convertWindowRules =
-    windowRules: windowRules |> lib.mapAttrsFlatten ruleToString |> lib.concatLists;
+    windowRules: windowRules |> lib.mapAttrsToList ruleToString |> lib.concatLists;
 in
 {
   imports = [
