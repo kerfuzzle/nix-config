@@ -56,6 +56,11 @@ in
             "keepaspectratio"
             "opaque"
           ];
+          "class: qalculate.*" = [
+            "float"
+            "size 30% 30%"
+            "move 100%-w-20 100%-w-20"
+          ];
         })
         # Disable unfocus transparency for some applications
         ++ builtins.map (e: "opaque, " + e) [
