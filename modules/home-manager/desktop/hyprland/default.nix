@@ -6,6 +6,11 @@
   settings,
   ...
 }:
+let
+  ruleToString = name: value: (builtins.map (v: "${v}, ${name}") value);
+  convertWindowRules =
+    windowRules: windowRules |> lib.mapAttrsFlatten ruleToString |> lib.concatLists;
+in
 {
   imports = [
     ./binds.nix
@@ -27,7 +32,7 @@
         force_zero_scaling = true;
       };
 
-      exec-once = "waybar";
+      exec-once = lib.getExe config.programs.waybar.package;
 
       monitor = settings.monitors;
 
@@ -42,15 +47,27 @@
         inactive_opacity = 0.8;
       };
 
-      # Disable unfocus transparency for some applications
-      windowrulev2 = builtins.map (e: "opacity 1.0 1.0 override, " + e) [
-        "title:(.*)(- YouTube)(.*)"
-        "title:(.*)(Apple Music)(.*)"
-        "title:(.*)(.pdf)(.*)"
-        "title:(Picture-in-Picture)"
-        "class:^(discord)"
-        "class:^(Code)"
-      ];
+      windowrule =
+        (convertWindowRules {
+          # Automatically resize and move Picture-in-Picture windows
+          "class: firefox, title:Picture-in-Picture" = [
+            "float"
+            "size 25% 25%"
+            "move 100%-w-20 100%-w-20"
+            "keepaspectratio"
+            "opaque"
+          ];
+        })
+        # Disable unfocus transparency for some applications
+        ++ builtins.map (e: "opaque, " + e) [
+          "class:firefox, title:(.*)(- YouTube)(.*)"
+          # For some reason the title here uses a "no-break space" so use . to specify any character
+          "class:firefox, title:(.*)(Apple.Music)(.*)"
+          "class:firefox, title:(.*)(\\.pdf)(.*)"
+          "class:zathura"
+          "class:discord"
+          "class:Code"
+        ];
 
       animation = [
         "specialWorkspace, 1, 7, default, slidevert"
