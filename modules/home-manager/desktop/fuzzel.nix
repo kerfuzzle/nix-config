@@ -10,17 +10,23 @@
     settings = {
       main = {
         prompt = "\"❯ \"";
-
-        icons-enabled = false;
-
+        # Size fonts depending on the monitors DPI
+        dpi-aware = "yes";
+        icons-enabled = true;
+        # Use stylix icon theme
+        icon-theme = config.stylix.icons.dark;
         horizontal-pad = 8;
+        vertical-pad = 8;
+        inner-pad = 3;
+        # Override font specified by stylix
         font = lib.mkForce "monospace:size=10";
-
+        use-bold = true;
         terminal = "${lib.getExe config.programs.alacritty.package} -e";
       };
 
       border = {
-        radius = 0;
+        radius = 10;
+        width = 3;
       };
     };
   };
