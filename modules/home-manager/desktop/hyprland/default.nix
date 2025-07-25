@@ -98,7 +98,7 @@ in
         # Disable builtin wallpapers
         disable_hyprland_logo = true;
         # Enable variable refresh rate
-        vrr = 1;
+        # vrr = 1;
       };
     };
   };
