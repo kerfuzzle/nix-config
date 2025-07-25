@@ -105,12 +105,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Safer rm alternative
-    rip2 = {
-      url = "github:MilesCranmer/rip2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # base16 colour schemes
     nix-colors.url = "github:misterio77/nix-colors";
 
