@@ -12,6 +12,17 @@
           };
         };
       };
+
+      mkRule = key: value: props: {
+        matches = [
+          {
+            ${key} = value;
+          }
+        ];
+        actions = {
+          update-props = props;
+        };
+      };
     in
     lib.mkIf config.hostConfig.pipewire.enable {
       security.rtkit.enable = true;
@@ -24,10 +35,35 @@
         pulse.enable = true;
         jack.enable = true;
 
+        wireplumber = {
+          enable = true;
+          # Sink/Node config
+          extraConfig = {
+            "alsa-rules" = {
+              "monitor.alsa.rules" = [
+                (mkRule "node.name" "alsa_output.pci-0000_00_1f.3.analog-stereo" {
+                  "node.description" = "Laptop";
+                  # Reduce the priority of the built-in audio so that other audio outputs are favoured
+                  "priority.driver" = 100;
+                  "priority.session" = 100;
+                })
+                (mkRule "node.name" "alsa_output.usb-MOONDROP_MOONDROP_Dawn_Pro_MOONDROP_Dawn_Pro-00.analog-stereo"
+                  {
+                    # Assign a shorter description
+                    "node.description" = "MOONDROP Dawn Pro";
+                  }
+                )
+              ];
+            };
+          };
+        };
+
         extraConfig = {
+          # Device config
           pipewire = {
-            "10-hires" = {
+            "hires" = {
               "context.properties" = {
+                # Let pipewire pick the highest sample rate based on the content
                 "default.clock.allowed-rates" = [
                   44100
                   48000
@@ -40,27 +76,19 @@
                   256000
                   352800
                   384000
-                  512000
-                  705600
-                  768000
                 ];
+              };
+              "stream.properties" = {
+                "resample.quality" = 14;
               };
             };
 
-            "10-dawn-pro" = {
+            "dawn-pro" = {
               "device.rules" = [
-                {
-                  "matches" = [
-                    {
-                      "device.product.name" = "MOONDROP Dawn Pro";
-                    }
-                  ];
-                  "actions" = {
-                    "update-props" = {
-                      "device.form-factor" = "headphone";
-                    };
-                  };
-                }
+                (mkRule "device.product.name" "MOONDROP Dawn Pro" {
+                  # Make DAC show up as headphones in GUI
+                  "device.form-factor" = "headphone";
+                })
               ];
             };
           };
