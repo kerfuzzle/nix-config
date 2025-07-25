@@ -31,8 +31,6 @@ in
         force_zero_scaling = true;
       };
 
-      exec-once = lib.getExe config.programs.waybar.package;
-
       monitor = settings.monitors;
 
       general = {

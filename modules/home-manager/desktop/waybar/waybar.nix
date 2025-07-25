@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 with builtins;
 let
   icons = {
@@ -24,22 +29,25 @@ let
       " "
     ];
     plugged = "󱐋";
-    wifi = " ";
-    wired = " ";
     power = "󰐥";
-    reboot = "󰜉";
-    lock = "";
-    hibernate = "󰒲";
-    volume = [
-      ""
-      ""
-      ""
-    ];
-    muted = "";
-    headphone = "󰋋";
-    headphone-muted = "󰟎";
-    idle-active = "";
-    idle-inactive = "";
+    network = {
+      wifi = " ";
+      wired = " ";
+    };
+    audio = {
+      volume = [
+        ""
+        ""
+        ""
+      ];
+      muted = "";
+      headphone = "󰋋";
+      headphone-muted = "󰟎";
+    };
+    idle = {
+      active = "";
+      inactive = "";
+    };
 
     format-jp = {
       "1" = "一";
@@ -69,9 +77,20 @@ let
       "magic" = "*";
     };
 
-    format-decimal = {
-      "magic" = "*";
-    };
+    format-decimal =
+      # Generate workspace labels so that each monitor has labels 1 through 5
+      with lib;
+      (
+        range 0 9
+        |> map (x: {
+          name = toString (x + 1);
+          value = (mod x 5) + 1;
+        })
+        |> listToAttrs
+      )
+      // {
+        "magic" = "*";
+      };
   };
 in
 {
@@ -79,6 +98,8 @@ in
   programs.waybar = {
     enable = true;
     style = ./style_blue.css;
+    # Enable waybar systemd service so that it can more easily managed
+    systemd.enable = true;
     settings = {
       mainBar = {
         reload_style_on_change = true;
@@ -110,6 +131,7 @@ in
           format = "{icon}";
           show-special = true;
           persistent-workspaces = {
+            # 5 persistent workspaces on each monitor
             "*" = 5;
           };
           format-icons = icons.format-decimal;
@@ -119,6 +141,7 @@ in
           rewrite = {
             "(.*)Mozilla Firefox" = "Firefox";
             "(.*)Discord" = "Discord";
+            "(.*)org.pwmt.zathura" = "Zathura";
           };
           seperate-outputs = true;
         };
@@ -149,7 +172,7 @@ in
           ];
         };
 
-        cpu = with icons; {
+        cpu = {
           interval = 5;
           format = "CPU {usage}% ";
           format-alt = "CPU {usage}% {avg_frequency:0.1f}GHz ";
@@ -175,13 +198,18 @@ in
           max-length = 100;
         };
 
-        backlight = with icons; {
-          device = "eDP1";
-          format = "{icon} {percent}%";
-          format-icons = backlight;
-          tooltip = false;
-          on-click = "${lib.getExe pkgs.brightnessctl} s 100%";
-        };
+        backlight =
+          with icons;
+          let
+            brightnessctl = lib.getExe pkgs.brightnessctl;
+          in
+          {
+            device = "eDP1";
+            format = "{icon} {percent}%";
+            format-icons = backlight;
+            tooltip = false;
+            on-click = "${brightnessctl} s 100%";
+          };
 
         battery = with icons; {
           interval = 5;
@@ -202,44 +230,49 @@ in
           format-icons = battery;
         };
 
-        idle_inhibitor = with icons; {
+        idle_inhibitor = with icons.idle; {
           format = "{icon} ";
           format-icons = {
-            activated = idle-active;
-            deactivated = idle-inactive;
+            activated = active;
+            deactivated = inactive;
           };
         };
 
-        power-profiles-daemon = {
-          format = "{profile}";
-          tooltip = false;
-        };
-
-        network = with icons; {
+        network = with icons.network; {
           format-ethernet = "${wired} {ifname}";
           format-wifi = "${wifi} {essid}";
           tooltip-format-ethernet = "{ifname}";
           tooltip-format-wifi = "{signalStrength}% {essid}";
         };
 
-        "custom/wlogout" = with icons; {
-          on-click = "pidof wlogout || wlogout -b 1 -L 500 -R 500";
-          tooltip = false;
-          format = power;
-        };
-
-        pulseaudio = with icons; {
-          format = "{icon} {volume}%";
-          format-muted = "{icon} — %";
-          format-icons = {
-            headphone = headphone;
-            headphone-muted = headphone-muted;
-            default = volume;
-            default-muted = muted;
+        "custom/wlogout" =
+          with icons;
+          let
+            wlogout = lib.getExe config.programs.wlogout.package;
+          in
+          {
+            on-click = "pidof wlogout || ${wlogout} -b 1 -L 500 -R 500";
+            tooltip = false;
+            format = power;
           };
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          scroll-step = 0.5;
-        };
+
+        pulseaudio =
+          with icons.audio;
+          let
+            wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+          in
+          {
+            format = "{icon} {volume}%";
+            format-muted = "{icon} — %";
+            format-icons = {
+              headphone = headphone;
+              headphone-muted = headphone-muted;
+              default = volume;
+              default-muted = muted;
+            };
+            on-click = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            scroll-step = 0.5;
+          };
 
         mpris = {
           dynamic-order = [
@@ -249,7 +282,7 @@ in
           dynamic-separator = " — ";
           dynamic-len = 60;
           format = "{dynamic}";
-          tooltip-format = "{player} ({status}): {title}, {artist}, {album} {position}/{length}";
+          tooltip-format = "{player} ({status}, {position}/{length}): {title} — {album} — {artist}";
         };
       };
     };
