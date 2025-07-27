@@ -26,6 +26,11 @@
     keymap = {
       mgr.prepend_keymap = [
         {
+          on = ";";
+          run = "shell --orphan ${lib.getExe config.programs.alacritty.package}";
+          desc = "Open shell in current directory";
+        }
+        {
           on = "C";
           run = "plugin ouch";
           desc = "Compress with ouch";

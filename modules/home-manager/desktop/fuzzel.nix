@@ -12,9 +12,8 @@
         prompt = "\"❯ \"";
         # Size fonts depending on the monitors DPI
         dpi-aware = "yes";
+        # Uses stylix icon theme by default
         icons-enabled = true;
-        # Use stylix icon theme
-        icon-theme = config.stylix.icons.dark;
         horizontal-pad = 8;
         vertical-pad = 8;
         inner-pad = 3;

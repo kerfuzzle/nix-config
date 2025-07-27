@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   options.hostConfig.pipewire.enable = lib.mkEnableOption "pipewire" // {
     default = true;
@@ -25,7 +30,10 @@
       };
     in
     lib.mkIf config.hostConfig.pipewire.enable {
+      # Allows pipewire to use the realtime scheduler for improved performance
       security.rtkit.enable = true;
+      # Add alsa-utils so alsamixer can be used
+      environment.systemPackages = with pkgs; [ alsa-utils ];
       services.pipewire = {
         enable = true;
         alsa = {
@@ -42,10 +50,15 @@
             "alsa-rules" = {
               "monitor.alsa.rules" = [
                 (mkRule "node.name" "alsa_output.pci-0000_00_1f.3.analog-stereo" {
-                  "node.description" = "Laptop";
+                  # Assign a better description
+                  "node.description" = "Built-in Output";
                   # Reduce the priority of the built-in audio so that other audio outputs are favoured
                   "priority.driver" = 100;
                   "priority.session" = 100;
+                })
+                (mkRule "node.name" "alsa_input.pci-0000_00_1f.3.analog-stereo" {
+                  # Assign a better description
+                  "node.description" = "Built-in Input";
                 })
                 (mkRule "node.name" "alsa_output.usb-MOONDROP_MOONDROP_Dawn_Pro_MOONDROP_Dawn_Pro-00.analog-stereo"
                   {
