@@ -7,26 +7,39 @@
   ...
 }:
 let
-  themeConfig = config.hostConfig.theming;
+  cfg = config.hostConfig.theming;
 in
 {
   options.hostConfig.theming = {
-    stylix.enable = lib.mkEnableOption "automatic theming using stylix" // {
+    enable = lib.mkEnableOption "global theming" // {
       default = true;
     };
-    base16Scheme = lib.mkOption {
-      type = lib.types.str;
-      default = "catpuccin-frappe";
-      example = "catpuccin-frappe";
+
+    stylix.enable = lib.mkEnableOption "automatic home-manager theming using stylix" // {
+      default = true;
+    };
+
+    base16 = {
+      name = lib.mkOption {
+        description = "Name of base16 scheme to use, see https://github.com/tinted-theming/base16-schemes for options";
+        type = lib.types.str;
+        default = "catppuccin-frappe";
+        example = "catppuccin-frappe";
+      };
+      palette = lib.mkOption {
+        description = "Attrset containing the specified base16 scheme";
+        readOnly = true;
+        type = lib.types.attrs;
+      };
     };
   };
 
-  config = lib.mkIf themeConfig.stylix.enable {
-    stylix = {
-      enable = true;
-      base16Scheme = inputs.nix-colors.colorSchemes.${themeConfig.base16Scheme}.palette;
-      image = settings.wallpaper;
+  config = lib.mkIf cfg.enable {
+    hostConfig.theming.base16.palette = inputs.nix-colors.colorSchemes.${cfg.base16.name}.palette;
 
+    stylix = lib.mkIf cfg.stylix.enable {
+      enable = true;
+      base16Scheme = cfg.base16.palette;
       cursor = {
         package = pkgs.phinger-cursors;
         name = "phinger-cursors-light";

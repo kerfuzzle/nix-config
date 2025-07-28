@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }:
+# UNUSED
+{ pkgs, ... }:
 let
   power-change = pkgs.writeShellApplication {
     name = "power-change";

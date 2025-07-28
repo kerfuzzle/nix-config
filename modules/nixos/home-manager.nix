@@ -6,6 +6,9 @@
   lib,
   ...
 }:
+let
+  hostConfig = config.hostConfig;
+in
 {
   home-manager = {
     extraSpecialArgs = {
@@ -19,11 +22,11 @@
       nixosConfig = config;
     };
     users = {
-      "${settings.username}" =
+      ${hostConfig.username} =
         { ... }:
         {
           imports = [
-            (import ../../hosts/${settings.hostname}/home.nix)
+            (import ../../hosts/${hostConfig.hostname}/home.nix)
             inputs.self.outputs.homeManagerModules.default
           ];
         };

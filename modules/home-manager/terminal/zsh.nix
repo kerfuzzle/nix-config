@@ -1,8 +1,8 @@
 {
   pkgs,
-  settings,
   lib,
   config,
+  hostConfig,
   ...
 }:
 {
@@ -18,7 +18,7 @@
       rec {
         ls = "${lib.getExe pkgs.eza} --icons";
         tree = "${ls} --tree";
-        reb = "${lib.getExe pkgs.nh} os switch ${flake} --hostname ${settings.hostname}";
+        reb = "${lib.getExe pkgs.nh} os switch ${flake} --hostname ${hostConfig.hostname}";
         up = "${lib.getExe pkgs.nix}/bin/nix flake update --flake ${flake}";
         battery = "${lib.getExe pkgs.inxi} -B";
       };

@@ -6,8 +6,15 @@
   ...
 }:
 {
-  options.hostConfig.hyprland.enable = lib.mkEnableOption "hyprland" // {
-    default = true;
+  options.hostConfig.hyprland = {
+    enable = lib.mkEnableOption "hyprland" // {
+      default = true;
+    };
+    # This is used within hm but is more appropriate within the host config
+    monitors = lib.mkOption {
+      description = "Monitors to pass into hyprland, see https://wiki.hypr.land/Configuring/Monitors/#monitor-v2";
+      type = lib.types.listOf lib.types.attrs;
+    };
   };
 
   config = lib.mkIf config.hostConfig.hyprland.enable {

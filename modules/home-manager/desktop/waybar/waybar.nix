@@ -49,7 +49,7 @@ let
       inactive = "";
     };
 
-    format-jp = {
+    formatKanji = {
       "1" = "一";
       "2" = "二";
       "3" = "三";
@@ -63,7 +63,7 @@ let
       "magic" = "*";
     };
 
-    format-greek = {
+    formatGreek = {
       "1" = "α";
       "2" = "β";
       "3" = "γ";
@@ -77,14 +77,15 @@ let
       "magic" = "*";
     };
 
-    format-decimal =
+    mkFormatDenary =
       # Generate workspace labels so that each monitor has labels 1 through 5
       with lib;
+      numMonitors: workspacesPerMonitor:
       (
-        range 0 9
+        range 0 (numMonitors * workspacesPerMonitor - 1)
         |> map (x: {
           name = toString (x + 1);
-          value = (mod x 5) + 1;
+          value = (mod x workspacesPerMonitor) + 1;
         })
         |> listToAttrs
       )
@@ -127,15 +128,21 @@ in
           "custom/wlogout"
         ];
 
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          show-special = true;
-          persistent-workspaces = {
-            # 5 persistent workspaces on each monitor
-            "*" = 5;
+        "hyprland/workspaces" =
+          let
+            hyprlandSettings = config.wayland.windowManager.hyprland.settings;
+            workspacesPerMonitor = hyprlandSettings.plugin.hyprsplit.num_workspaces;
+            numMonitors = length hyprlandSettings.monitor;
+          in
+          {
+            format = "{icon}";
+            show-special = true;
+            persistent-workspaces = {
+              # Number of persistent workspaces on each monitor (* doesn't refer to special workspace)
+              "*" = workspacesPerMonitor;
+            };
+            format-icons = icons.mkFormatDenary numMonitors workspacesPerMonitor;
           };
-          format-icons = icons.format-decimal;
-        };
 
         "hyprland/window" = {
           rewrite = {

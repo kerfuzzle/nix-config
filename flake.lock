@@ -385,15 +385,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1753595562,
-        "narHash": "sha256-Ci88mAdtiP5RQkYmVhRUq69iYPMM7/lS9/mw+FnC7DE=",
-        "owner": "nix-community",
+        "lastModified": 1753738750,
+        "narHash": "sha256-0FrFebsk4KEUwSPnIMJHPvvxL3a4oD2Njxqz/vx2rb0=",
+        "owner": "kerfuzzle",
         "repo": "home-manager",
-        "rev": "710771af3d1c8c3f86a9e5d562616973ed5f3f21",
+        "rev": "1d552c604a592d0da9385dbbbfc2ae58c16db12f",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "kerfuzzle",
+        "ref": "hyprsunset-config",
         "repo": "home-manager",
         "type": "github"
       }

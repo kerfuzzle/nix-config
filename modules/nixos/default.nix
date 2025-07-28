@@ -27,6 +27,7 @@
     ./lanzaboote.nix
     ./tlp.nix
     ./hyprland.nix
+    ./systemd-boot.nix
   ];
 
   sops = {
@@ -68,5 +69,19 @@
     extraOptions = ''
       			!include ${config.sops.templates.access-token-prelude.path}
       		'';
+  };
+
+  # Set default time zone
+  time.timeZone = "Europe/London";
+
+  # Set GB locale
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  # Setup virtual console
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "uk";
+    # Use config in initrd
+    earlySetup = true;
   };
 }

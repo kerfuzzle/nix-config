@@ -2,11 +2,11 @@
   inputs,
   pkgs,
   lib,
-  config,
-  settings,
+  hostConfig,
   ...
 }:
 let
+  convertToLegacyMonitor = m: "${m.output},${m.mode},${m.position},${toString m.scale}";
   ruleToString = name: value: (builtins.map (v: "${v}, ${name}") value);
   convertWindowRules = windowRules: windowRules |> lib.mapAttrsToList ruleToString |> lib.concatLists;
 in
@@ -31,7 +31,9 @@ in
         force_zero_scaling = true;
       };
 
-      monitor = settings.monitors;
+      # Config uses the monitorv2 format but the hm module doesn't work with this currently
+      # Instead convert it back to the legacy format
+      monitor = map convertToLegacyMonitor hostConfig.hyprland.monitors;
 
       general = {
         gaps_out = 7;
@@ -63,7 +65,7 @@ in
         # Disable unfocus transparency for some applications
         ++ builtins.map (e: "opaque, " + e) [
           "class:firefox, title:(.*)(- YouTube)(.*)"
-          # For some reason the title here uses a "no-break space" so use . to specify any character
+          # For some reason the title here uses a "no-break space" so use . to specify any single character
           "class:firefox, title:(.*)(Apple.Music)(.*)"
           "class:firefox, title:(.*)(\\.pdf)(.*)"
           "class:zathura"

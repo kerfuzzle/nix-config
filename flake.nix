@@ -8,7 +8,9 @@
 
     # Managing user environment
     home-manager = {
-      url = "github:nix-community/home-manager";
+      # url = "github:nix-community/home-manager";
+      # Temporarily use my modified version with hyprsunset v0.3 support
+      url = "github:kerfuzzle/home-manager?ref=hyprsunset-config";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

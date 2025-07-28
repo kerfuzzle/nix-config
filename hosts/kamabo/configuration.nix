@@ -1,27 +1,48 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
+{ ... }:
 {
-  config,
-  settings,
-  lib,
-  pkgs,
-  ...
-}:
+  imports = [ ./hardware-configuration.nix ];
 
-{
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Disable power button, I'd rather use a power menu
   services.logind.powerKey = "ignore";
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
+  # Host specific configuration options, disables/enables config within FLAKE/modules/nixos
   hostConfig = {
     username = "kerfuzzle";
+    hostname = "kamabo";
+
+    hyprland = {
+      enable = true;
+      monitors = [
+        {
+          # Laptop built-in display
+          output = "eDP-1";
+          # Run at 60Hz to save battery
+          # When plugged in its usually a secondary monitor so doesn't need to run at 144hz
+          mode = "1920x1080@60";
+          position = "0x0";
+          scale = 1;
+        }
+        {
+          # External 4K display
+          output = "desc:Microstep MAG274UPF CC2H974200553";
+          mode = "3840x2160@144";
+          # Position to the right of the laptop display when plugged in
+          position = "1920x0";
+          # Increase scale so everything isn't tiny
+          scale = 1.5;
+        }
+        # Rule for picking up random monitors
+        {
+          output = "";
+          mode = "preferred";
+          position = "auto";
+          scale = 1;
+        }
+      ];
+    };
 
     sops.enable = true;
 
@@ -35,7 +56,9 @@
     nvidia = {
       enable = true;
       hybrid = {
+        # Use offload hybrid graphics, use `nvidia-offload COMMAND` to run on dGPU
         enable = true;
+        # See https://wiki.nixos.org/wiki/NVIDIA#Configuring for how to obtain
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };
@@ -46,11 +69,11 @@
       iosUSBSupport = true;
     };
 
+    # For theming in system level programs
     theming = {
-      stylix = {
-        enable = true;
-      };
-      base16Scheme = "catppuccin-frappe";
+      enable = true;
+      stylix.enable = true;
+      base16.name = "catppuccin-frappe";
     };
 
     gaming = {
@@ -88,38 +111,8 @@
     };
   };
 
-  hardware.bluetooth.enable = true;
-
-  networking.hostName = settings.hostname; # Define your hostname.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  time.timeZone = "Europe/London";
-
-  i18n.defaultLocale = "en_GB.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "uk";
-    earlySetup = true;
-  };
-
-  #services.power-profiles-daemon.enable = true;
-
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  # DON'T CHANGE APART FROM BEFORE A FRESH INSTALL!!!
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

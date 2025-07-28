@@ -1,12 +1,27 @@
 {
   config,
-  inputs,
-  settings,
-  pkgs,
+  lib,
+  hostConfig,
   ...
 }:
 {
-  batteryNotifier.enable = true;
+  homeConfig = {
+    theming = {
+      enable = true;
+      stylix.enable = true;
+      # Follow system colour scheme
+      base16.name = hostConfig.theming.base16.name;
+      wallpaper = lib.custom.configRoot + /assets/walls/nix-frappe.png;
+    };
+
+    batteryNotifier.enable = true;
+
+    hyprsunset = {
+      enable = true;
+      sunsetTime = "21:00";
+      sunriseTime = "6:00";
+    };
+  };
 
   wayland.windowManager.hyprland.settings = {
     env = [

@@ -1,10 +1,11 @@
 {
   config,
-  settings,
-  pkgs,
   lib,
   ...
 }:
+let
+  hostConfig = config.hostConfig;
+in
 {
   options.hostConfig.greetd.enable = lib.mkEnableOption "greetd" // {
     default = true;
@@ -16,7 +17,7 @@
       settings = rec {
         initial_session = {
           command = lib.getExe config.programs.hyprland.package;
-          user = config.users.users.${settings.username}.name;
+          user = config.users.users.${hostConfig.username}.name;
         };
         default_session = initial_session;
       };

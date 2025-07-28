@@ -1,8 +1,8 @@
 {
   settings,
-  lib,
   inputs,
   pkgs,
+  hostConfig,
   ...
 }:
 {
@@ -35,7 +35,7 @@
           valign = "center";
         }
         {
-          text = "<i>$USER@${settings.hostname}</i>";
+          text = "<i>$USER@${hostConfig.hostname}</i>";
           font_size = 16;
           font_family = "JetBrainsMono Nerd Font";
           position = "0, 510";
