@@ -61,6 +61,14 @@ in
             "size 30% 30%"
             "move 100%-w-20 100%-w-20"
           ];
+          "title: Open Files" = [
+            "float"
+            "size 50% 50%"
+          ];
+          "title: File Upload" = [
+            "float"
+            "size 50% 50%"
+          ];
         })
         # Disable unfocus transparency for some applications
         ++ builtins.map (e: "opaque, " + e) [
