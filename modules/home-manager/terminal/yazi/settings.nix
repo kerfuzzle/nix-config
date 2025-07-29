@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, lib, ... }:
 {
   programs.yazi.settings = {
     mgr = {
