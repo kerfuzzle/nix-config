@@ -1,0 +1,98 @@
+{ pkgs, lib }:
+{
+  programs.yazi.settings = {
+    mgr = {
+      linemode = "size";
+    };
+
+    opener =
+      let
+        # Use handlr-regex instead of xdg-open as it supports wildcard mime types
+        handlr = lib.getExe pkgs.handlr-regex;
+        gimp = lib.getExe pkgs.gimp;
+      in
+      {
+        edit = [
+          {
+            run = "nvim -o \"$@\"";
+            desc = "Edit with nvim";
+            block = true;
+            for = "unix";
+          }
+        ];
+        open = [
+          {
+            run = "${handlr} open \"$1\"";
+            desc = "Open";
+            orphan = true;
+            for = "unix";
+          }
+        ];
+        imageEdit = [
+          {
+            run = "${gimp} \"$@\"";
+            desc = "Edit with GIMP";
+            orphan = true;
+          }
+        ];
+      };
+    open = {
+      rules = [
+        # Folder
+        {
+          name = "*/";
+          use = [
+            "edit"
+            "open"
+          ];
+        }
+        # Text
+        {
+          mime = "text/*";
+          use = [ "edit" ];
+        }
+        # JSON
+        {
+          mime = "application/{json,ndjson}";
+          use = [ "edit" ];
+        }
+        # Image
+        {
+          mime = "image/*";
+          use = [
+            "open"
+            "imageEdit"
+          ];
+        }
+        # Media
+        {
+          mime = "{audio,video}/*";
+          use = [ "play" ];
+        }
+        # Formats that get mistaken as an archive
+        {
+          name = "*.{docx,pptx,xlsx}";
+          use = [ "open" ];
+        }
+        # Archives
+        {
+          mime = "application/{zip,rar,7z*,tar,xz}";
+          use = [
+            "extract"
+            "open"
+          ];
+        }
+        # Empty file
+        {
+          mime = "inode/empty";
+          use = [ "edit" ];
+        }
+        # Fallback
+        {
+          name = "*";
+          use = [ "open" ];
+        }
+      ];
+    };
+  };
+}
