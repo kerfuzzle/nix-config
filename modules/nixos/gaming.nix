@@ -14,7 +14,7 @@ in
   };
 
   config = {
-    allowedUnfree = lib.mkIf gamingConfig.steam.enable [
+    allowedUnfreePkgs = lib.mkIf gamingConfig.steam.enable [
       "steam"
       "steam-original"
       "steam-run"

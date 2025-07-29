@@ -4,10 +4,8 @@
   home.packages = with pkgs; [
     nixd
   ];
-  allowedUnfree = [
+  allowedUnfreePkgs = [
     "vscode"
   ];
-  programs.vscode = {
-    enable = true;
-  };
+  programs.vscode.enable = true;
 }

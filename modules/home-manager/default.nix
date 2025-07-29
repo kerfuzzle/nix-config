@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = (lib.custom.importAll ./.) ++ [ ../nixos/allow-unfree.nix ];
+  imports =
+    (lib.custom.importAll ./.)
+    # The allow-unfree module works identically within HM
+    ++ [ ../nixos/allow-unfree.nix ];
 
   options = {
 

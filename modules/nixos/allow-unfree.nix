@@ -1,13 +1,11 @@
 { config, lib, ... }:
-let
-  inherit (builtins) elem;
-  inherit (lib) getName mkOption;
-  inherit (lib.types) listOf str;
-in
 {
-  options.allowedUnfree = mkOption {
-    type = listOf str;
+  options.allowedUnfreePkgs = lib.mkOption {
+    description = "List of names of unfree packages to whitelist";
+    type = lib.types.listOf lib.types.str;
     default = [ ];
   };
-  config.nixpkgs.config.allowUnfreePredicate = pkg: elem (getName pkg) config.allowedUnfree;
+
+  config.nixpkgs.config.allowUnfreePredicate =
+    pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePkgs;
 }

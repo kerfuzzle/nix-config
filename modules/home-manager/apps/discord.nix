@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
-  config.allowedUnfree = [ "discord-canary" ];
-  config.home.packages = [ pkgs.discord-canary ];
+  allowedUnfreePkgs = [ "discord-canary" ];
+  home.packages = [ pkgs.discord-canary ];
 }

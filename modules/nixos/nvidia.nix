@@ -22,7 +22,7 @@ in
   };
 
   config = lib.mkIf nvidiaConfig.enable {
-    allowedUnfree = [
+    allowedUnfreePkgs = [
       "nvidia-x11"
       "nvidia-settings"
       "nvidia-persistenced"

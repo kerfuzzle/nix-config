@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  allowedUnfree = [ "ookla-speedtest" ];
+  allowedUnfreePkgs = [ "ookla-speedtest" ];
   home.packages = with pkgs; [
     ookla-speedtest
     bun
