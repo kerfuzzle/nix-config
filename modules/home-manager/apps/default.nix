@@ -6,7 +6,6 @@
     ./media.nix
     ./gaming.nix
     ./vscode.nix
-    ./ncmpcpp.nix
     ./utils.nix
   ];
 }
