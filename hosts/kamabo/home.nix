@@ -21,6 +21,24 @@
       sunsetTime = "21:00";
       sunriseTime = "6:00";
     };
+
+    hypridle = {
+      enable = true;
+      keyboardDeviceName = "asus::kbd_backlight";
+      timeouts = {
+        dimScreen = 180;
+        dimKeyboard = 180;
+        lock = 300;
+        disableDisplay = 330;
+        hibernate = 600;
+      };
+    };
+
+    gaming = {
+      olympus.enable = false;
+      minecraft.enable = false;
+      heroic.enable = true;
+    };
   };
 
   wayland.windowManager.hyprland.settings = {

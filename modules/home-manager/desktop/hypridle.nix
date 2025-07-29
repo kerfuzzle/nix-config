@@ -2,59 +2,98 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }:
 let
-  bctl = lib.getExe pkgs.brightnessctl;
-  dim-screen = pkgs.writeShellApplication {
-    name = "dim-screen";
-    runtimeInputs = [ pkgs.brightnessctl ];
-    text = ''
-      brightnessctl -sq
-      until [ "$(brightnessctl g)" -lt 1921 ]
-      do
-        brightnessctl -q set 1%-
-        sleep 0.005
-      done
-    '';
-  };
+  cfg = config.homeConfig.hypridle;
 in
 {
-  services.hypridle = {
-    enable = true;
-    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
-    settings = {
-      general = {
-        lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+  options.homeConfig.hypridle = {
+    enable = lib.mkEnableOption "hypridle idle daemon";
+    timeouts =
+      let
+        timeoutOption = lib.mkOption {
+          type = lib.types.nullOr lib.types.ints.positive;
+          example = 100;
+          default = null;
+        };
+        mkTimeoutOption =
+          action:
+          timeoutOption
+          // {
+            description = "Timeout in seconds before ${action}. Leave as null to disable.";
+          };
+      in
+      {
+        dimScreen = mkTimeoutOption "dimming screen";
+        dimKeyboard = mkTimeoutOption "dimming keyboard";
+        lock = mkTimeoutOption "locking session";
+        disableDisplay = mkTimeoutOption "disabling display";
+        hibernate = mkTimeoutOption "hibernating system";
       };
-
-      listener = [
-        {
-          timeout = 180;
-          on-timeout = "${lib.getExe dim-screen}/bin/dim-screen";
-          on-resume = "${bctl} -r";
-        }
-        {
-          timeout = 180;
-          on-timeout = "${bctl} -sd asus::kbd_backlight set 0";
-          on-resume = "${bctl} -rd asus::kbd_backlight";
-        }
-        {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
-        }
-        {
-          timeout = 330;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          timeout = 600;
-          on-timeout = "systemctl hibernate";
-        }
-      ];
+    keyboardDeviceName = lib.mkOption {
+      description = "Name of keyboard backlight, obtained with `brightnessctl -l";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "asus::kbd_backlight";
     };
+  };
+
+  config = {
+    assertions = [
+      {
+        assertion = cfg.timeouts.dimKeyboard == null || cfg.keyboardDeviceName != null;
+        message = "Cannot enable the homeConfig.hypridle.dimKeyboard timeout if homeconfig.hypridle.keyboardDeviceName is not specified";
+      }
+    ];
+
+    services.hypridle = lib.mkIf cfg.enable (
+      let
+        brightnessctl = lib.getExe pkgs.brightnessctl;
+        hyprctl = lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl";
+      in
+      {
+        enable = true;
+        package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+        settings = {
+          general = {
+            lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances
+            before_sleep_cmd = "loginctl lock-session";
+            after_sleep_cmd = "${hyprctl} dispatch dpms on";
+          };
+
+          listener =
+            let
+              timeouts = cfg.timeouts;
+            in
+            [ ]
+            ++ (lib.optional (timeouts.dimScreen != null) {
+              timeout = timeouts.dimScreen;
+              on-timeout = "${lib.getExe pkgs.custom.dim-screen}/bin/dim-screen";
+              on-resume = "${brightnessctl} -r";
+            })
+            ++ (lib.optional (timeouts.dimKeyboard != null && cfg.keyboardDeviceName != null) {
+              timeout = timeouts.dimKeyboard;
+              on-timeout = "${brightnessctl} -sd ${cfg.keyboardDeviceName} set 0";
+              on-resume = "${brightnessctl} -rd ${cfg.keyboardDeviceName}";
+            })
+            ++ (lib.optional (timeouts.lock != null) {
+              timeout = timeouts.lock;
+              on-timeout = "loginctl lock-session";
+
+            })
+            ++ (lib.optional (timeouts.disableDisplay != null) {
+              timeout = timeouts.disableDisplay;
+              on-timeout = "${hyprctl} dispatch dpms off";
+              on-resume = "${hyprctl} dispatch dpms on";
+            })
+            ++ (lib.optional (timeouts.hibernate != null) {
+              timeout = timeouts.hibernate;
+              on-timeout = "systemctl hibernate";
+            });
+        };
+      }
+    );
   };
 }

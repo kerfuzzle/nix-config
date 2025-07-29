@@ -41,4 +41,17 @@ pkgs: {
                   			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
                   		'';
   };
+
+  dim-screen = pkgs.writeShellApplication {
+    name = "dim-screen";
+    runtimeInputs = [ pkgs.brightnessctl ];
+    text = ''
+      brightnessctl -sq
+      until [ "$(brightnessctl g)" -lt 1921 ]
+      do
+        brightnessctl -q set 1%-
+        sleep 0.005
+      done
+    '';
+  };
 }
