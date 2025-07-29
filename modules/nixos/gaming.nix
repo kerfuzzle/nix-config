@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   gamingConfig = config.hostConfig.gaming;
 in
@@ -19,6 +24,9 @@ in
     programs.steam = lib.mkIf gamingConfig.steam.enable {
       enable = true;
       gamescopeSession.enable = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
     };
 
     programs.gamemode.enable = gamingConfig.gamemode.enable;
