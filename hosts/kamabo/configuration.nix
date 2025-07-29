@@ -46,6 +46,8 @@
 
     sops.enable = true;
 
+    restic.enable = true;
+
     impermanence = {
       enable = true;
       oldRootCount = 10;
