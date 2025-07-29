@@ -1,11 +1,6 @@
 { config, lib, ... }:
 {
-  imports = [
-    ./smbClient.nix
-    ./printing.nix
-    ./tailscale.nix
-    ./networkmanager.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   options.hostConfig.hostname = lib.mkOption {
     description = "hostname of system";

@@ -11,11 +11,7 @@ let
   convertWindowRules = windowRules: windowRules |> lib.mapAttrsToList ruleToString |> lib.concatLists;
 in
 {
-  imports = [
-    ./binds.nix
-    ./input.nix
-    ./plugins.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   wayland.windowManager.hyprland = {
     enable = true;

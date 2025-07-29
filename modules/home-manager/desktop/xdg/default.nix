@@ -8,9 +8,7 @@ let
   cfg = config.homeConfig.xdg;
 in
 {
-  imports = [
-    ./mime.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   options.homeConfig.xdg =
     let

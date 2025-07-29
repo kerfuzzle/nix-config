@@ -6,13 +6,7 @@
   ...
 }:
 {
-  imports = [
-    ./desktop
-    ./terminal
-    ./apps
-    ./services
-    ../nixos/allow-unfree.nix
-  ];
+  imports = (lib.custom.importAll ./.) ++ [ ../nixos/allow-unfree.nix ];
 
   options = {
 

@@ -1,10 +1,6 @@
-{ config, pkgs, ... }:
+{ lib, config, ... }:
 {
-  imports = [
-    ./policies.nix
-    ./engines.nix
-    ./extensions.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   stylix.targets.firefox.profileNames = [ config.home.username ];
 

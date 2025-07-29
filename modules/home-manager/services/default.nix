@@ -1,5 +1,4 @@
+{ lib, ... }:
 {
-  imports = [
-    ./battery-notifier.nix
-  ];
+  imports = lib.custom.importAll ./.;
 }

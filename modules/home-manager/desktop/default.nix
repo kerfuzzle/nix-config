@@ -1,15 +1,4 @@
+{ lib, ... }:
 {
-  imports = [
-    ./hyprland
-    ./fuzzel.nix
-    ./hypridle.nix
-    ./hyprlock.nix
-    ./hyprpaper.nix
-    ./hyprsunset.nix
-    ./wlogout/wlogout.nix
-    ./mako.nix
-    ./waybar/waybar.nix
-    ./stylix.nix
-    ./xdg
-  ];
+  imports = lib.custom.importAll ./.;
 }

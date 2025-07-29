@@ -1,9 +1,6 @@
 { lib, ... }:
 {
-  imports = [
-    ./primary.nix
-    ./root.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   users.mutableUsers = lib.mkDefault false;
 }

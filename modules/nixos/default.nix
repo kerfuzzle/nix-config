@@ -5,30 +5,7 @@
   ...
 }:
 {
-  imports = [
-    ./network
-    ./users
-    ./home-manager.nix
-    ./allow-unfree.nix
-    ./gaming.nix
-    ./pipewire.nix
-    ./plymouth.nix
-    ./stylix.nix
-    ./greetd.nix
-    ./kernel.nix
-    ./cachix.nix
-    ./droidcam.nix
-    ./tablet.nix
-    ./zsh.nix
-    ./impermenance.nix
-    ./nvidia.nix
-    ./sops.nix
-    ./sudo.nix
-    ./lanzaboote.nix
-    ./tlp.nix
-    ./hyprland.nix
-    ./systemd-boot.nix
-  ];
+  imports = lib.custom.importAll ./.;
 
   sops = {
     secrets.github-access-token.sopsFile = lib.custom.configRoot + /secrets/misc.yaml;
