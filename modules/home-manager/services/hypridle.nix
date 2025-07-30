@@ -13,16 +13,13 @@ in
     enable = lib.mkEnableOption "hypridle idle daemon";
     timeouts =
       let
-        timeoutOption = lib.mkOption {
-          type = lib.types.nullOr lib.types.ints.positive;
-          example = 100;
-          default = null;
-        };
         mkTimeoutOption =
           action:
-          timeoutOption
-          // {
+          lib.mkOption {
             description = "Timeout in seconds before ${action}. Leave as null to disable.";
+            type = lib.types.nullOr lib.types.ints.positive;
+            example = 100;
+            default = null;
           };
       in
       {

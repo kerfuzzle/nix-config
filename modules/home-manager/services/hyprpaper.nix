@@ -1,8 +1,6 @@
 {
-  settings,
   inputs,
   pkgs,
-  lib,
   ...
 }:
 {
@@ -10,9 +8,8 @@
     enable = true;
     package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
     settings = {
-      preload = [ "${settings.wallpaper}" ];
-      wallpaper = [ ",${settings.wallpaper}" ];
-      ipc = "off";
+      # Wallpaper is set by stylix
+      ipc = false;
       splash = false;
     };
   };
