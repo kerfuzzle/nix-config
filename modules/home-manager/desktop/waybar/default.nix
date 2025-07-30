@@ -123,7 +123,6 @@ in
           "pulseaudio"
           "battery"
           "idle_inhibitor"
-          "power-profiles-daemon"
           "network"
           "custom/wlogout"
         ];
@@ -150,7 +149,6 @@ in
             "(.*)Discord" = "Discord";
             "(.*)org.pwmt.zathura" = "Zathura";
           };
-          seperate-outputs = true;
         };
 
         clock = {
@@ -174,6 +172,17 @@ in
         "group/cpu-info" = {
           orientation = "inherit";
           modules = [
+            "group/cpu-basic"
+            "custom/platform-profile"
+          ];
+          drawer = {
+            click-to-reveal = true;
+          };
+        };
+
+        "group/cpu-basic" = {
+          orientation = "inherit";
+          modules = [
             "cpu"
             "temperature#cpu"
           ];
@@ -181,18 +190,25 @@ in
 
         cpu = {
           interval = 5;
-          format = "CPU {usage}% ";
-          format-alt = "CPU {usage}% {avg_frequency:0.1f}GHz ";
+          format = "CPU {usage}%";
           min-length = 6;
           max-length = 100;
         };
 
         "temperature#cpu" = {
           thermal-zone = 7;
+          tooltip = false;
+        };
+
+        "custom/platform-profile" = {
+          exec = "cat /sys/firmware/acpi/platform_profile";
+          tooltip = false;
+          interval = 5;
         };
 
         "temperature#gpu" = {
           thermal-zone = 1;
+          tooltip = false;
           format = "GPU {temperatureC}°C";
         };
 
@@ -231,7 +247,7 @@ in
           format-warning = "{icon} {capacity}%";
           format-critical = "{icon} {capacity}%";
           format-charging = "${plugged} {capacity}%";
-          format-plugged = "${plugged} {capacity}% {power:0.1f}W";
+          format-plugged = "${plugged} {capacity}%";
           format-plugged-alt = "${plugged} {capacity}% {power:0.1f}W";
           format-full = "{icon} {capacity}%";
           format-icons = battery;

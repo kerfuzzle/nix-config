@@ -82,8 +82,16 @@ window#waybar {
 .modules-right > widget > *, .modules-left > widget > *, .modules-center > widget > * {
   background: rgba(30, 35, 38, 0.8);
   border-radius: 18px;
-  margin: 0 3px;
-  padding: 0px 9px;
+	margin: 0 3px;
+  padding: 0 9px;
+}
+
+#cpu {
+	margin-right: 0.5em;
+}
+
+#custom-platform-profile {
+	margin-left: 0.5em;
 }
 
 .modules-left > widget:first-child > * {
