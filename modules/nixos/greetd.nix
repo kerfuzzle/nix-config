@@ -1,25 +1,27 @@
 {
+  pkgs,
   config,
   lib,
   ...
 }:
 let
-  hostConfig = config.hostConfig;
+  cfg = config.hostConfig.greetd;
 in
 {
   options.hostConfig.greetd.enable = lib.mkEnableOption "greetd" // {
     default = true;
   };
 
-  config = lib.mkIf config.hostConfig.greetd.enable {
+  config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;
-      settings = rec {
-        initial_session = {
-          command = lib.getExe config.programs.hyprland.package;
-          user = config.users.users.${hostConfig.username}.name;
+      settings = {
+        default_session = {
+          # Use tuigreet and remember the previous session and user
+          # Desktop entries should already be created by hyprland and graphics/hybrid.nix
+          command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --remember-session --asterisks";
+          user = "greeter";
         };
-        default_session = initial_session;
       };
     };
   };

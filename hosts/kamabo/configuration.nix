@@ -60,9 +60,9 @@
       hybrid = {
         # Use offload hybrid graphics, use `nvidia-offload COMMAND` to run on dGPU
         enable = true;
-        # See https://wiki.nixos.org/wiki/NVIDIA#Configuring for how to obtain
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
+        # BDF bus IDs obtained from `lspci -d ::03xx' in format `domain:bus:device.function`
+        nvidiaBdfBusId = "0000:01:00.0";
+        intelBdfBusId = "0000:00:02.0";
       };
     };
 

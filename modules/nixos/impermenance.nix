@@ -24,10 +24,22 @@ in
           "/var/lib/systemd/coredump"
           "/etc/ssh"
         ]
+        # Bluetooth config
         ++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
+        # Non-declaritive networks
         ++ (optional config.networking.networkmanager.enable "/etc/NetworkManager/system-connections")
+        # Secure boot keys
         ++ (optional config.boot.lanzaboote.enable config.boot.lanzaboote.pkiBundle)
-        ++ (optional config.services.tailscale.enable "/var/lib/tailscale");
+        # Tailscale auth
+        ++ (optional config.services.tailscale.enable "/var/lib/tailscale")
+        # Allows tuigreet to remember previous user/session
+        ++ (optional config.services.greetd.enable {
+          directory = "/var/cache/tuigreet";
+          # Must be owned by greeter user
+          user = "greeter";
+          group = "greeter";
+          mode = "0755";
+        });
 
       files = [
         "/etc/machine-id"
