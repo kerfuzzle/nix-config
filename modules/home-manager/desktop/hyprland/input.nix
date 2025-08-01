@@ -7,7 +7,10 @@
       sensitivity = -0.1;
 
       touchpad = {
+        # Use number of fingers to determine press type instead of location
         clickfinger_behavior = true;
+        # Make touchpad taps act as clicks
+        tap-to-click = true;
       };
     };
 

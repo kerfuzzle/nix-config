@@ -7,8 +7,6 @@
 }:
 let
   convertToLegacyMonitor = m: "${m.output},${m.mode},${m.position},${toString m.scale}";
-  ruleToString = name: value: (builtins.map (v: "${v}, ${name}") value);
-  convertWindowRules = windowRules: windowRules |> lib.mapAttrsToList ruleToString |> lib.concatLists;
 in
 {
   imports = lib.custom.importAll ./.;
@@ -42,42 +40,8 @@ in
         inactive_opacity = 0.8;
       };
 
-      windowrule =
-        (convertWindowRules {
-          # Automatically resize and move Picture-in-Picture windows
-          "class: firefox, title:Picture-in-Picture" = [
-            "float"
-            "size 25% 25%"
-            "move 100%-w-20 100%-w-20"
-            "keepaspectratio"
-            "opaque"
-          ];
-          "class: qalculate.*" = [
-            "float"
-            "size 30% 30%"
-            "move 100%-w-20 100%-w-20"
-          ];
-          "title: Open Files" = [
-            "float"
-            "size 50% 50%"
-          ];
-          "title: File Upload" = [
-            "float"
-            "size 50% 50%"
-          ];
-        })
-        # Disable unfocus transparency for some applications
-        ++ builtins.map (e: "opaque, " + e) [
-          "class:firefox, title:(.*)(- YouTube)(.*)"
-          # For some reason the title here uses a "no-break space" so use . to specify any single character
-          "class:firefox, title:(.*)(Apple.Music)(.*)"
-          "class:firefox, title:(.*)(\\.pdf)(.*)"
-          "class:zathura"
-          "class:discord"
-          "class:Code"
-        ];
-
       animation = [
+        # Make the special workspace slide in from the bottom
         "specialWorkspace, 1, 7, default, slidevert"
       ];
 

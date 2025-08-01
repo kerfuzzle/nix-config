@@ -1,0 +1,45 @@
+{ lib, ... }:
+let
+  ruleToString = name: value: (builtins.map (v: "${v}, ${name}") value);
+  # Hyprland only allows window rules to specify a singular rule per a set of selection parameters
+  # This converts from an attrset of selection parameters each with a list of rules to the hyprland format
+  convertWindowRules = windowRules: windowRules |> lib.mapAttrsToList ruleToString |> lib.concatLists;
+in
+{
+  wayland.windowManager.hyprland.settings.windowrule =
+    (convertWindowRules {
+      # Automatically resize and move Picture-in-Picture windows
+      "class: firefox, title:Picture-in-Picture" = [
+        "float"
+        "size 25% 25%"
+        "move 100%-w-20 100%-w-20"
+        "prop keepaspectratio"
+        "prop opaque"
+      ];
+      # Auto resize qalculate
+      "class: qalculate.*" = [
+        "float"
+        "size 30% 30%"
+        "move 100%-w-20 100%-w-20"
+      ];
+      # FLoat and make file select dialogues a more reasonable size
+      "title: Open Files" = [
+        "float"
+        "size 50% 50%"
+      ];
+      "title: File Upload" = [
+        "float"
+        "size 50% 50%"
+      ];
+    })
+    # Disable unfocus transparency for some applications
+    ++ builtins.map (e: "prop opaque, " + e) [
+      "class:firefox, title:(.*)(- YouTube)(.*)"
+      # For some reason the title here uses a "no-break space" so use `.` to specify any single character
+      "class:firefox, title:(.*)(Apple.Music)(.*)"
+      "class:firefox, title:(.*)(\\.pdf)(.*)"
+      "class:zathura"
+      "class:discord"
+      "class:Code"
+    ];
+}
