@@ -31,6 +31,13 @@ in
         "float"
         "size 50% 50%"
       ];
+      # Steam window that isn't the main window or just a dropdown menu
+      "class: steam, title: negative:(Steam)|()" = [
+        "float"
+        "center"
+        "size: 50% 50%"
+        "prop opaque"
+      ];
     })
     # Disable unfocus transparency for some applications
     ++ builtins.map (e: "prop opaque, " + e) [

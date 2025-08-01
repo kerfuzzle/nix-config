@@ -23,18 +23,23 @@ in
           				'';
       };
 
-      loader.systemd-boot.consoleMode = "max";
-      loader.timeout = 0;
+      loader = {
+        systemd-boot.consoleMode = "max";
+        # Setting to this to zero means the menu does not show unless a key is held
+        timeout = 0;
+      };
 
-      consoleLogLevel = 0;
-      initrd.verbose = false;
-      initrd.systemd.enable = true;
+      consoleLogLevel = 3;
+      initrd = {
+        verbose = false;
+        # Load in stage 1 for LUKS
+        systemd.enable = true;
+      };
       kernelParams = [
         "quiet"
         "splash"
         "boot.shell_on_fail"
-        "loglevel=3"
-        "rd.systemd.show_status=false"
+        "rd.systemd.show_status=auto"
         "rd.udev.log_level=3"
         "udev.log_priority=3"
       ];

@@ -16,25 +16,31 @@ in
       };
 
     services.restic.backups.remote = {
+      # Use sops for the repo and password
       repositoryFile = config.sops.secrets."restic/repository".path;
       passwordFile = config.sops.secrets."restic/password".path;
 
+      # Back up these home paths for the primary user
       paths = map (p: "/home/${config.users.users.${hostConfig.username}.name}" + p) [
         "/documents"
         "/downloads"
         "/media"
         "/nix-config"
       ];
+      # Don't backup anything that matches these
       exclude = [
         ".git"
         "node_modules"
       ];
 
+      # Backup at midnight daily
       timerConfig = {
         OnCalendar = "daily";
+        # If a backup is missed then run the backup when next powered on
         Persistent = true;
       };
 
+      # Prevents the system from sleeping whilst backing up
       inhibitsSleep = true;
     };
   };

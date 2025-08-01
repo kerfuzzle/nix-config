@@ -16,6 +16,7 @@ in
     services = lib.mkIf printingConfig.printers.enable {
       printing.enable = true;
 
+      # Used for auto-discovery of network printers
       avahi = {
         enable = true;
         nssmdns4 = true;
@@ -23,6 +24,7 @@ in
       };
     };
 
+    # Support for Scanner Access Now Easy
     hardware.sane.enable = printingConfig.scanners.enable;
   };
 }

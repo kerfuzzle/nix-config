@@ -22,5 +22,7 @@ in
     (mkExtension "traduzir-paginas-web" "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}" false)
     # Strips tracking elements from URLs
     (mkExtension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}" false)
+    # Summary of important terms in a ToS
+    (mkExtension "terms-of-service-didnt-read" "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack" false)
   ];
 }

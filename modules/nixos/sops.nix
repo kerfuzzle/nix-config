@@ -14,6 +14,7 @@ in
       age.keyFile = "/home/${config.users.users.${hostConfig.username}.name}/.config/sops/age/keys.txt";
     };
 
+    # Provides useful utilities for managing sops
     environment.systemPackages = [ pkgs.sops ];
   };
 }

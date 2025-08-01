@@ -16,6 +16,7 @@ in
   };
 
   config = lib.mkIf hostConfig.droidcam.enable {
+    # libimobiledevice needed to interface with ios devices over usb
     services.usbmuxd.enable = hostConfig.droidcam.iosUSBSupport;
     environment.systemPackages = [
       pkgs.droidcam
