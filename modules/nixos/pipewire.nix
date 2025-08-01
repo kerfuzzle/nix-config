@@ -66,6 +66,9 @@
                     "node.description" = "MOONDROP Dawn Pro";
                   }
                 )
+                (mkRule "node.name" "alsa_output.pci-0000_01_00.1.hdmi-stereo" {
+                  "node.description" = "HDMI Output";
+                })
               ];
             };
           };
