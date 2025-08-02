@@ -1,5 +1,5 @@
 {
-  settings,
+  config,
   inputs,
   pkgs,
   hostConfig,
@@ -17,7 +17,7 @@
       };
       background = [
         {
-          path = "${settings.wallpaper}";
+          path = "${config.homeConfig.theming.wallpaper}";
           blur_passes = 2;
           blur_size = 5;
           brightness = 0.6;

@@ -1,14 +1,14 @@
+{ lib, config, ... }:
 {
   programs.git = {
     enable = true;
     userName = "kerfuzzle";
     userEmail = "58907164+kerfuzzle@users.noreply.github.com";
 
-    includes = [
-      {
-        condition = "gitdir:~/documents/githubWork/";
-        path = "~/documents/githubWork/.gitconfig";
-      }
-    ];
+    signing = lib.mkIf config.homeConfig.sops.enable {
+      signByDefault = true;
+      format = "ssh";
+      key = config.sops.secrets."private-keys/github".path;
+    };
   };
 }

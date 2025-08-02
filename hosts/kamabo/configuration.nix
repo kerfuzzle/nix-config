@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, config, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -83,7 +83,10 @@
       gamemode.enable = true;
     };
 
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      devices = import (lib.custom.configRoot + /resources/tailscale-devices.nix);
+    };
 
     smbClient = {
       enable = true;
@@ -91,7 +94,7 @@
         {
           name = "kerfuzzle-nas";
           # Uses tailscale ip
-          device = "//100.93.207.105/kerfuzzle-nas";
+          device = "//${config.hostConfig.tailscale.devices.inkline.ipv4}/kerfuzzle-nas";
         }
       ];
     };

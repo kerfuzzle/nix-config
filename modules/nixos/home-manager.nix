@@ -1,5 +1,4 @@
 {
-  settings,
   config,
   inputs,
   outputs,
@@ -16,7 +15,6 @@ in
         inputs
         outputs
         lib
-        settings
         ;
       inherit (config) hostConfig;
       nixosConfig = config;
@@ -28,6 +26,7 @@ in
           imports = [
             (import ../../hosts/${hostConfig.hostname}/home.nix)
             inputs.self.outputs.homeManagerModules.default
+            inputs.sops-nix.homeManagerModules.sops
           ];
         };
     };

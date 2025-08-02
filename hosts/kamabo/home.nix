@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   hostConfig,
   ...
@@ -11,7 +10,7 @@
       stylix.enable = true;
       # Follow system colour scheme
       base16.name = hostConfig.theming.base16.name;
-      wallpaper = lib.custom.configRoot + /assets/walls/nix-frappe.png;
+      wallpaper = lib.custom.configRoot + /resources/walls/nix-frappe.png;
     };
 
     batteryNotifier.enable = true;
@@ -39,6 +38,8 @@
       minecraft.enable = false;
       heroic.enable = true;
     };
+
+    sops.enable = true;
   };
 
   wayland.windowManager.hyprland.settings = {

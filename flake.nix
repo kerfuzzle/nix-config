@@ -134,7 +134,6 @@
         kamabo = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs lib;
-            settings = import ./hosts/kamabo/settings.nix;
           };
 
           modules = [
