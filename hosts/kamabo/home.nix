@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   hostConfig,
   ...
@@ -42,7 +43,17 @@
     sops.enable = true;
   };
 
-  wayland.windowManager.hyprland.settings = {
-    misc.vfr = true;
-  };
+  wayland.windowManager.hyprland.settings =
+    let
+      playerctl = lib.getExe pkgs.playerctl;
+    in
+    {
+      # Laptop doesn't have media keys so these work as substitutes
+      bind = [
+        ",XF86Launch3, exec, ${playerctl} play-pause"
+        ",Home, exec, ${playerctl} previous"
+        ",End, exec, ${playerctl} next"
+      ];
+      misc.vfr = true;
+    };
 }
