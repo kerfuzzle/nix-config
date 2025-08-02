@@ -33,6 +33,7 @@ let
     network = {
       wifi = " ";
       wired = " ";
+      disabled = "󰀝";
     };
     audio = {
       volume = [
@@ -264,6 +265,7 @@ in
         network = with icons.network; {
           format-ethernet = "${wired} {ifname}";
           format-wifi = "${wifi} {essid}";
+          format-disabled = "${disabled} No RF";
           tooltip-format-ethernet = "{ifname}";
           tooltip-format-wifi = "{signalStrength}% {essid}";
         };
