@@ -107,6 +107,7 @@
         "home"
         "tether"
         "cafe"
+        "flat"
       ];
     };
 
