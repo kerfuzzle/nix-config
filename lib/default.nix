@@ -27,4 +27,9 @@
   # Split a string at multiple delimiters, discarding the delimiters
   splitStringByDelimiters =
     delimiters: lib.splitStringBy (_: curr: builtins.elem curr delimiters) false;
+
+  # Useful for just enabling options
+  enabled = {
+    enable = true;
+  };
 }
