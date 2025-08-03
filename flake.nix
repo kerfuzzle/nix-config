@@ -3,9 +3,7 @@
 
   inputs = {
     # Official nixpkgs sources
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Pin to this revision, see https://github.com/NixOS/nixpkgs/issues/429271
-    nixpkgs.url = "github:nixos/nixpkgs/7fd36ee82c0275fb545775cc5e4d30542899511d";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     # Managing user environment
