@@ -40,6 +40,12 @@
       heroic.enable = true;
     };
 
+    media = {
+      libreoffice.enable = true;
+      gimp.enable = true;
+      xournal.enable = true;
+    };
+
     sops.enable = true;
   };
 
