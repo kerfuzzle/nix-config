@@ -153,6 +153,7 @@ in
         };
 
         clock = {
+          interval = 15;
           format = "{:%R %d/%m/%y}";
           format-alt = "{:%T %a %b %d}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";

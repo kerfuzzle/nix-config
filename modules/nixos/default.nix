@@ -37,9 +37,9 @@
     # Automatically run garbage collection every day
     gc = {
       automatic = true;
-      dates = "daily";
-      # Delete generations more than 5 days old
-      options = "--delete-older-than 5d";
+      dates = "weekly";
+      # Delete generations more than 7 days old
+      options = "--delete-older-than 7d";
     };
 
     # Inlclude the token config in nix.conf

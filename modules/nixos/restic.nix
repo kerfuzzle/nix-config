@@ -33,9 +33,9 @@ in
         "node_modules"
       ];
 
-      # Backup at midnight daily
+      # Backup at noon and midnight daily
       timerConfig = {
-        OnCalendar = "daily";
+        OnCalendar = "*-*-* 00,12:00:00";
         # If a backup is missed then run the backup when next powered on
         Persistent = true;
       };
