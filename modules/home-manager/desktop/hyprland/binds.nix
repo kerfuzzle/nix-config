@@ -7,12 +7,15 @@
 {
   wayland.windowManager.hyprland.settings =
     let
+      mod = "SUPER";
+
       alacritty = lib.getExe config.programs.alacritty.package;
       fuzzel = lib.getExe config.programs.fuzzel.package;
       # Gets HM wrapped version of firefox otherwise config is not used
       firefox = lib.getExe config.programs.firefox.finalPackage;
       wlogout = lib.getExe config.programs.wlogout.package;
       yazi = lib.getExe config.programs.yazi.package;
+      qalculate = lib.getExe pkgs.qalculate-gtk;
       unipicker = lib.getExe pkgs.unipicker;
       wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
       screenshot-copy = lib.getExe pkgs.custom.screenshot-copy;
@@ -26,26 +29,28 @@
       mkTerminalLaunch = app: "${alacritty} -e ${app}";
     in
     {
-      "$mainMod" = "SUPER";
-
       bind = [
         # -- Programs
         # Terminal
-        "$mainMod, Q, exec, ${alacritty}"
+        "${mod}, Q, exec, ${alacritty}"
         # Launcher
-        "$mainMod, R, exec, pidof fuzzel | ${fuzzel}"
-        # firefox
-        "$mainMod, E, exec, ${firefox}"
-        "$mainMod, L, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
-        "$mainMod, F, togglefloating"
-        "$mainMod, W, exec, ${mkTerminalLaunch yazi}"
-        "$mainMod, U, exec, ${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}"
+        "${mod}, R, exec, pidof fuzzel | ${fuzzel}"
+        # Firefox
+        "${mod}, E, exec, ${firefox}"
+        # Calculator
+        "${mod}, X, exec, ${qalculate}"
+        # Power menu
+        "${mod}, L, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
+        # File manager
+        "${mod}, W, exec, ${mkTerminalLaunch yazi}"
+        # Unicode character picker
+        "${mod}, U, exec, ${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}"
 
         # -- Screenshots and screen recording
-        "$mainMod, A, exec, ${screenshot-copy}"
-        "$mainMod SHIFT, A, exec, ${screenshot-swappy}"
-        "$mainMod SHIFT, P, exec, ${screen-record}"
-        "$mainMod SHIFT, C, exec, ${hyprpicker} -a -t"
+        "${mod}, A, exec, ${screenshot-copy}"
+        "${mod} SHIFT, A, exec, ${screenshot-swappy}"
+        "${mod} SHIFT, P, exec, ${screen-record}"
+        "${mod} SHIFT, C, exec, ${hyprpicker} -a -t"
 
         # -- Audio
         ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
@@ -55,21 +60,23 @@
         ",XF86AudioPlay, exec, ${playerctl} play-pause"
 
         # -- Window/Workspace management
+        # Float window
+        "${mod}, F, togglefloating"
         # Fullscreen
-        "$mainMod SHIFT, F, fullscreen"
+        "${mod} SHIFT, F, fullscreen"
         # Close focused window
-        "$mainMod, c, killactive"
+        "${mod}, c, killactive"
         # Code 49 is `, toggle hyprspace overview
-        "$mainMod, code:49, overview:toggle"
+        "${mod}, code:49, overview:toggle"
         # Move focus between windows
-        "$mainMod, Tab, cyclenext, visible"
+        "${mod}, Tab, cyclenext, visible"
         # Move focus between monitors
-        "$mainMod SHIFT, Tab, focusmonitor, +1"
-        # Move window to and from scratchpad
-        "$mainMod, S, togglespecialworkspace, magic"
-        "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        "${mod} SHIFT, Tab, focusmonitor, +1"
+        # Move window to and from special workspace
+        "${mod}, S, togglespecialworkspace, magic"
+        "${mod} SHIFT, S, movetoworkspace, special:magic"
         # Bind to move windows from unplugged monitors onto current monitor
-        "$mainMod SHIFT, G, split:grabroguewindows"
+        "${mod} SHIFT, G, split:grabroguewindows"
       ] # Adding binds to switch/move windows between workspaces
       ++ (builtins.concatLists (
         builtins.genList (
@@ -78,8 +85,8 @@
             ws = toString (x + 1);
           in
           [
-            "$mainMod, ${ws}, split:workspace, ${toString ws}"
-            "$mainMod SHIFT, ${ws}, split:movetoworkspace, ${toString ws}"
+            "${mod}, ${ws}, split:workspace, ${toString ws}"
+            "${mod} SHIFT, ${ws}, split:movetoworkspace, ${toString ws}"
           ]
         ) 5
       ));
@@ -101,9 +108,9 @@
       # Mouse binds
       bindm = [
         # MOD + left click to move windows
-        "$mainMod, mouse:272, movewindow"
+        "${mod}, mouse:272, movewindow"
         # MOD + right click to resoze windows
-        "$mainMod SHIFT, mouse:272, resizewindow"
+        "${mod} SHIFT, mouse:272, resizewindow"
       ];
     };
 }

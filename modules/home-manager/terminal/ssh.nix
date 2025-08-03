@@ -8,6 +8,7 @@
   programs.ssh = {
     enable = true;
     matchBlocks =
+      # Setup aliases tailscale devices
       (lib.mapAttrs (name: value: {
         inherit (value) user;
         hostname = value.ipv4;
