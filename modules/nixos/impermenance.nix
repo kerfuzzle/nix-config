@@ -20,9 +20,14 @@ in
       directories =
         with lib.lists;
         [
+          # Holds state needed to generate stable uids and gids
+          # for declaratively-managed users and groups
           "/var/lib/nixos"
+          # View coredumps even if they cause a reboot
           "/var/lib/systemd/coredump"
-          "/etc/ssh"
+          # Ensure that systemd knows when a timer was last triggered
+          # so that persistent timers work
+          "/var/lib/systemd/timers"
         ]
         # Bluetooth config
         ++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
