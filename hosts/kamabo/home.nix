@@ -56,7 +56,8 @@
     {
       # Laptop doesn't have media keys so these work as substitutes
       bind = [
-        ",XF86Launch3, exec, ${playerctl} play-pause"
+        # "Next" is PgDn
+        ",Next, exec, ${playerctl} play-pause"
         ",Home, exec, ${playerctl} previous"
         ",End, exec, ${playerctl} next"
       ];
