@@ -27,6 +27,7 @@ in
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       hashedPasswordFile = config.sops.secrets."login/${hostConfig.username}-password".path;
+      uid = 1000;
     };
   };
 }
