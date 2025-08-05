@@ -15,7 +15,10 @@ in
           # Experiemental PRIME offload power management
           # Allows dGPU to power down fully when not in use
           powerManagement.finegrained = true;
+          # Balances power between CPU and GPU depending on workload for improved perforamance per watt
+          dynamicBoost.enable = true;
 
+          # PRIME hybrid GPU support
           prime =
             let
               # Converts from lspci's domain:bus:device.function to xorg's PCI:bus@domain:device:function

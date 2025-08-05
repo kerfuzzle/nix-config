@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  hostConfig,
   ...
 }:
 with builtins;
@@ -118,7 +119,10 @@ in
         modules-center = [ "clock" ];
         modules-right = [
           "group/cpu-info"
-          "temperature#gpu"
+        ]
+        # Only use gpu module if nvidia is enabled
+        ++ (lib.optional hostConfig.nvidia.enable "custom/gpu")
+        ++ [
           "memory"
           "backlight"
           "pulseaudio"
@@ -208,11 +212,65 @@ in
           interval = 5;
         };
 
-        "temperature#gpu" = {
-          thermal-zone = 1;
-          tooltip = false;
-          format = "GPU {temperatureC}°C";
-        };
+        "custom/gpu" = lib.mkIf hostConfig.nvidia.enable (
+          # Change module depending on if hybrid graphics is enabled
+          if hostConfig.nvidia.hybrid.enable then
+            (
+              let
+                bdfBusId = hostConfig.nvidia.hybrid.nvidiaBdfBusId;
+                gpuMonitorScript = pkgs.writeShellApplication {
+                  name = "gpu-monitor";
+                  text = ''
+                    													# Either suspended or active
+                    													power_status=$(cat /sys/bus/pci/devices/${bdfBusId}/power/runtime_status)
+                    													# Only run nvidia-smi if active otherwise it'll wake GPU up
+                    													if [[ $power_status = "active" ]]; then
+                    														output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
+                    														# Split at commas
+                    														IFS=', ' read -r temp power util <<< "$output"
+                    														# Single quotes escape dollar curly, prevents units from 
+                    														# being interpreted as part of the env variable name
+                    														echo "GPU ''${util}% ''${temp}°C ''${power}W"
+                    													else
+                    														# Print empty line so that module disappears
+                    														echo ""
+                    													fi
+                  '';
+                };
+              in
+              {
+                exec = lib.getExe gpuMonitorScript;
+                # Run every 30s, has to be long enough to prevent the nvidia-smi
+                # calls from keeping the GPU on
+                interval = 30;
+                # Hide module if output is empty
+                hide-empty-text = true;
+                tooltip = false;
+              }
+            )
+          else
+            (
+              let
+                gpuMonitorScript = pkgs.writeShellApplication {
+                  name = "gpu-monitor";
+                  text = ''
+                    			output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
+                    			# Split at commas
+                    			IFS=', ' read -r temp power util <<< "$output"
+                    			# Single quotes escape dollar curly, prevents units from 
+                    			# being interpreted as part of the env variable name
+                    			echo "GPU ''${util}% ''${temp}°C ''${power}W"
+                    		'';
+                };
+              in
+              {
+                exec = lib.getExe gpuMonitorScript;
+                # Run more frequently as power saving is not as much of a concern
+                interval = 10;
+                tooltip = false;
+              }
+            )
+        );
 
         memory = with icons; {
           interval = 30;
