@@ -28,6 +28,8 @@ in
           # Ensure that systemd knows when a timer was last triggered
           # so that persistent timers work
           "/var/lib/systemd/timers"
+          # Persist screen backlight level across restarts
+          "/var/lib/systemd/backlight"
         ]
         # Bluetooth config
         ++ (optional config.hardware.bluetooth.enable "/var/lib/bluetooth")
