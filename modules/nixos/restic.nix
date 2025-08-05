@@ -49,6 +49,19 @@ in
       # Run an integrity check after the backup
       runCheck = true;
 
+      # Clean up old snapshots
+      # Keep 8 weekly, 12 monthly, 3 yearly snapshots and all snapshots within 7d of the newest
+      pruneOpts = [
+        # Always keep backups less than a week old
+        "--keep-within=7d"
+        # Keep the most recent backup from each of the last 8 weeks
+        "--keep-weekly=8"
+        # Keep the most recent backup from each of the last 12 months
+        "--keep-monthly=12"
+        # Keep the most recent backup from each of the last 3 years
+        "--keep-yearly=3"
+      ];
+
       # Prevents the system from sleeping whilst backing up
       inhibitsSleep = true;
     };
@@ -86,7 +99,7 @@ in
             description = "Notify user of a successful restic backup";
             script = ''
               	# Get the line that contains the file count and total size
-                SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | tail -13 | head -1)
+                SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | head -6 | tail -1)
                 notify-send -t 10000 "Restic Backup \"${name}\" Succeeded!" "$SUMMARY"
             '';
           };
