@@ -33,7 +33,7 @@ pkgs: {
     text = ''
                   			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
                   			region=$(slurp)
-                  			id=$(notify-send "Recording..." -p)
+                  			id=$(notify-send -t 0 "Recording..." -p)
                   			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
       									outDir="$HOME/media/videos"
       									mkdir -p "$outDir"

@@ -30,7 +30,7 @@ in
         hibernate = mkTimeoutOption "hibernating system";
       };
     keyboardDeviceName = lib.mkOption {
-      description = "Name of keyboard backlight, obtained with `brightnessctl -l";
+      description = "Name of keyboard backlight, obtained with `brightnessctl -l`";
       type = lib.types.nullOr lib.types.str;
       default = null;
       example = "asus::kbd_backlight";
@@ -64,6 +64,7 @@ in
             let
               timeouts = cfg.timeouts;
             in
+            # Only add timeouts which are not null
             [ ]
             ++ (lib.optional (timeouts.dimScreen != null) {
               timeout = timeouts.dimScreen;

@@ -24,7 +24,9 @@ in
         playerctl
       ]
       ++ (lib.optionals cfg.cdRipping.enable [
+        # CD ripping tool
         abcde
+        # Highly accurate ripping tool, slower
         whipper
       ]);
 

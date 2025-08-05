@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  # Override btop so that it is built with nvidia GPU support
   btop-with-nvidia = pkgs.btop.override { cudaSupport = true; };
 in
 {
