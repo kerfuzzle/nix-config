@@ -31,15 +31,19 @@ pkgs: {
       libnotify
     ];
     text = ''
-                  			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
-                  			region=$(slurp)
-                  			id=$(notify-send -t 0 "Recording..." -p)
-                  			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
-      									outDir="$HOME/media/videos"
-      									mkdir -p "$outDir"
-                  			wf-recorder -g "$region" -p r=30,crf=40 -f "$outDir/$dateTime.mp4"
-                  			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
-                  		'';
+      												# If already recording, end the recording and exit
+                        			pgrep -x "wf-recorder" && pkill -INT -x wf-recorder && exit 0
+      												# Get region with slurp
+                        			region=$(slurp)
+      												# Send notification that with no timeout (e.g. will not disappear)
+                        			id=$(notify-send -t 0 "Recording..." -p)
+                        			dateTime=$(date +%m-%d-%Y-%H:%M:%S)
+            									outDir="$HOME/media/videos"
+            									mkdir -p "$outDir"
+                        			wf-recorder -g "$region" -p r=30,crf=40 -f "$outDir/$dateTime.mp4"
+      											 	# Replace the previous notification
+                        			notify-send -r "$id" -t 5000 "Recording saved as $dateTime.mp4"
+                        		'';
   };
 
   dim-screen = pkgs.writeShellApplication {
