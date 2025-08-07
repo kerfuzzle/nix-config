@@ -84,10 +84,10 @@ in
         lib.mapAttrsToList (name: _: {
           # Set services to run on fail and success
           "restic-backups-${name}".unitConfig = {
-            OnFailure = "notify-backup-${name}-failed.service";
-            OnSuccess = "notify-backup-${name}-succeeded.service";
+            OnFailure = "restic-notify-${name}-failed.service";
+            OnSuccess = "restic-notify-${name}-succeeded.service";
           };
-          "notify-backup-${name}-failed" = baseNotifyService // {
+          "restic-notify-${name}-failed" = baseNotifyService // {
             description = "Notify user of a failed restic backup";
             script = ''
                notify-send --urgency=critical \
@@ -95,11 +95,11 @@ in
               	"See \"journalctl -u restic-backups-${name}.service\" for more details"
             '';
           };
-          "notify-backup-${name}-succeeded" = baseNotifyService // {
+          "restic-notify-${name}-succeeded" = baseNotifyService // {
             description = "Notify user of a successful restic backup";
             script = ''
-              	# Get the line that contains the file count and total size
-                SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | head -6 | tail -1)
+              	# Get the line that begins with processed (contains stats about backup)
+                SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | sed -n "/^processed/p")
                 notify-send -t 10000 "Restic Backup \"${name}\" Succeeded!" "$SUMMARY"
             '';
           };
