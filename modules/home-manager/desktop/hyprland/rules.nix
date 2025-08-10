@@ -7,38 +7,42 @@ let
 in
 {
   wayland.windowManager.hyprland.settings.windowrule =
-    (convertWindowRules {
-      # Automatically resize and move Picture-in-Picture windows
-      "class: firefox, title:Picture-in-Picture" = [
-        "float"
-        "size 25% 25%"
-        "move 100%-w-20 100%-w-20"
-        "prop keepaspectratio"
-        "prop opaque"
-      ];
-      # Auto resize qalculate
-      "class: qalculate.*" = [
-        "float"
-        "size 30% 30%"
-        "move 100%-w-20 100%-w-20"
-      ];
-      # FLoat and make file select dialogues a more reasonable size
-      "title: Open Files" = [
-        "float"
-        "size 50% 50%"
-      ];
-      "title: File Upload" = [
-        "float"
-        "size 50% 50%"
-      ];
-      # Steam window that isn't the main window or just a dropdown menu
-      "class: steam, title: negative:(Steam)|()" = [
-        "float"
-        "center"
-        "size: 50% 50%"
-        "prop opaque"
-      ];
-    })
+    (convertWindowRules (
+      let
+        floatCenterResize = [
+          "float"
+          "center"
+          "size 50% 50%"
+        ];
+      in
+      {
+        # Automatically resize and move Picture-in-Picture windows
+        "class: firefox, title:Picture-in-Picture" = [
+          "float"
+          "size 25% 25%"
+          "move 100%-w-20 100%-w-20"
+          "prop keepaspectratio"
+          "prop opaque"
+        ];
+        # Auto resize qalculate
+        "class: qalculate.*" = [
+          "float"
+          "size 30% 30%"
+          "move 100%-w-20 100%-w-20"
+        ];
+        # FLoat and make file select dialogues a more reasonable size
+        "title: Open Files" = floatCenterResize;
+        "title: File Upload" = floatCenterResize;
+        "title: Save As" = floatCenterResize;
+        # Steam window that isn't the main window or just a dropdown menu
+        "class: steam, title: negative:(Steam)|()" = [
+          "float"
+          "center"
+          "size: 50% 50%"
+          "prop opaque"
+        ];
+      }
+    ))
     # Disable unfocus transparency for some applications
     ++ builtins.map (e: "prop opaque, " + e) [
       "class:firefox, title:(.*)(- YouTube)(.*)"
