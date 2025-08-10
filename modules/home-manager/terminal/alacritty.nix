@@ -15,6 +15,8 @@
           x = 10;
           y = 10;
         };
+        # Disable terminal apps from changing the window title
+        dynamic_title = false;
       };
 
       scrolling = {
