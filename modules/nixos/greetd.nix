@@ -19,7 +19,7 @@ in
         default_session = {
           # Use tuigreet and remember the previous session and user
           # Desktop entries should already be created by hyprland and graphics/hybrid.nix
-          command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --remember-session --asterisks";
+          command = "${lib.getExe pkgs.tuigreet} --time --remember --remember-session --asterisks";
           user = "greeter";
         };
       };
