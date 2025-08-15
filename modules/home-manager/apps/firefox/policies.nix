@@ -89,6 +89,17 @@
         "browser.search.suggest.enabled.private" = lock false;
         "browser.urlbar.suggest.searches" = lock false;
         "browser.topsites.contile.enable" = lock false;
+        # Disable AI chat features
+        "browser.ml.chat.enabled" = lock false;
+        "browser.ml.chat.shortcuts" = lock false;
+        "browser.ml.chat.shortcuts.custom" = lock false;
+        "browser.ml.chat.sidebar" = lock false;
+        "browser.ml.enable" = lock false;
+        "extensions.ml.enabled" = lock false;
+        # Disable AI tab groups
+        "browser.tabs.groups.smart.enabled" = lock false;
+        "browser.tabs.groups.smart.optin" = lock false;
+        "browser.tabs.groups.smart.userEnabled" = lock false;
         # Clean up new tab page
         "browser.newtabpage.activity-stream.feeds.section.topstories" = lock false;
         "browser.newtabpage.activity-stream.feeds.snippets" = lock false;
