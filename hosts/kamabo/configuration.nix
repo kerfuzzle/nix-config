@@ -66,10 +66,9 @@
       };
     };
 
-    droidcam = {
-      enable = true;
-      iosUSBSupport = true;
-    };
+    droidcam.enable = true;
+
+    iosSupport.enable = true;
 
     # For theming in system level programs
     theming = {
