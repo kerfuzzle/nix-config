@@ -61,6 +61,8 @@ in
         automountOpts
         # Specify sops secrets file
         "credentials=${config.sops.templates."${share.name}_smb_secrets".path}"
+        # Mount as main user
+        "uid=${toString config.users.users.${config.hostConfig.username}.uid}"
       ];
     }) cfg.shares;
   };
