@@ -7,6 +7,8 @@
       qalculate-gtk
       # Flashcards
       anki
+      # Disk usage analyser
+      qdirstat
     ]
     ++ (lib.optional hostConfig.printing.scanners.enable pkgs.simple-scan);
 }
