@@ -58,4 +58,24 @@ pkgs: {
       done
     '';
   };
+  check-ac = pkgs.writeShellScriptBin "check-ac" ''
+    				# Modified from https://cgit.freedesktop.org/pm-utils/tree/src/on_ac_power so that only mains power supplies are detected
+        		# Exit: 0 if on AC power, 1 if not on AC power
+        		# If there are no power supplies assume AC
+        		ret=0
+        		for ps in /sys/class/power_supply/*; do
+        			# Power supplies must have online file
+        			[ -r "$ps/online" ] || continue
+        			# Check power supply type is mains
+        			[ -r "$ps/type" ] || continue
+        			read -r ps_type < "$ps/type"
+        			[ "$ps_type" = "Mains" ] || continue
+        			# If we reach here we definitely have a AC power supply
+        			# Default return changes to not-AC
+        			ret=1
+        			read -r ps_status < "$ps/online"
+        			[ "$ps_status" -eq 1 ] && exit 0
+        		done
+        		exit "$ret"
+        	'';
 }

@@ -26,11 +26,26 @@
       enable = true;
       keyboardDeviceName = "asus::kbd_backlight";
       timeouts = {
-        dimScreen = 180;
-        dimKeyboard = 180;
-        lock = 300;
-        disableDisplay = 330;
-        hibernate = 600;
+        dimScreen = {
+          ac = 300;
+          bat = 180;
+        };
+        dimKeyboard = {
+          ac = 300;
+          bat = 180;
+        };
+        lock = {
+          ac = 300;
+          bat = 300;
+        };
+        disableDisplay = {
+          ac = 600;
+          bat = 330;
+        };
+        hibernate = {
+          ac = 1200;
+          bat = 600;
+        };
       };
     };
 

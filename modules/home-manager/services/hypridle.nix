@@ -13,14 +13,17 @@ in
     enable = lib.mkEnableOption "hypridle idle daemon";
     timeouts =
       let
-        mkTimeoutOption =
-          action:
-          lib.mkOption {
-            description = "Timeout in seconds before ${action}. Leave as null to disable.";
+        mkTimeoutOption = action: rec {
+          ac = lib.mkOption {
+            description = "Timeout in seconds before ${action} on AC power. Leave as null to disable.";
             type = lib.types.nullOr lib.types.ints.positive;
             example = 100;
             default = null;
           };
+          bat = ac // {
+            description = "Timeout in seconds before ${action} on battery power. Leave as null to disable.";
+          };
+        };
       in
       {
         dimScreen = mkTimeoutOption "dimming screen";
@@ -40,8 +43,10 @@ in
   config = {
     assertions = [
       {
-        assertion = cfg.timeouts.dimKeyboard == null || cfg.keyboardDeviceName != null;
-        message = "Cannot enable the homeConfig.hypridle.dimKeyboard timeout if homeconfig.hypridle.keyboardDeviceName is not specified";
+        assertion =
+          (cfg.timeouts.dimKeyboard.ac == null && cfg.timeouts.dimKeyboard.bat == null)
+          || cfg.keyboardDeviceName != null;
+        message = "Cannot enable the homeConfig.hypridle.dimKeyboard timeouts if homeconfig.hypridle.keyboardDeviceName is not specified";
       }
     ];
 
@@ -63,33 +68,49 @@ in
           listener =
             let
               timeouts = cfg.timeouts;
+              checkAC = lib.getExe pkgs.custom.check-ac;
+              mkTimeoutPair =
+                {
+                  timeout,
+                  on-timeout,
+                  on-resume ? null,
+                }:
+                [ ]
+                ++ (lib.optional (timeout.ac != null) {
+                  inherit on-resume;
+                  timeout = timeout.ac;
+                  on-timeout = "${checkAC} && ${on-timeout}";
+                })
+                ++ (lib.optional (timeout.bat != null) {
+                  inherit on-resume;
+                  timeout = timeout.bat;
+                  on-timeout = "${checkAC} || ${on-timeout}";
+                });
             in
-            # Only add timeouts which are not null
             [ ]
-            ++ (lib.optional (timeouts.dimScreen != null) {
+            ++ mkTimeoutPair {
               timeout = timeouts.dimScreen;
               on-timeout = "${lib.getExe pkgs.custom.dim-screen}/bin/dim-screen";
               on-resume = "${brightnessctl} -r";
-            })
-            ++ (lib.optional (timeouts.dimKeyboard != null && cfg.keyboardDeviceName != null) {
+            }
+            ++ mkTimeoutPair {
               timeout = timeouts.dimKeyboard;
               on-timeout = "${brightnessctl} -sd ${cfg.keyboardDeviceName} set 0";
               on-resume = "${brightnessctl} -rd ${cfg.keyboardDeviceName}";
-            })
-            ++ (lib.optional (timeouts.lock != null) {
+            }
+            ++ mkTimeoutPair {
               timeout = timeouts.lock;
               on-timeout = "loginctl lock-session";
-
-            })
-            ++ (lib.optional (timeouts.disableDisplay != null) {
+            }
+            ++ mkTimeoutPair {
               timeout = timeouts.disableDisplay;
               on-timeout = "${hyprctl} dispatch dpms off";
               on-resume = "${hyprctl} dispatch dpms on";
-            })
-            ++ (lib.optional (timeouts.hibernate != null) {
+            }
+            ++ mkTimeoutPair {
               timeout = timeouts.hibernate;
               on-timeout = "systemctl hibernate";
-            });
+            };
         };
       }
     );
