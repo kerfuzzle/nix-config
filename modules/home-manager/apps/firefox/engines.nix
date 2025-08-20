@@ -154,5 +154,22 @@ in
       updateInterval = weekly;
       definedAliases = [ "${prefix}wa" ];
     };
+
+    youtube = {
+      urls = [
+        {
+          template = "https://www.youtube.com/results";
+          params = [
+            {
+              name = "search_query";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://www.youtube.com/s/desktop/00d073cd/img/logos/favicon_32x32.png";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}yt" ];
+    };
   };
 }

@@ -14,6 +14,10 @@ in
     (mkExtension "ublock-origin" "uBlock0@raymondhill.net" false)
     # Skips youtube sponsor segements
     (mkExtension "sponsorblock" "sponsorBlocker@ajay.app" false)
+    # Hides youtube recommendations
+    (mkExtension "youtube-recommended-videos" "myallychou@gmail.com" false)
+    # Hides youtube shorts
+    (mkExtension "hide-youtube-shorts" "{88ebde3a-4581-4c6b-8019-2a05a9e3e938}" false)
     # Tab groups
     (mkExtension "simple-tab-groups" "simple-tab-groups@drive4ik" true)
     # Containers to seperate different accounts
