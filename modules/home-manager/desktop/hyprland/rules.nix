@@ -49,7 +49,7 @@ in
       # For some reason the title here uses a "no-break space" so use `.` to specify any single character
       "class:firefox, title:(.*)(Apple.Music)(.*)"
       "class:firefox, title:(.*)(\\.pdf)(.*)"
-      "class:zathura"
+      "class:org.pwmt.zathura"
       "class:discord"
       "class:Code"
     ];
