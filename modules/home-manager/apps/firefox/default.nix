@@ -16,6 +16,8 @@
         "browser.startup.page" = 3;
         # Disable bookmarks bar
         "browser.toolbars.bookmarks.visibility" = "never";
+        # Enable autoscrolling
+        "general.autoScroll" = true;
       };
 
       search = {
