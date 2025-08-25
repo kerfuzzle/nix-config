@@ -45,6 +45,8 @@ let
       muted = "";
       headphone = "󰋋";
       headphone-muted = "󰟎";
+      mic = " ";
+      mic-muted = " ";
     };
     idle = {
       active = "";
@@ -346,8 +348,10 @@ in
             wpctl = lib.getExe' pkgs.wireplumber "wpctl";
           in
           {
-            format = "{icon} {volume}%";
-            format-muted = "{icon} — %";
+            format = "{icon} {volume}% {format_source}";
+            format-muted = "{icon} — % {format_source}";
+            format-source = mic;
+            format-source-muted = mic-muted;
             format-icons = {
               headphone = headphone;
               headphone-muted = headphone-muted;
