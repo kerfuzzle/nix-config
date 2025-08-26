@@ -108,6 +108,9 @@
         "cafe"
         "flat"
       ];
+      eapWirelessNetworks = [
+        "ducks"
+      ];
     };
 
     batteryControl = {
