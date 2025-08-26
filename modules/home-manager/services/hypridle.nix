@@ -73,7 +73,7 @@ in
                 {
                   timeout,
                   on-timeout,
-                  on-resume ? null,
+                  on-resume ? "",
                 }:
                 [ ]
                 ++ (lib.optional (timeout.ac != null) {
@@ -90,7 +90,7 @@ in
             [ ]
             ++ mkTimeoutPair {
               timeout = timeouts.dimScreen;
-              on-timeout = "${lib.getExe pkgs.custom.dim-screen}/bin/dim-screen";
+              on-timeout = lib.getExe pkgs.custom.dim-screen;
               on-resume = "${brightnessctl} -r";
             }
             ++ mkTimeoutPair {
