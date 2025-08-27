@@ -64,9 +64,9 @@ in
           									# Trims battery name from start of output
           									# Example bat0: "Discharging, 12%, 00:58:01 remaining"
                     				IFS=: read -r _ bat0 < <(acpi -b)
-          									# Splits on " ," (Backslash escapes the space)
+          									# Splits on ", "
           									# Example val: "12%", status: "Discharging", remaining: "00:58:01 remaining"
-                    				IFS=\ , read -r status val remaining <<<"$bat0"
+                    				IFS=, read -r status val remaining <<<"$bat0"
           									# Trims % from val, double single quote escapes dollar curly in nix 
                     				val=''${val%\%}
                     				if [[ $status = Discharging ]]; then
