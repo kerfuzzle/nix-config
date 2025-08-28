@@ -7,6 +7,7 @@
 let
   hostConfig = config.hostConfig;
   mainUser = config.users.users.${hostConfig.username};
+  homeDir = "/home/${mainUser.name}";
 in
 {
   options.hostConfig.restic.enable = lib.mkEnableOption "restic";
@@ -27,7 +28,7 @@ in
       passwordFile = config.sops.secrets."restic/password".path;
 
       # Back up these home paths for the primary user
-      paths = map (p: "/home/${mainUser.name}" + p) [
+      paths = map (p: homeDir + p) [
         "/documents"
         "/downloads"
         "/media"
@@ -37,6 +38,9 @@ in
       exclude = [
         ".git"
         "node_modules"
+        ".direnv"
+        ".build"
+        "${homeDir}/media/music"
       ];
 
       # Backup at noon and midnight daily
