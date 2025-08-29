@@ -46,8 +46,9 @@ in
       ];
 
       gesture = [
-				"3, horizontal, workspace"
-			];
+        "3, horizontal, workspace"
+        "3, up, special, magic"
+      ];
 
       gestures = {
         workspace_swipe_distance = 100;
