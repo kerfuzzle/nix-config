@@ -45,8 +45,11 @@ in
         "specialWorkspace, 1, 7, default, slidevert"
       ];
 
+      gesture = [
+				"3, horizontal, workspace"
+			];
+
       gestures = {
-        workspace_swipe = true;
         workspace_swipe_distance = 100;
         workspace_swipe_create_new = true;
         workspace_swipe_min_speed_to_force = 15;

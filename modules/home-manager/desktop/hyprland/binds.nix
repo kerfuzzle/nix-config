@@ -66,8 +66,6 @@
         "${mod} SHIFT, F, fullscreen"
         # Close focused window
         "${mod}, c, killactive"
-        # Code 49 is `, toggle hyprspace overview
-        "${mod}, code:49, overview:toggle"
         # Move focus between windows
         "${mod}, Tab, cyclenext"
         # Move focus between monitors
