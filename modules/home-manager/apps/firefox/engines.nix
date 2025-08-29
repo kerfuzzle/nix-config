@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   nix-params = [
     {
@@ -34,6 +39,22 @@ in
       ];
       icon = snowflake;
       definedAliases = [ "${prefix}np" ];
+    };
+
+    "TeX nixpkgs" = {
+      urls = [
+        {
+          template = "https://search.nixos.org/packages";
+          params =
+            nix-params
+            ++ (lib.singleton {
+              name = "buckets";
+              value = ''{"package_attr_set":["texlivePackages"],"package_license_set":[],"package_maintainers_set":[],"package_teams_set":[],"package_platforms":[]}'';
+            });
+        }
+      ];
+      icon = snowflake;
+      definedAliases = [ "${prefix}tnp" ];
     };
 
     "NixOS Options" = {
