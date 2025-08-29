@@ -58,7 +58,7 @@
     media = {
       libreoffice.enable = true;
       gimp.enable = true;
-      xournal.enable = true;
+      xournal.enable = false;
     };
 
     sops.enable = true;

@@ -66,7 +66,7 @@
       };
     };
 
-    droidcam.enable = true;
+    droidcam.enable = false;
 
     iosSupport.enable = true;
 
