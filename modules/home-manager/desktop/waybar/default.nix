@@ -53,6 +53,11 @@ let
       inactive = "";
     };
 
+    systemd = {
+      userFailed = " ";
+      systemFailed = " ";
+    };
+
     formatKanji = {
       "1" = "一";
       "2" = "二";
@@ -117,6 +122,7 @@ in
           "hyprland/workspaces"
           "hyprland/window"
           "mpris"
+          "systemd-failed-units"
         ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -156,6 +162,13 @@ in
             "(.*)Discord" = "Discord";
             "(.*)org.pwmt.zathura" = "Zathura";
           };
+        };
+
+        systemd-failed-units = with icons.systemd; {
+          hide-on-ok = true;
+          format = "${userFailed} {nr_failed_user} ${systemFailed} {nr_failed_system}";
+          system = true;
+          user = true;
         };
 
         clock = {
