@@ -69,7 +69,7 @@
         # Code 49 is `, toggle hyprspace overview
         "${mod}, code:49, overview:toggle"
         # Move focus between windows
-        "${mod}, Tab, cyclenext, visible"
+        "${mod}, Tab, cyclenext"
         # Move focus between monitors
         "${mod} SHIFT, Tab, focusmonitor, +1"
         # Move window to and from special workspace

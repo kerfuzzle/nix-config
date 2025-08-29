@@ -1,7 +1,12 @@
+{ lib, ... }:
 {
   wayland.windowManager.hyprland.settings = {
     input = {
       kb_layout = "gb";
+      kb_options = lib.concatStringsSep "," [
+        "caps:escape"
+        "shift:both_capslock"
+      ];
       scroll_method = "2fg";
       natural_scroll = true;
       sensitivity = -0.1;
@@ -26,6 +31,5 @@
         natural_scroll = false;
       }
     ];
-
   };
 }
