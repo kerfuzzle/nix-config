@@ -3,6 +3,16 @@
   programs.yazi.keymap = {
     mgr.prepend_keymap = [
       {
+        on = "z";
+        run = "plugin zoxide";
+        desc = "Jump to a directory via zoxide";
+      }
+      {
+        on = "Z";
+        run = "plugin fzf";
+        desc = "Jump to a file/directory via fzf";
+      }
+      {
         on = ";";
         run = "shell --orphan ${lib.getExe config.programs.alacritty.package}";
         desc = "Open shell in current directory";
