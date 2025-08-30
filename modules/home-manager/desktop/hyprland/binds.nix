@@ -40,7 +40,7 @@
         # Calculator
         "${mod}, X, exec, ${qalculate}"
         # Power menu
-        "${mod}, L, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
+        "${mod}, Escape, exec, pidof wlogout || ${wlogout} -b 1 -L 500 -R 500"
         # File manager
         "${mod}, W, exec, ${mkTerminalLaunch yazi}"
         # Unicode character picker
@@ -51,13 +51,6 @@
         "${mod} SHIFT, A, exec, ${screenshot-swappy}"
         "${mod} SHIFT, P, exec, ${screen-record}"
         "${mod} SHIFT, C, exec, ${hyprpicker} -a -t"
-
-        # -- Audio
-        ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioPrev, exec, ${playerctl} previous"
-        ",XF86AudioNext, exec, ${playerctl} next"
-        ",XF86AudioPlay, exec, ${playerctl} play-pause"
 
         # -- Window/Workspace management
         # Float window
@@ -70,6 +63,21 @@
         "${mod}, Tab, cyclenext"
         # Move focus between monitors
         "${mod} SHIFT, Tab, focusmonitor, +1"
+        # Move focus between windows
+        "${mod}, H, movefocus, l"
+        "${mod}, J, movefocus, d"
+        "${mod}, K, movefocus, u"
+        "${mod}, L, movefocus, r"
+        # Move windows
+        "${mod} SHIFT, H, movewindow, l"
+        "${mod} SHIFT, J, movewindow, d"
+        "${mod} SHIFT, K, movewindow, u"
+        "${mod} SHIFT, L, movewindow, r"
+        # Move windows between monitors
+        "${mod} CTRL, H, movewindow, mon:l"
+        "${mod} CTRL, J, movewindow, mon:d"
+        "${mod} CTRL, K, movewindow, mon:u"
+        "${mod} CTRL, L, movewindow, mon:r"
         # Move window to and from special workspace
         "${mod}, S, togglespecialworkspace, magic"
         "${mod} SHIFT, S, movetoworkspace, special:magic"
@@ -88,6 +96,16 @@
           ]
         ) 5
       ));
+
+      # Binds that still work when locked
+      bindl = [
+        # -- Audio
+        ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioPrev, exec, ${playerctl} previous"
+        ",XF86AudioNext, exec, ${playerctl} next"
+        ",XF86AudioPlay, exec, ${playerctl} play-pause"
+      ];
 
       # Repeating binds
       binde = [

@@ -70,7 +70,8 @@
     in
     {
       # Laptop doesn't have media keys so these work as substitutes
-      bind = [
+      # bindl allows the binds to work when the session is locked
+      bindl = [
         # "Next" is PgDn
         ",Next, exec, ${playerctl} play-pause"
         ",Home, exec, ${playerctl} previous"
