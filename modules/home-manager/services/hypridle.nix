@@ -62,7 +62,7 @@ in
         settings = {
           general = {
             lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances
-            before_sleep_cmd = "${playerctl} pause; loginctl lock-session"; # Pause media then lock session
+            before_sleep_cmd = "${playerctl} -a pause; loginctl lock-session"; # Pause all media players then lock session
             after_sleep_cmd = "${hyprctl} dispatch dpms on";
           };
 
