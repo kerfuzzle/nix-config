@@ -54,6 +54,7 @@ in
       let
         brightnessctl = lib.getExe pkgs.brightnessctl;
         hyprctl = lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl";
+        playerctl = lib.getExe pkgs.playerctl;
       in
       {
         enable = true;
@@ -61,7 +62,7 @@ in
         settings = {
           general = {
             lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances
-            before_sleep_cmd = "loginctl lock-session";
+            before_sleep_cmd = "${playerctl} pause; loginctl lock-session"; # Pause media then lock session
             after_sleep_cmd = "${hyprctl} dispatch dpms on";
           };
 
