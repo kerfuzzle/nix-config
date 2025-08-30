@@ -20,8 +20,6 @@ in
       [
         # GUI file manager
         pcmanfm
-        # PDF/Document viewer
-        zathura
         # Image Preview
         swayimg
         # Video player
