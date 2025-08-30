@@ -2,8 +2,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Disable power button, I'd rather use a power menu
-  services.logind.powerKey = "ignore";
+  # Remap power button to lock session
+  services.logind.settings.Login.HandlePowerKey = "lock";
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
