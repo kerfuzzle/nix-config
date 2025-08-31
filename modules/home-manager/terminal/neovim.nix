@@ -6,7 +6,7 @@
 
   stylix.targets.nixvim.enable = false;
   programs.nixvim = {
-    enable = true;
+    enable = false;
     defaultEditor = true;
 
     colorschemes.catppuccin = {

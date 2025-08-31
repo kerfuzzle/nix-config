@@ -27,6 +27,7 @@ in
             (import ../../hosts/${hostConfig.hostname}/home.nix)
             inputs.self.outputs.homeManagerModules.default
             inputs.sops-nix.homeManagerModules.sops
+            inputs.nvf.homeManagerModules.default
           ];
         };
     };
