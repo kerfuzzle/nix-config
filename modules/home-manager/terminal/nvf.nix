@@ -1,4 +1,3 @@
-{ ... }:
 {
   stylix.targets.nvf.enable = false;
   programs.nvf = {
@@ -27,73 +26,65 @@
         providers.wl-copy.enable = true;
       };
 
-      autocomplete.blink-cmp.enable = true;
+      keymaps = [
+        {
+          key = "<c-p>";
+          mode = [
+            "n"
+            "v"
+          ];
+          action = "\"+";
+        }
+      ];
+
+      autocomplete.nvim-cmp.enable = true;
       autopairs.nvim-autopairs.enable = true;
 
       git.enable = true;
 
       telescope.enable = true;
 
-      dashboard.startify.enable = true;
+      treesitter.context.enable = true;
 
-      treesitter = {
-        enable = true;
-        context.enable = true;
-      };
-
-      statusline.lualine = {
-        enable = true;
-      };
+      statusline.lualine.enable = true;
 
       utility = {
-        ccc.enable = true;
+        diffview-nvim.enable = true;
+      };
+
+      visuals = {
+        nvim-cursorline.enable = true;
+        fidget-nvim.enable = true;
+        indent-blankline.enable = true;
       };
 
       ui = {
+        noice.enable = false;
+        borders.enable = false;
         breadcrumbs.enable = true;
-        noice.enable = true;
-      };
-
-      notify.nvim-notify = {
-        enable = true;
-        setupOpts.stages = "fade";
+        colorizer.enable = true;
+        illuminate.enable = true;
       };
 
       lsp = {
         enable = true;
-        formatOnSave = true;
+        inlayHints.enable = true;
         trouble.enable = true;
       };
 
       languages = {
         enableFormat = true;
         enableTreesitter = true;
-        ts = {
-          enable = true;
-          lsp.enable = true;
-          format.type = "biome";
-        };
+        enableExtraDiagnostics = true;
+        ts.enable = true;
         nix = {
           enable = true;
-          format = {
-            enable = true;
-            type = "nixfmt";
-          };
-          lsp = {
-            enable = true;
-            server = "nil";
-          };
+          format.type = "nixfmt";
         };
-        lua = {
-          enable = true;
-          lsp.enable = true;
-        };
+        lua.enable = true;
         html.enable = true;
         css.enable = true;
-        python = {
-          enable = true;
-          lsp.enable = true;
-        };
+        python.enable = true;
       };
     };
   };

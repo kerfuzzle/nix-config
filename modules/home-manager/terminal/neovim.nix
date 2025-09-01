@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  nixosConfig,
+  ...
+}:
 {
   imports = [
     inputs.nixvim.homeModules.nixvim
@@ -18,25 +23,24 @@
 
     opts = {
       number = true;
+      relativenumber = true;
       shiftwidth = 2;
-
       tabstop = 2;
-      expandtab = false;
-      mouse = "";
+      expandtab = true;
     };
 
-    extraPlugins = with pkgs.vimPlugins; [
-      ultisnips
-    ];
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
+
+    clipboard.providers.wl-copy.enable = true;
 
     plugins = {
       lualine.enable = true;
       startify.enable = true;
       ccc.enable = true;
-
-      vimtex = {
-        enable = true;
-      };
+      telescope.enable = true;
 
       cmp = {
         enable = true;
@@ -51,17 +55,24 @@
           ];
         };
       };
-      cmp-vimtex.enable = true;
-      cmp-nvim-lsp.enable = true;
-      cmp-nvim-lsp-signature-help.enable = true;
-      cmp-treesitter.enable = true;
 
       lsp = {
         enable = true;
         servers = {
           ts_ls.enable = true;
           eslint.enable = true;
-          nixd.enable = true;
+          nixd = {
+            enable = true;
+            settings.options =
+              let
+                inherit (nixosConfig.hostConfig) hostname;
+              in
+              {
+                nixpkgs.expr = "(builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs";
+                nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options";
+                home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options.home-manager.users.type.getSubOptions []";
+              };
+          };
         };
       };
 
