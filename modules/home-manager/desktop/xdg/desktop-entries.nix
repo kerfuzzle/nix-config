@@ -8,7 +8,7 @@
   xdg.desktopEntries =
     let
       alacritty = lib.getExe config.programs.alacritty.package;
-      mkTerminalLaunch = app: "${alacritty} -e ${app}";
+      mkTerminalLaunch = pkg: "${alacritty} -T ${lib.getName pkg} -e ${lib.getExe pkg}";
       hiddenEntry = {
         name = "";
         exec = "";
@@ -25,12 +25,12 @@
         name = "Kew";
         genericName = "Music Player";
         icon = "multimedia-audio-player";
-        exec = lib.getExe pkgs.kew |> mkTerminalLaunch;
+        exec = mkTerminalLaunch pkgs.kew;
       };
       peaclock = {
         name = "Peaclock";
         icon = "preferences-system-time";
-        exec = lib.getExe pkgs.peaclock |> mkTerminalLaunch;
+        exec = mkTerminalLaunch pkgs.peaclock;
       };
       yazi = {
         name = "Yazi";
