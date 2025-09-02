@@ -16,5 +16,7 @@
     toipe
     # PDF tools
     poppler_utils
+    # CLI clock/timer/stopwatch
+    peaclock
   ];
 }
