@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   allowedUnfreePkgs = [ "ookla-speedtest" ];
   home.packages = with pkgs; [
@@ -19,4 +19,10 @@
     # CLI clock/timer/stopwatch
     peaclock
   ];
+
+  # Basic peaclock config
+  home.file.".peaclock/config".text = ''
+    set seconds on
+    set date off
+  '';
 }

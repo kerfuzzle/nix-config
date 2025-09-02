@@ -30,11 +30,6 @@ in
           "size 30% 30%"
           "move 100%-w-20 100%-w-20"
         ];
-        # FLoat and make file select dialogues a more reasonable size
-        "title: Open Files" = floatCenterResize;
-        "title: File Upload" = floatCenterResize;
-        "title: Save As" = floatCenterResize;
-        "title: Save Image" = floatCenterResize;
         # Steam window that isn't the main window or just a dropdown menu
         "class: steam, title: negative:(Steam)|()" = [
           "float"
@@ -42,6 +37,16 @@ in
           "size: 50% 50%"
           "prop opaque"
         ];
+        # peaclock CLI clock
+        "class: Alacritty, title: peaclock" = [
+          "float"
+          "size: 520 180"
+        ];
+        # Float and make file select dialogues a more reasonable size
+        "title: Open Files" = floatCenterResize;
+        "title: File Upload" = floatCenterResize;
+        "title: Save As" = floatCenterResize;
+        "title: Save Image" = floatCenterResize;
       }
     ))
     # Disable unfocus transparency for some applications
