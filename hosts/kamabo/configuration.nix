@@ -69,7 +69,7 @@
     droidcam.enable = false;
 
     iosSupport.enable = true;
-    
+
     graphicsTablet.enable = false;
 
     # For theming in system level programs
