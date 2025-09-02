@@ -34,6 +34,7 @@ in
         "title: Open Files" = floatCenterResize;
         "title: File Upload" = floatCenterResize;
         "title: Save As" = floatCenterResize;
+        "title: Save Image" = floatCenterResize;
         # Steam window that isn't the main window or just a dropdown menu
         "class: steam, title: negative:(Steam)|()" = [
           "float"
