@@ -2,6 +2,7 @@
   stylix.targets.nvf.enable = false;
   programs.nvf = {
     enable = true;
+    defaultEditor = true;
     settings.vim = {
       options = {
         autoindent = true;
