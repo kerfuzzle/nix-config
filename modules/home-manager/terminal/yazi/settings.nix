@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   programs.yazi.settings = {
     mgr = {
@@ -35,6 +40,13 @@
             orphan = true;
           }
         ];
+        browser = [
+          {
+            run = "${lib.getExe config.programs.firefox.finalPackage} \"$@\"";
+            desc = "Open in browser";
+            orphan = true;
+          }
+        ];
       };
     open = {
       rules = [
@@ -49,12 +61,18 @@
         # Text
         {
           mime = "text/*";
-          use = [ "edit" ];
+          use = [
+            "edit"
+            "browser"
+          ];
         }
         # JSON
         {
           mime = "application/{json,ndjson}";
-          use = [ "edit" ];
+          use = [
+            "edit"
+            "browser"
+          ];
         }
         # Image
         {
@@ -62,6 +80,7 @@
           use = [
             "open"
             "imageEdit"
+            "browser"
           ];
         }
         # Media
@@ -90,7 +109,10 @@
         # Fallback
         {
           name = "*";
-          use = [ "open" ];
+          use = [
+            "open"
+            "browser"
+          ];
         }
       ];
     };
