@@ -192,5 +192,22 @@ in
       updateInterval = weekly;
       definedAliases = [ "${prefix}yt" ];
     };
+
+    protondb = {
+      urls = [
+        {
+          template = "https://www.protondb.com/search";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://unrivaled-horse-7113e3.netlify.app/sites/protondb/images/favicon-32x32.png";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}pdb" ];
+    };
   };
 }
