@@ -19,7 +19,7 @@
         ls = "${lib.getExe pkgs.eza} --icons";
         tree = "${ls} --tree";
         reb = "${lib.getExe pkgs.nh} os switch ${flake} --hostname ${hostConfig.hostname}";
-        up = "${lib.getExe pkgs.nix}/bin/nix flake update --flake ${flake}";
+        up = "${lib.getExe pkgs.nix} flake update";
         battery = "${lib.getExe pkgs.inxi} -B";
       };
   };
