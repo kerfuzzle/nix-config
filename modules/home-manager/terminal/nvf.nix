@@ -72,7 +72,7 @@
         breadcrumbs.enable = true;
         # Highlight detected colour codes in correct colour
         colorizer.enable = true;
-        # Highlight repeat uses of the same word 
+        # Highlight repeat uses of the same word
         illuminate.enable = true;
       };
 

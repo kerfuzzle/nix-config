@@ -58,5 +58,6 @@ in
       "class:org.pwmt.zathura"
       "class:discord"
       "class:Code"
+      "class:.texpresso-wrapped"
     ];
 }
