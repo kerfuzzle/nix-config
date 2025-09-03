@@ -1,3 +1,4 @@
+{ nixosConfig, ... }:
 {
   stylix.targets.nvf.enable = false;
   programs.nvf = {
@@ -38,7 +39,11 @@
         }
       ];
 
-      autocomplete.nvim-cmp.enable = true;
+      autocomplete.blink-cmp = {
+        enable = true;
+        setupOpts.completion.ghost_text.enabled = true;
+      };
+
       autopairs.nvim-autopairs.enable = true;
 
       git.enable = true;
@@ -54,16 +59,20 @@
       };
 
       visuals = {
+        # Highlights word currently under cursor
         nvim-cursorline.enable = true;
+        # Shows notifications and LSP progress in bottom right
         fidget-nvim.enable = true;
+        # Idnetation guides
         indent-blankline.enable = true;
       };
 
       ui = {
-        noice.enable = false;
-        borders.enable = false;
+        # Breadcrumbs at the top
         breadcrumbs.enable = true;
+        # Highlight detected colour codes in correct colour
         colorizer.enable = true;
+        # Highlight repeat uses of the same word 
         illuminate.enable = true;
       };
 
@@ -77,11 +86,22 @@
         enableFormat = true;
         enableTreesitter = true;
         enableExtraDiagnostics = true;
-        ts.enable = true;
         nix = {
           enable = true;
           format.type = "nixfmt";
+          lsp = {
+            server = "nixd";
+            options =
+              let
+                inherit (nixosConfig.hostConfig) hostname;
+              in
+              {
+                nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options";
+                home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options.home-manager.users.type.getSubOptions []";
+              };
+          };
         };
+        ts.enable = true;
         lua.enable = true;
         html.enable = true;
         css.enable = true;
