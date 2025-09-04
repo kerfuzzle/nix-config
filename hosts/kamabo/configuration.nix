@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -7,6 +7,9 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
+
+  # Add udev rules for numworks calculators
+  services.udev.packages = with pkgs; [ numworks-udev-rules ];
 
   # Host specific configuration options, disables/enables config within FLAKE/modules/nixos
   hostConfig = {
