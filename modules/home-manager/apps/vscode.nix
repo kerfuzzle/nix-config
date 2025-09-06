@@ -1,6 +1,13 @@
-{ pkgs, config, lib, ... }: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
   cfg = config.homeConfig.vscode;
-in {
+in
+{
   options.homeConfig.vscode.enable = lib.mkEnableOption "vscode";
 
   config = lib.mkIf cfg.enable {
