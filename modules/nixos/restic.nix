@@ -43,9 +43,9 @@ in
         "${homeDir}/media/music"
       ];
 
-      # Backup at noon and midnight daily
+      # Backup at 10:00, 12:00, 16:00, 20:00 and 00:00 daily
       timerConfig = {
-        OnCalendar = "*-*-* 00,12:00:00";
+        OnCalendar = "*-*-* 00,10,12,16,20:00:00";
         # If a backup is missed then run the backup when next powered on
         Persistent = true;
       };
