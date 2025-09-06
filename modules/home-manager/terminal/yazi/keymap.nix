@@ -1,7 +1,37 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  hostConfig,
+  ...
+}:
+let
+  inherit (hostConfig.tailscale) devices;
+  mkTaildropBind = n: v: {
+    run = "shell -- tailscale file cp \"$@\" ${v.ipv4}:";
+    desc = "Taildrop to ${n}";
+  };
+  addBindKeys =
+    i: v:
+    v
+    // {
+      on = [
+        "T"
+        (toString i)
+      ];
+    };
+  taildropBinds = devices |> lib.mapAttrsToList mkTaildropBind |> lib.imap addBindKeys;
+in
 {
   programs.yazi.keymap = {
-    mgr.prepend_keymap = [
+    mgr.prepend_keymap = taildropBinds ++ [
+      {
+        on = [
+          "T"
+          "r"
+        ];
+        run = "shell -- tailscale file get ./";
+        desc = "Recieve from taildrop";
+      }
       {
         on = "z";
         run = "plugin zoxide";

@@ -7,4 +7,8 @@
     ipv4 = "100.93.207.105";
     user = "nas";
   };
+  rockenberg = {
+    ipv4 = "100.72.76.107";
+    user = "kerfuzzle";
+  };
 }
