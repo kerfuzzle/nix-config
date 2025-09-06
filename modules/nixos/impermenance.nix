@@ -23,8 +23,6 @@ in
           # Holds state needed to generate stable uids and gids
           # for declaratively-managed users and groups
           "/var/lib/nixos"
-          # View coredumps even if they cause a reboot
-          "/var/lib/systemd/coredump"
           # Ensure that systemd knows when a timer was last triggered
           # so that persistent timers work
           "/var/lib/systemd/timers"
