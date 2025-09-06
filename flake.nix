@@ -104,11 +104,11 @@
     # base16 colour schemes
     nix-colors.url = "github:misterio77/nix-colors";
 
-    # home-manager module to configure nvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # home-manager modules to configure nvim
+    #nixvim = {
+    #  url = "github:nix-community/nixvim";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     nvf = {
       url = "github:NotAShelf/nvf";
