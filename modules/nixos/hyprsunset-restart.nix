@@ -1,26 +1,23 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   systemd.services."hyprsunset-restart" = {
-    Unit = {
-      Description = "Restart hyprsunset service on system resume";
-      After = [
-        "suspend.target"
-        "hibernate.target"
-        "hybrid-sleep.target"
-        "suspend-then-hibernate.target"
-      ];
-    };
+    after = [
+      "suspend.target"
+      "hibernate.target"
+      "hybrid-sleep.target"
+      "suspend-then-hibernate.target"
+    ];
 
-    Service =
+    requires = [ "systemd-user-sessions.service" ];
+
+    script =
       let
+        inherit (config.hostConfig) username;
         systemctl = lib.getExe' config.systemd.package "systemctl";
       in
-      {
-        Type = "oneshot";
-        ExecStart = "${systemctl} --user --no-block restart hyprsunset.service";
-        User = config.hostConfig.username;
-      };
+      "${systemctl} --user -M ${username}@ --no-block restart hyprsunset.service";
 
-    Install.WantedBy = [
+    wantedBy = [
       "sleep.target"
       "multi-user.target"
     ];
