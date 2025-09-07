@@ -7,14 +7,21 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Remap power button to lock session
-  services.logind.settings.Login.HandlePowerKey = "lock";
+  services.logind.settings.Login = {
+    # Remap power button to lock session
+    HandlePowerKey = "lock";
+    # Remap lid switch to suspend-then-hibernate
+    HandleLidSwitch = "suspend-then-hibernate";
+  };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
   # Add udev rules for numworks calculators
   services.udev.packages = with pkgs; [ numworks-udev-rules ];
+
+  # Set hibernate timer for suspend-then-hibernate
+  systemd.sleep.extraConfig = "HibernateDelaySec=30m";
 
   # Host specific configuration options, disables/enables config within FLAKE/modules/nixos
   hostConfig = {

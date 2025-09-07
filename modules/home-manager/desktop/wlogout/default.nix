@@ -10,27 +10,27 @@
         keybind = "1";
       }
       {
+        label = "suspend";
+        text = "Suspend";
+        action = "systemctl suspend-then-hibernate";
+        keybind = "2";
+      }
+      {
         label = "lock";
         text = "Lock";
         action = "loginctl lock-session";
-        keybind = "2";
+        keybind = "3";
       }
       {
         label = "shutdown";
         text = "Shutdown";
         action = "poweroff";
-        keybind = "3";
+        keybind = "4";
       }
       {
         label = "reboot";
         text = "Reboot";
         action = "poweroff --reboot";
-        keybind = "4";
-      }
-      {
-        label = "suspend";
-        text = "Suspend";
-        action = "systemctl suspend";
         keybind = "5";
       }
       {
