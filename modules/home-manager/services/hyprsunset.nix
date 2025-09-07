@@ -24,45 +24,20 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    services.hyprsunset = {
-      enable = true;
-      package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
-      settings = {
-        profile = [
-          {
-            time = cfg.sunriseTime;
-            identity = true;
-          }
-          {
-            time = cfg.sunsetTime;
-            temperature = 3000;
-          }
-        ];
-      };
-    };
-
-    systemd.user.services."hyprsunset-restart" = {
-      Unit = {
-        Description = "Restart hyprsunset service on system resume";
-        After = [
-          "suspend.target"
-          "hibernate.target"
-          "hybrid-sleep.target"
-          "suspend-then-hibernate.target"
-        ];
-      };
-
-      Service =
-        let
-          systemctl = lib.getExe' nixosConfig.systemd.package "systemctl";
-        in
+  config.services.hyprsunset = lib.mkIf cfg.enable {
+    enable = true;
+    package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
+    settings = {
+      profile = [
         {
-          Type = "oneshot";
-          ExecStart = "${systemctl} --user --no-block restart hyprsunset.service";
-        };
-
-      Install.WantedBy = [ "sleep.target" ];
+          time = cfg.sunriseTime;
+          identity = true;
+        }
+        {
+          time = cfg.sunsetTime;
+          temperature = 3000;
+        }
+      ];
     };
   };
 }
