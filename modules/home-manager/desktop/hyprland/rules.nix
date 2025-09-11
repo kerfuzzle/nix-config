@@ -19,6 +19,7 @@ in
         # Automatically resize and move Picture-in-Picture windows
         "class: firefox, title:Picture-in-Picture" = [
           "float"
+          "pin"
           "size 25% 25%"
           "move 100%-w-20 100%-w-20"
           "prop keepaspectratio"
