@@ -50,7 +50,7 @@
     };
 
     gaming = {
-      olympus.enable = false;
+      olympus.enable = true;
       minecraft.enable = false;
       heroic.enable = true;
     };
