@@ -110,10 +110,10 @@
       # Repeating binds
       binde = [
         # Brightness control, + CTRL for fine adjustment
-        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
-        "CTRL,XF86MONBrightnessDown, exec, ${brightnessctl} s 1%-"
-        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 5%+"
-        "CTRL,XF86MONBrightnessUp, exec, ${brightnessctl} s 1%+"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 5%- -n 1"
+        "CTRL,XF86MONBrightnessDown, exec, ${brightnessctl} s 1%- -n 1"
+        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 5%+ -n 1"
+        "CTRL,XF86MONBrightnessUp, exec, ${brightnessctl} s 1%+ -n 1"
         # Volume control, + CTRL for fine adjustment
         ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         "CTRL,XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%-"
