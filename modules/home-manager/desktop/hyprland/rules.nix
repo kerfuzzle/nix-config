@@ -38,6 +38,10 @@ in
           "size: 50% 50%"
           "prop opaque"
         ];
+        # Swappy colour picker
+        "class: swappy, title: negative:swappy" = [
+          "center"
+        ];
         # peaclock CLI clock
         "class: Alacritty, title: peaclock" = [
           "float"
