@@ -19,8 +19,8 @@ in
         enable = true;
         font = "${jetBrainsMono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf";
         extraConfig = ''
-          					DeviceScale=1
-          				'';
+          DeviceScale=1
+        '';
       };
 
       loader = {

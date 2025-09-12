@@ -94,17 +94,17 @@ in
           "restic-notify-${name}-failed" = baseNotifyService // {
             description = "Notify user of a failed restic backup";
             script = ''
-               notify-send --urgency=critical \
-              	"Restic Backup \"${name}\" Failed!" \
-              	"See \"journalctl -u restic-backups-${name}.service\" for more details"
+              notify-send --urgency=critical \
+              "Restic Backup \"${name}\" Failed!" \
+              "See \"journalctl -u restic-backups-${name}.service\" for more details"
             '';
           };
           "restic-notify-${name}-succeeded" = baseNotifyService // {
             description = "Notify user of a successful restic backup";
             script = ''
-              	# Get the line that begins with processed (contains stats about backup)
-                SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | sed -n "/^processed/p")
-                notify-send -t 10000 "Restic Backup \"${name}\" Succeeded!" "$SUMMARY"
+              # Get the line that begins with processed (contains stats about backup)
+              SUMMARY=$(journalctl -u restic-backups-${name}.service --invocation=0 -o cat | sed -n "/^processed/p")
+              notify-send -t 10000 "Restic Backup \"${name}\" Succeeded!" "$SUMMARY"
             '';
           };
         }) config.services.restic.backups

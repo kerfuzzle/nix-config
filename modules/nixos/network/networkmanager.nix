@@ -93,15 +93,15 @@ in
       lib.concatLists [
         # Generate lines for standard networks
         (builtins.map (network: ''
-          							${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
-          							${network}_psk="${config.sops.placeholder."networks/${network}/psk"}"
-          							'') cfg.standardWirelessNetworks)
+          ${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
+          ${network}_psk="${config.sops.placeholder."networks/${network}/psk"}"
+        '') cfg.standardWirelessNetworks)
         # Generate lines for user auth networks
         (builtins.map (network: ''
-          												${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
-          												${network}_identity="${config.sops.placeholder."networks/${network}/identity"}"
-          												${network}_password="${config.sops.placeholder."networks/${network}/password"}"
-          												'') cfg.eapWirelessNetworks)
+          ${network}_ssid="${config.sops.placeholder."networks/${network}/ssid"}"
+          ${network}_identity="${config.sops.placeholder."networks/${network}/identity"}"
+          ${network}_password="${config.sops.placeholder."networks/${network}/password"}"
+        '') cfg.eapWirelessNetworks)
       ]
     );
 
@@ -112,12 +112,12 @@ in
         environmentFiles = [ config.sops.templates.ssid-list.path ];
 
         #secrets.entries = builtins.concatLists [
-        #	(builtins.map (network: {
-        #			file = config.sops.secrets."networks/${network}/psk".path;
-        #			matchId = network;
-        #			matchSetting = "802-11-wireless-security";
-        #			key = "psk";
-        #	}) cfg.standardWirelessNetworks)
+        # (builtins.map (network: {
+        #     file = config.sops.secrets."networks/${network}/psk".path;
+        #     matchId = network;
+        #     matchSetting = "802-11-wireless-security";
+        #     key = "psk";
+        # }) cfg.standardWirelessNetworks)
         #];
 
         # Define profiles for both types of networks

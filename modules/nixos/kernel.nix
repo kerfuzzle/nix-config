@@ -16,12 +16,12 @@ in
     };
     hidAppleFnMode = lib.mkOption {
       description = ''
-        				Modifies how function keys act on Apple Keyboards
-        				0 - disabled
-        				1 - normally media keys, switchable to function keys by holding Fn key (=auto on Apple keyboards)
-        				2 - normally function keys, switchable to media keys by holding Fn key (=auto on non-Apple keyboards)
-        				3 - auto
-        			'';
+        Modifies how function keys act on Apple Keyboards
+        0 - disabled
+        1 - normally media keys, switchable to function keys by holding Fn key (=auto on Apple keyboards)
+        2 - normally function keys, switchable to media keys by holding Fn key (=auto on non-Apple keyboards)
+        3 - auto
+      '';
       default = 2;
       type = lib.types.ints.between 0 3;
     };

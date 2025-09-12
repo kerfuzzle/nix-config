@@ -236,20 +236,20 @@ in
                 gpuMonitorScript = pkgs.writeShellApplication {
                   name = "gpu-monitor";
                   text = ''
-                    													# Either suspended or active
-                    													power_status=$(cat /sys/bus/pci/devices/${bdfBusId}/power/runtime_status)
-                    													# Only run nvidia-smi if active otherwise it'll wake GPU up
-                    													if [[ $power_status = "active" ]]; then
-                    														output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
-                    														# Split at commas
-                    														IFS=', ' read -r temp power util <<< "$output"
-                    														# Single quotes escape dollar curly, prevents units from 
-                    														# being interpreted as part of the env variable name
-                    														echo "GPU ''${util}% ''${temp}°C ''${power}W"
-                    													else
-                    														# Print empty line so that module disappears
-                    														echo ""
-                    													fi
+                    # Either suspended or active
+                    power_status=$(cat /sys/bus/pci/devices/${bdfBusId}/power/runtime_status)
+                    # Only run nvidia-smi if active otherwise it'll wake GPU up
+                    if [[ $power_status = "active" ]]; then
+                      output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
+                      # Split at commas
+                      IFS=', ' read -r temp power util <<< "$output"
+                      # Single quotes escape dollar curly, prevents units from
+                      # being interpreted as part of the env variable name
+                      echo "GPU ''${util}% ''${temp}°C ''${power}W"
+                    else
+                      # Print empty line so that module disappears
+                      echo ""
+                    fi
                   '';
                 };
               in
@@ -269,13 +269,13 @@ in
                 gpuMonitorScript = pkgs.writeShellApplication {
                   name = "gpu-monitor";
                   text = ''
-                    			output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
-                    			# Split at commas
-                    			IFS=', ' read -r temp power util <<< "$output"
-                    			# Single quotes escape dollar curly, prevents units from 
-                    			# being interpreted as part of the env variable name
-                    			echo "GPU ''${util}% ''${temp}°C ''${power}W"
-                    		'';
+                    output=$(nvidia-smi --query-gpu=temperature.gpu,power.draw.average,utilization.gpu --format=csv,noheader,nounits)
+                    # Split at commas
+                    IFS=', ' read -r temp power util <<< "$output"
+                    # Single quotes escape dollar curly, prevents units from 
+                    # being interpreted as part of the env variable name
+                    echo "GPU ''${util}% ''${temp}°C ''${power}W"
+                  '';
                 };
               in
               {

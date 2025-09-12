@@ -55,8 +55,8 @@ in
           [
             # Create a package in the store containing a lib/udev/rules.d directory so it is picked up by services.udev.packages
             (pkgs.writeTextDir "lib/udev/rules.d/61-gpu-offload.rules" ''
-              	SYMLINK=="${mkPciPath igpuBdfBusId}", SYMLINK+="dri/igpu"
-              	SYMLINK=="${mkPciPath cfg.hybrid.nvidiaBdfBusId}", SYMLINK+="dri/dgpu"
+              SYMLINK=="${mkPciPath igpuBdfBusId}", SYMLINK+="dri/igpu"
+              SYMLINK=="${mkPciPath cfg.hybrid.nvidiaBdfBusId}", SYMLINK+="dri/dgpu"
             '')
           ]
         );
@@ -69,19 +69,19 @@ in
           # Use iGPU only, monitors connected to dGPU won't work
           # but dGPU will power off until a program is offloaded to it
           hyprland-igpu-wrapper = pkgs.writeShellScriptBin "hyprland-igpu" ''
-            		export AQ_DRM_DEVICES="/dev/dri/igpu"
-            		exec ${hyprland}
-            	'';
+            export AQ_DRM_DEVICES="/dev/dri/igpu"
+            exec ${hyprland}
+          '';
           # Primary renderer is iGPU, secondary is dGPU so that HDMI monitors are detected
           hyprland-hybrid-wrapper = pkgs.writeShellScriptBin "hyprland-hybrid" ''
-            		export AQ_DRM_DEVICES="/dev/dri/igpu:/dev/dri/dgpu"
-            		exec ${hyprland}
-            	'';
+            export AQ_DRM_DEVICES="/dev/dri/igpu:/dev/dri/dgpu"
+            exec ${hyprland}
+          '';
           # Primary renderer is dGPU, secondary is iGPU (Needs to be there otherwise builtin display doesn't work)
           hyprland-dgpu-wrapper = pkgs.writeShellScriptBin "hyprland-hybrid" ''
-            		export AQ_DRM_DEVICES="/dev/dri/dgpu:/dev/dri/igpu"
-            		exec ${hyprland}
-            	'';
+            export AQ_DRM_DEVICES="/dev/dri/dgpu:/dev/dri/igpu"
+            exec ${hyprland}
+          '';
           mkSessionPackage =
             {
               name,
@@ -93,11 +93,11 @@ in
             in
             # Write desktop file into share/wayland-sessions
             (pkgs.writeTextDir "share/wayland-sessions/${formattedName}.desktop" ''
-              					[Desktop Entry]
-              					Name=${name}
-              					Comment=${desc}
-              					Exec=${exec}
-              				'').overrideAttrs
+              [Desktop Entry]
+              Name=${name}
+              Comment=${desc}
+              Exec=${exec}
+            '').overrideAttrs
               (_: {
                 # Set providedSessions so that it is picked up by sessionPackages
                 passthru.providedSessions = [ formattedName ];
