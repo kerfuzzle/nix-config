@@ -366,8 +366,7 @@ in
             format-source = mic;
             format-source-muted = mic-muted;
             format-icons = {
-              headphone = headphone;
-              headphone-muted = headphone-muted;
+              inherit headphone headphone-muted;
               default = volume;
               default-muted = muted;
             };
