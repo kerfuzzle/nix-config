@@ -31,6 +31,12 @@ in
           "size 30% 30%"
           "move 100%-w-20 100%-w-20"
         ];
+        # Auto resize epsilon
+        "class: epsilon" = [
+          "float"
+          "center"
+          "prop keepaspectratio"
+        ];
         # Steam window that isn't the main window or just a dropdown menu
         "class: steam, title: negative:(Steam)|()" = [
           "float"
