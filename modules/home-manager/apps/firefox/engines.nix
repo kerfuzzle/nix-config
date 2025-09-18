@@ -57,6 +57,22 @@ in
       definedAliases = [ "${prefix}tnp" ];
     };
 
+    "nixpkgs PR" = {
+      urls = [
+        {
+          template = "https://nixpk.gs/pr-tracker.html";
+          params = [
+            {
+              name = "pr";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = snowflake;
+      definedAliases = [ "${prefix}npr" ];
+    };
+
     "NixOS Options" = {
       urls = [
         {
