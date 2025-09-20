@@ -154,6 +154,23 @@ in
       definedAliases = [ "${prefix}mdn" ];
     };
 
+    CTAN = {
+      urls = [
+        {
+          template = "https://ctan.org/search";
+          params = [
+            {
+              name = "phrase";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://ctan.org/assets/favicon/favicon-32x32-a101178bc8b3b1faaccae8b3eb747f97.png";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}ctan" ];
+    };
+
     GitHub = {
       urls = [
         {
