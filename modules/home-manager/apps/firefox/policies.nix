@@ -59,7 +59,6 @@
     DontCheckDefaultBrowser = true;
     DisableProfileImport = true;
     NoDefaultBookmarks = true;
-    ExtensionSettings = import ./extensions.nix;
 
     # Override specific preferences for all profiles
     Preferences =
