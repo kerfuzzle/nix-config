@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   allowedUnfreePkgs = [ "ookla-speedtest" ];
   home.packages = with pkgs; [
@@ -7,7 +7,7 @@
     # typescript toolkit
     bun
     # system info tool
-    fastfetch
+    microfetch
     # Provides info on GPUs
     glxinfo
     # Tool to transcode audio and video
