@@ -20,6 +20,11 @@
           user = "git";
           identityFile = config.sops.secrets."private-keys/github".path;
         };
+        "github.com-work" = {
+          user = "git";
+          hostname = "github.com";
+          identityFile = config.sops.secrets."private-keys/github_work".path;
+        };
       };
   };
 
@@ -34,6 +39,7 @@
         "kerfuzzle"
         "backup"
         "github"
+        "github_work"
       ]
   );
 }
