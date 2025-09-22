@@ -87,6 +87,7 @@
         "browser.search.suggest.enabled" = lock false;
         "browser.search.suggest.enabled.private" = lock false;
         "browser.urlbar.suggest.searches" = lock false;
+        "browser.urlbar.suggest.importantDates" = lock false;
         "browser.topsites.contile.enable" = lock false;
         # Disable AI chat features
         "browser.ml.chat.enabled" = lock false;
