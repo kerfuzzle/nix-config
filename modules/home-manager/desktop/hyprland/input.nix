@@ -4,7 +4,7 @@
     input = {
       kb_layout = "gb";
       kb_options = lib.concatStringsSep "," [
-        "caps:swapescape"
+        "caps:escape"
         "shift:both_capslock"
       ];
       scroll_method = "2fg";
