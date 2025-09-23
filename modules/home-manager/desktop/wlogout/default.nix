@@ -12,7 +12,7 @@
       {
         label = "suspend";
         text = "Suspend";
-        action = "systemctl suspend-then-hibernate";
+        action = "systemctl suspend";
         keybind = "2";
       }
       {
