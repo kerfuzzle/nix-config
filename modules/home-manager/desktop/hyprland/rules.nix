@@ -25,6 +25,9 @@ in
           "prop keepaspectratio"
           "prop opaque"
         ];
+        "class:org.pwmt.zathura" = [
+          "idleinhibit focus"
+        ];
         # Auto resize qalculate
         "class: qalculate.*" = [
           "float"
