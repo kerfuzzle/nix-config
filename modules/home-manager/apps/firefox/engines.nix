@@ -209,6 +209,23 @@ in
       definedAliases = [ "${prefix}wa" ];
     };
 
+    OEIS = {
+      urls = [
+        {
+          template = "https://oeis.org/search";
+          params = [
+            {
+              name = "q";
+              value = "{searchTerms}";
+            }
+          ];
+        }
+      ];
+      icon = "https://oeis.org/favicon.ico";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}oeis" ];
+    };
+
     youtube = {
       urls = [
         {
