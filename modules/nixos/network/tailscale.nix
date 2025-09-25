@@ -29,9 +29,7 @@
     services.tailscale = {
       enable = true;
       useRoutingFeatures = "client";
-      # Tailscale DNS always seems to cause issues so disable
       extraSetFlags = [
-        "--accept-dns=false"
         "--operator=${config.hostConfig.username}"
       ];
     };
