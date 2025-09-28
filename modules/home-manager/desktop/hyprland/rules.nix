@@ -44,7 +44,7 @@ in
         "class: steam, title: negative:(Steam)|()" = [
           "float"
           "center"
-          "size: 50% 50%"
+          "size 50% 50%"
           "prop opaque"
         ];
         # Swappy colour picker
@@ -54,7 +54,7 @@ in
         # peaclock CLI clock
         "class: Alacritty, title: peaclock" = [
           "float"
-          "size: 520 180"
+          "size 520 180"
         ];
         # Float and make file select dialogues a more reasonable size
         "title: Open Files" = floatCenterResize;
