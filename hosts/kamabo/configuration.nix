@@ -10,8 +10,8 @@
   services.logind.settings.Login = {
     # Remap power button to lock session
     HandlePowerKey = "lock";
-    # Remap lid switch to suspend
-    HandleLidSwitch = "suspend";
+    # Remap lid switch to suspend-then-hibernate
+    HandleLidSwitch = "suspend-then-hibernate";
   };
 
   # Enable bluetooth
