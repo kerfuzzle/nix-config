@@ -53,6 +53,7 @@
       olympus.enable = true;
       minecraft.enable = false;
       heroic.enable = true;
+      parsec.enable = true;
     };
 
     media = {
