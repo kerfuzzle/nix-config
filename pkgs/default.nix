@@ -37,7 +37,7 @@ pkgs: {
       region=$(slurp)
       # Send notification that with no timeout (e.g. will not disappear)
       id=$(notify-send -t 0 "Recording..." -p)
-      dateTime=$(date +%m-%d-%Y-%H:%M:%S)
+      dateTime=$(date +%d-%m-%Y-%H:%M:%S)
       outDir="$HOME/media/videos"
       mkdir -p "$outDir"
       wf-recorder -g "$region" -p r=30,crf=40 -f "$outDir/$dateTime.mp4"
