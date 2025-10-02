@@ -11,6 +11,7 @@
       default = true;
     };
     # This is used within hm but is more appropriate within the host config
+    mainMonitorLeft = lib.mkEnableOption "main monitor on the left hand side";
     monitors = lib.mkOption {
       description = "Monitors to pass into hyprland, see https://wiki.hypr.land/Configuring/Monitors/#monitor-v2";
       type = lib.types.listOf lib.types.attrs;

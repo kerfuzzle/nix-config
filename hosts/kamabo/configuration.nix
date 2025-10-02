@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.hostConfig;
+in
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -30,6 +33,7 @@
 
     hyprland = {
       enable = true;
+      mainMonitorLeft = true;
       monitors = [
         {
           # Laptop built-in display
@@ -44,8 +48,8 @@
           # External 4K display
           output = "desc:Microstep MAG274UPF CC2H974200553";
           mode = "3840x2160@144";
-          # Position to the right of the laptop display when plugged in
-          position = "1920x0";
+          # Position to the side of the laptop display when plugged in
+          position = if cfg.hyprland.mainMonitorLeft then "-${toString (3840 / 1.5)}x0" else "1920x0";
           # Increase scale so everything isn't tiny
           scale = 1.5;
         }
