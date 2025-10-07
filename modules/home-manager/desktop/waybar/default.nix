@@ -136,6 +136,7 @@ in
           "pulseaudio"
           "battery"
           "idle_inhibitor"
+          "tray"
           "network"
           "custom/wlogout"
         ];
@@ -334,6 +335,10 @@ in
             activated = active;
             deactivated = inactive;
           };
+        };
+
+        tray = {
+          icon-size = 14;
         };
 
         network = with icons.network; {
