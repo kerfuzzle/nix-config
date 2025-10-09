@@ -339,6 +339,7 @@ in
 
         tray = {
           icon-size = 14;
+          spacing = 10;
         };
 
         network = with icons.network; {
