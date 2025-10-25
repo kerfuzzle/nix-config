@@ -13,6 +13,8 @@
         adjust-open = "width";
         # Make shift-click trigger SyncTeX
         synctex-edit-modifier = "shift";
+        # Make the window title just display the filename instead of the whole path
+        window-title-basename = true;
 
         recolor-darkcolor = lib.mkForce (rgb "base05");
       };
