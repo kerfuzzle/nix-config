@@ -80,6 +80,17 @@
         enable = true;
         inlayHints.enable = true;
         trouble.enable = true;
+
+        servers = {
+          nixd.init_options =
+            let
+              inherit (nixosConfig.hostConfig) hostname;
+            in
+            {
+              nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options";
+              home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options.home-manager.users.type.getSubOptions []";
+            };
+        };
       };
 
       languages = {
@@ -89,17 +100,7 @@
         nix = {
           enable = true;
           format.type = "nixfmt";
-          lsp = {
-            server = "nixd";
-            options =
-              let
-                inherit (nixosConfig.hostConfig) hostname;
-              in
-              {
-                nixos.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options";
-                home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${hostname}.options.home-manager.users.type.getSubOptions []";
-              };
-          };
+          lsp.server = "nixd";
         };
         ts.enable = true;
         lua.enable = true;

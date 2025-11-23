@@ -10,68 +10,68 @@ in
     (convertWindowRules (
       let
         floatCenterResize = [
-          "float"
-          "center"
+          "float on"
+          "center on"
           "size 50% 50%"
         ];
       in
       {
         # Automatically resize and move Picture-in-Picture windows
-        "class: firefox, title:Picture-in-Picture" = [
-          "float"
-          "pin"
+        "match:class firefox, match:title Picture-in-Picture" = [
+          "float on"
+          "pin on"
           "size 25% 25%"
           "move 100%-w-20 100%-w-20"
-          "prop keepaspectratio"
-          "prop opaque"
+          "keep_aspect_ratio on"
+          "opaque on"
         ];
-        "class:org.pwmt.zathura" = [
-          "idleinhibit focus"
+        "match:class org.pwmt.zathura" = [
+          "idle_inhibit focus"
         ];
         # Auto resize qalculate
-        "class: qalculate.*" = [
-          "float"
+        "match:class qalculate.*" = [
+          "float on"
           "size 30% 30%"
           "move 100%-w-20 100%-w-20"
         ];
         # Auto resize epsilon
-        "class: epsilon" = [
-          "float"
-          "center"
-          "prop keepaspectratio"
+        "match:class epsilon" = [
+          "float on"
+          "center on"
+          "keep_aspect_ratio on"
         ];
         # Steam window that isn't the main window or just a dropdown menu
-        "class: steam, title: negative:(Steam)|()" = [
-          "float"
-          "center"
+        "match:class steam, match:title negative:(Steam)|()" = [
+          "float on"
+          "center on"
           "size 50% 50%"
-          "prop opaque"
+          "opaque on"
         ];
         # Swappy colour picker
-        "class: swappy, title: negative:swappy" = [
-          "center"
+        "match:class swappy, match:title negative:swappy" = [
+          "center on"
         ];
         # peaclock CLI clock
-        "class: Alacritty, title: peaclock" = [
-          "float"
+        "match:class Alacritty, match:title peaclock" = [
+          "float on"
           "size 520 180"
         ];
         # Float and make file select dialogues a more reasonable size
-        "title: Open Files" = floatCenterResize;
-        "title: File Upload" = floatCenterResize;
-        "title: Save As" = floatCenterResize;
-        "title: Save Image" = floatCenterResize;
+        "match:title Open Files" = floatCenterResize;
+        "match:title File Upload" = floatCenterResize;
+        "match:title Save As" = floatCenterResize;
+        "match:title Save Image" = floatCenterResize;
       }
     ))
     # Disable unfocus transparency for some applications
-    ++ builtins.map (e: "prop opaque, " + e) [
-      "class:firefox, title:(.*)(- YouTube)(.*)"
+    ++ builtins.map (e: "opaque on, " + e) [
+      "match:class firefox, match:title (.*)(- YouTube)(.*)"
       # For some reason the title here uses a "no-break space" so use `.` to specify any single character
-      "class:firefox, title:(.*)(Apple.Music)(.*)"
-      "class:firefox, title:(.*)(\\.pdf)(.*)"
-      "class:org.pwmt.zathura"
-      "class:discord"
-      "class:Code"
-      "class:.texpresso-wrapped"
+      "match:class firefox, match:title (.*)(Apple.Music)(.*)"
+      "match:class firefox, match:title (.*)(\\.pdf)(.*)"
+      "match:class org.pwmt.zathura"
+      "match:class discord"
+      "match:class Code"
+      "match:class .texpresso-wrapped"
     ];
 }

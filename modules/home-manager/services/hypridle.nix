@@ -58,7 +58,7 @@ in
       in
       {
         enable = true;
-        package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+        package = inputs.hypridle.packages.${pkgs.stdenv.hostPlatform.system}.hypridle;
         settings = {
           general = {
             lock_cmd = "pidof hyprlock || ${lib.getExe pkgs.hyprlock}"; # Avoids starting multiple hyprlock instances

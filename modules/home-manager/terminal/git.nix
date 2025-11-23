@@ -2,8 +2,10 @@
 {
   programs.git = {
     enable = true;
-    userName = "kerfuzzle";
-    userEmail = "58907164+kerfuzzle@users.noreply.github.com";
+    settings.user = {
+      name = "kerfuzzle";
+      email = "58907164+kerfuzzle@users.noreply.github.com";
+    };
 
     signing = lib.mkIf config.homeConfig.sops.enable {
       signByDefault = true;

@@ -26,7 +26,7 @@ in
 
   config.services.hyprsunset = lib.mkIf cfg.enable {
     enable = true;
-    package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
+    package = inputs.hyprsunset.packages.${pkgs.stdenv.hostPlatform.system}.hyprsunset;
     settings = {
       profile = [
         {

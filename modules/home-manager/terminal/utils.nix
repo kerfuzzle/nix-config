@@ -9,13 +9,13 @@
     # system info tool
     microfetch
     # Provides info on GPUs
-    glxinfo
+    mesa-demos
     # Tool to transcode audio and video
     ffmpeg
     # Typing test
     toipe
     # PDF tools
-    poppler_utils
+    poppler-utils
     # CLI clock/timer/stopwatch
     peaclock
   ];

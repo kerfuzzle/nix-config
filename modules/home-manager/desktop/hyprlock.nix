@@ -8,7 +8,7 @@
 {
   stylix.targets.hyprlock.enable = false;
   programs.hyprlock = {
-    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
     enable = true;
     settings = {
       general = {
