@@ -21,6 +21,7 @@
         reb = "${lib.getExe pkgs.nh} os switch ${flake} --hostname ${hostConfig.hostname}";
         up = "${lib.getExe pkgs.nix} flake update";
         battery = "${lib.getExe pkgs.inxi} -B";
+        backup = "systemctl start restic-backups-remote.service";
       };
   };
 }
