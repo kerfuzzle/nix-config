@@ -99,8 +99,8 @@
         enableExtraDiagnostics = true;
         nix = {
           enable = true;
-          format.type = "nixfmt";
-          lsp.server = "nixd";
+          format.type = [ "nixfmt" ];
+          lsp.servers = [ "nixd" ];
         };
         ts.enable = true;
         lua.enable = true;
