@@ -43,10 +43,12 @@
       inputs = {
         nixpkgs.follows = "hyprland/nixpkgs";
         systems.follows = "hyprland/systems";
+        aquamarine.follows = "hyprland/aquamarine";
         hyprutils.follows = "hyprland/hyprutils";
         hyprlang.follows = "hyprland/hyprlang";
         hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
         hyprgraphics.follows = "hyprland/hyprgraphics";
+        hyprwire.follows = "hyprland/hyprwire";
       };
     };
 

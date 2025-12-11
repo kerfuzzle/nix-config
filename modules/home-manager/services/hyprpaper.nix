@@ -9,7 +9,7 @@
     package = inputs.hyprpaper.packages.${pkgs.stdenv.hostPlatform.system}.hyprpaper;
     settings = {
       # Wallpaper is set by stylix
-      ipc = false;
+      # ipc = false;
       splash = false;
     };
   };

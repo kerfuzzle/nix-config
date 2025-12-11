@@ -65,7 +65,7 @@ in
       (lib.mkIf config.programs.hyprland.enable (
         let
           # --- Create wrappers for hyprland with different GPUs
-          hyprland = lib.getExe config.programs.hyprland.package;
+          hyprland = lib.getExe' config.programs.hyprland.package "start-hyprland";
           # Use iGPU only, monitors connected to dGPU won't work
           # but dGPU will power off until a program is offloaded to it
           hyprland-igpu-wrapper = pkgs.writeShellScriptBin "hyprland-igpu" ''

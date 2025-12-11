@@ -42,6 +42,7 @@ in
       powerManagement.enable = true;
       # Open source drivers are now recommened
       open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       # GUI gpu info tool
       nvidiaSettings = true;
     };
