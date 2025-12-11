@@ -1289,15 +1289,15 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1765474444,
-        "narHash": "sha256-sDG+c73xEnIw1pFNRWffKDnTWiTuyZiEP+Iub0D3mWA=",
-        "owner": "danth",
+        "lastModified": 1765495746,
+        "narHash": "sha256-gDN0UW3pmck4gjbtcsv1Xr5yDEdPcs1cWGStB/xJ/cQ=",
+        "owner": "kerfuzzle",
         "repo": "stylix",
-        "rev": "dd14de4432a94e93e10d0159f1d411487e435e1e",
+        "rev": "cb1bf6251d4840246eb9cf72b36fe90bc646491a",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
+        "owner": "kerfuzzle",
         "repo": "stylix",
         "type": "github"
       }

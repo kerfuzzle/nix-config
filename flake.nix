@@ -99,7 +99,7 @@
 
     # Automatic global theming
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:kerfuzzle/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
