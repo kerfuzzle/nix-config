@@ -5,9 +5,6 @@
   hostConfig,
   ...
 }:
-let
-  convertToLegacyMonitor = m: "${m.output},${m.mode},${m.position},${toString m.scale}";
-in
 {
   imports = lib.custom.importAll ./.;
 
@@ -26,9 +23,7 @@ in
         force_zero_scaling = true;
       };
 
-      # Config uses the monitorv2 format but the hm module doesn't work with this currently
-      # Instead convert it back to the legacy format
-      monitor = map convertToLegacyMonitor hostConfig.hyprland.monitors;
+      monitorv2 = hostConfig.hyprland.monitors;
 
       general = {
         gaps_out = 7;

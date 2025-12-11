@@ -145,7 +145,7 @@ in
           let
             hyprlandSettings = config.wayland.windowManager.hyprland.settings;
             workspacesPerMonitor = hyprlandSettings.plugin.hyprsplit.num_workspaces;
-            numMonitors = length hyprlandSettings.monitor;
+            numMonitors = length hyprlandSettings.monitorv2;
           in
           {
             format = "{icon}";

@@ -17,7 +17,7 @@
       };
       background = [
         {
-          path = "${config.homeConfig.theming.wallpaper}";
+          path = toString config.homeConfig.theming.wallpaper;
           blur_passes = 2;
           blur_size = 5;
           brightness = 0.6;
