@@ -1,4 +1,4 @@
-{ nixosConfig, ... }:
+{ nixosConfig, lib, ... }:
 {
   stylix.targets.nvf.enable = false;
   programs.nvf = {
@@ -36,6 +36,12 @@
             "v"
           ];
           action = "\"+";
+        }
+        {
+          key = "<c-l>";
+          mode = lib.singleton "n";
+          lua = true;
+          action = "function() require('conform').format({ lsp_fallback = true, async = false, timeout_ms = 500 }) end";
         }
       ];
 
