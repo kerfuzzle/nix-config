@@ -19,7 +19,7 @@
       {
         edit = [
           {
-            run = "nvim -o \"$@\"";
+            run = "${lib.getExe config.programs.nvf.settings.vim.build.finalPackage} -o \"$@\"";
             desc = "Edit with nvim";
             block = true;
             for = "unix";
