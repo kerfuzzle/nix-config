@@ -94,6 +94,8 @@
         "browser.ml.chat.shortcuts" = lock false;
         "browser.ml.chat.shortcuts.custom" = lock false;
         "browser.ml.chat.sidebar" = lock false;
+        "browser.ml.chat.menu" = lock false;
+        "browser.ml.chat.page" = lock false;
         "browser.ml.enable" = lock false;
         "extensions.ml.enabled" = lock false;
         # Disable AI tab groups
