@@ -76,6 +76,7 @@ in
 
     nvidia = {
       enable = true;
+      beta = true;
       hybrid = {
         # Use offload hybrid graphics, use `nvidia-offload COMMAND` to run on dGPU
         enable = true;

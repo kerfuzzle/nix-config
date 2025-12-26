@@ -18,6 +18,7 @@ in
 {
   options.hostConfig.nvidia = {
     enable = lib.mkEnableOption "nvidia GPU support";
+    beta = lib.mkEnableOption "nvidia beta drivers";
     hybrid = {
       enable = lib.mkEnableOption "support for hybrid graphics in laptops";
       nvidiaBdfBusId = mkBusIdOption "nvidia";
@@ -42,7 +43,12 @@ in
       powerManagement.enable = true;
       # Open source drivers are now recommened
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      # Use beta/stable branch
+      package =
+        if cfg.beta then
+          config.boot.kernelPackages.nvidiaPackages.beta
+        else
+          config.boot.kernelPackages.nvidiaPackages.stable;
       # GUI gpu info tool
       nvidiaSettings = true;
     };
