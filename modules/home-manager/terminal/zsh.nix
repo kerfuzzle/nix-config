@@ -10,6 +10,7 @@
     enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
 
     shellAliases =
       let
