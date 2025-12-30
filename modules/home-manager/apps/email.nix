@@ -20,6 +20,8 @@ in
       settings = {
         # Disable in app updates, managed by nix
         "app.update.enabled" = false;
+        # Disable donation popup
+        "app.donation.eoy.version.viewed" = 999;
         # Tracking prevention
         "privacy.globalprivacycontrol.enabled" = true;
         # Disable checking if thunderbird is default mail client
