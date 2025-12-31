@@ -36,6 +36,12 @@ in
       type = lib.types.listOf (lib.types.ints.between 0 100);
       description = "Battery percentages to send critical battery notification";
     };
+
+    hibernateThreshold = lib.mkOption {
+      default = 3;
+      type = lib.types.ints.between 0 100;
+      description = "Battery percentage to hibernate";
+    };
   };
 
   config =
@@ -60,7 +66,8 @@ in
           notify() {
             notify-send -a Battery "$@" -h "int:value:$val" "Discharging" "$val%, $remaining"
           }
-          while true; do
+
+          read-data() {
             # Trims battery name from start of output
             # Example bat0: "Discharging, 12%, 00:58:01 remaining"
             IFS=: read -r _ bat0 < <(acpi -b)
@@ -69,9 +76,22 @@ in
             IFS=, read -r status val remaining <<<"$bat0"
             # Trims % from val, double single quote escapes dollar curly in nix
             val=''${val%\%}
+          }
+
+          while true; do
+            read-data
             if [[ $status = Discharging ]]; then
               if ${mkChecks cfg.lowThresholds}; then notify
               elif ${mkChecks cfg.criticalThresholds}; then notify -u critical
+              elif ${mkChecks (lib.singleton cfg.hibernateThreshold)}; then
+                id=$(notify-send -a Battery "$@" "Battery critically low, hibernating in 30 seconds if not connected to a power supply!" -u critical -t 0 -p)
+                sleep 30s
+                read-data
+                if [[ $status = Discharging ]]; then
+                  notify-send -r "$id" -a Battery "$@" "Battery critically low, hibernating now!" -u critical -t 5000
+                  sleep 5s
+                  systemctl hibernate
+                fi
               fi
             fi
             # Update the prev_val to current val
