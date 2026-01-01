@@ -73,7 +73,7 @@ in
             IFS=: read -r _ bat0 < <(acpi -b)
             # Splits on ", "
             # Example val: "12%", status: "Discharging", remaining: "00:58:01 remaining"
-            IFS=, read -r status val remaining <<<"$bat0"
+            IFS=', ' read -r status val remaining <<<"$bat0"
             # Trims % from val, double single quote escapes dollar curly in nix
             val=''${val%\%}
           }
@@ -84,13 +84,15 @@ in
               if ${mkChecks cfg.lowThresholds}; then notify
               elif ${mkChecks cfg.criticalThresholds}; then notify -u critical
               elif ${mkChecks (lib.singleton cfg.hibernateThreshold)}; then
-                id=$(notify-send -a Battery "$@" "Battery critically low, hibernating in 30 seconds if not connected to a power supply!" -u critical -t 0 -p)
+                id=$(notify-send -a "Battery" "Battery critically low, hibernating in 30 seconds if not connected to a power supply!" -u critical -t 0 -p)
                 sleep 30s
                 read-data
                 if [[ $status = Discharging ]]; then
-                  notify-send -r "$id" -a Battery "$@" "Battery critically low, hibernating now!" -u critical -t 5000
+                  notify-send -r "$id" -a "Battery" "Battery critically low, hibernating now!" -u critical -t 5000
                   sleep 5s
                   systemctl hibernate
+                else
+                  notify-send -r "$id" -a "Battery" "Battery connected to power supply, hibernation cancelled!" -t 5000
                 fi
               fi
             fi
