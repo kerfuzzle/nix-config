@@ -74,6 +74,10 @@ in
             # Splits on ", "
             # Example val: "12%", status: "Discharging", remaining: "00:58:01 remaining"
             IFS=', ' read -r status val remaining <<<"$bat0"
+            # Cover edge case of "Not charging"
+            if [[ $val = charging ]] && [[ $status = Not ]]; then
+              val=$remaining
+            fi
             # Trims % from val, double single quote escapes dollar curly in nix
             val=''${val%\%}
           }
