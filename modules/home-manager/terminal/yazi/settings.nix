@@ -19,7 +19,7 @@
       {
         edit = [
           {
-            run = "${lib.getExe config.programs.nvf.settings.vim.build.finalPackage} -o \"$@\"";
+            run = "${lib.getExe config.programs.nvf.settings.vim.build.finalPackage} -o \"%s\"";
             desc = "Edit with nvim";
             block = true;
             for = "unix";
@@ -27,7 +27,7 @@
         ];
         open = [
           {
-            run = "${handlr} open \"$1\"";
+            run = "${handlr} open \"%s1\"";
             desc = "Open";
             orphan = true;
             for = "unix";
@@ -35,14 +35,14 @@
         ];
         imageEdit = [
           {
-            run = "${gimp} \"$@\"";
+            run = "${gimp} \"%s\"";
             desc = "Edit with GIMP";
             orphan = true;
           }
         ];
         browser = [
           {
-            run = "${lib.getExe config.programs.firefox.finalPackage} \"$@\"";
+            run = "${lib.getExe config.programs.firefox.finalPackage} \"%s\"";
             desc = "Open in browser";
             orphan = true;
           }
@@ -52,7 +52,7 @@
       rules = [
         # Folder
         {
-          name = "*/";
+          url = "*/";
           use = [
             "edit"
             "open"
@@ -90,7 +90,7 @@
         }
         # Formats that get mistaken as an archive
         {
-          name = "*.{docx,pptx,xlsx}";
+          url = "*.{docx,pptx,xlsx}";
           use = [ "open" ];
         }
         # Archives
@@ -108,7 +108,7 @@
         }
         # Fallback
         {
-          name = "*";
+          url = "*";
           use = [
             "open"
             "browser"

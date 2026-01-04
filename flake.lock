@@ -1275,11 +1275,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1765567484,
-        "narHash": "sha256-uFn7ycaEnUt/8Pk1/NUSJcg9s5EnDM9kD62U11NuVr0=",
+        "lastModified": 1767522659,
+        "narHash": "sha256-+Y+De4LupNzZ21V4ZJvoxByj6+1jOY/4KA9CTILQKxU=",
         "owner": "kerfuzzle",
         "repo": "stylix",
-        "rev": "db646dd95aa7c3723f405d40a99d4954098c0648",
+        "rev": "4b578d1f0a3d20aa4eb385436f0f6fd19fec2c3d",
         "type": "github"
       },
       "original": {
