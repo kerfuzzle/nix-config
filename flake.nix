@@ -25,7 +25,11 @@
     };
 
     # Ephemeral system roots
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     # Secure boot support
     lanzaboote = {
@@ -107,11 +111,6 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     # home-manager modules to configure nvim
-    #nixvim = {
-    #  url = "github:nix-community/nixvim";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
