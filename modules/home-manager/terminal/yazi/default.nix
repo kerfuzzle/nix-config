@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }:
 {
@@ -24,14 +23,6 @@
         restore
         ouch
         ;
-    };
-
-    theme.indicator = with config.lib.stylix.colors.withHashtag; rec {
-      current = {
-        bg = base02;
-        bold = true;
-      };
-      preview = current;
     };
   };
 }
