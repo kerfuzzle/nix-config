@@ -1,4 +1,9 @@
-{ nixosConfig, lib, ... }:
+{
+  nixosConfig,
+  lib,
+  pkgs,
+  ...
+}:
 {
   stylix.targets.nvf.enable = false;
   programs.nvf = {
@@ -80,6 +85,20 @@
         colorizer.enable = true;
         # Highlight repeat uses of the same word
         illuminate.enable = true;
+      };
+
+      lazy.plugins = {
+        "smear-cursor.nvim" = {
+          package = pkgs.vimPlugins.smear-cursor-nvim;
+          setupOpts = {
+            stiffness = 0.8;
+            trailing_stiffness = 0.6;
+            damping = 0.95;
+            distance_stop_animating = 0.5;
+            smear_to_cmd = false;
+          };
+          after = "require('smear_cursor').toggle()";
+        };
       };
 
       lsp = {
