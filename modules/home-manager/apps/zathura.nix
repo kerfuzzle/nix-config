@@ -6,7 +6,7 @@
       let
         inherit (config.lib.stylix) colors;
         getColorCh = colorName: channel: colors."${colorName}-rgb-${channel}";
-        rgb = color: ''rgb(${getColorCh color "r"}, ${getColorCh color "g"}, ${getColorCh color "b"})'';
+        rgb = color: "rgb(${getColorCh color "r"}, ${getColorCh color "g"}, ${getColorCh color "b"})";
       in
       {
         # Open document zoomed to page width

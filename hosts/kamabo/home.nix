@@ -62,6 +62,8 @@
       xournal.enable = false;
     };
 
+    yazi.roundedIndicator = false;
+
     sops.enable = true;
   };
 
