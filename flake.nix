@@ -103,7 +103,7 @@
 
     # Automatic global theming
     stylix = {
-      url = "github:kerfuzzle/stylix/personal";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
