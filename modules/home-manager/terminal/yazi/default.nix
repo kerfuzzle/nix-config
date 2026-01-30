@@ -39,11 +39,6 @@ in
       };
 
       theme = {
-        icon.globs = lib.singleton {
-          url = "*/";
-          text = "";
-          fg = config.lib.stylix.colors.withHashtag.blue;
-        };
         indicator.padding = lib.mkIf (!cfg.roundedIndicator) {
           open = "█";
           close = "█";

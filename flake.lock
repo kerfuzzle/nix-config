@@ -1140,11 +1140,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1769497624,
-        "narHash": "sha256-0jB4hSjbxu66a7kPHEfuqt1IYkCIb66ngnEmEnOvIvI=",
+        "lastModified": 1769710562,
+        "narHash": "sha256-LBeeHvClYXZL5gkL77njp5g973L7RGc0XqPzxdeuFDw=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "f66d077294acfc44ae0aa856918245fbc2e23662",
+        "rev": "cc68c4d0103ca58cfd506b29559c704573d1fc43",
         "type": "github"
       },
       "original": {
@@ -1284,15 +1284,16 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1769471853,
-        "narHash": "sha256-aqs0HkV2T/7Syf/pYLRVSwfk23PPAyGJmWT43U5ZSF4=",
-        "owner": "nix-community",
+        "lastModified": 1769712670,
+        "narHash": "sha256-Z4qcYsQvEpxK7KZDHUjkHfgym5LLb2z9/w9MxXA3OS0=",
+        "owner": "kerfuzzle",
         "repo": "stylix",
-        "rev": "805fa4262a21ada28cc918fa014359b9b35caea7",
+        "rev": "07f41f942ae752ab3b9f9071e45d30b37e4c0785",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "kerfuzzle",
+        "ref": "yazi-v26.1.22",
         "repo": "stylix",
         "type": "github"
       }
