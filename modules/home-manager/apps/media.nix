@@ -28,7 +28,7 @@ in
       # Screen recording
       ++ (lib.optional cfg.obs.enable obs-studio)
       # Office productivity suite
-      ++ (lib.optional cfg.libreoffice.enable libreoffice)
+      ++ (lib.optional cfg.libreoffice.enable libreoffice-fresh)
       # Image editor
       ++ (lib.optional cfg.gimp.enable gimp)
       # Note taking/annotation
