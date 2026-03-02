@@ -97,6 +97,12 @@
         "browser.ml.chat.menu" = lock false;
         "browser.ml.chat.page" = lock false;
         "browser.ml.enable" = lock false;
+        "browser.ai.control.default" = lock "blocked";
+        "browser.ai.control.linkPreviewKeyPoints" = lock "blocked";
+        "browser.ai.control.pdfjsAltText" = lock "blocked";
+        "browser.ai.control.sidebarChatbot" = lock "blocked";
+        "browser.ai.control.smartTabGroups" = lock "blocked";
+        "browser.ai.control.translations" = lock "blocked";
         "extensions.ml.enabled" = lock false;
         # Disable AI tab groups
         "browser.tabs.groups.smart.enabled" = lock false;
