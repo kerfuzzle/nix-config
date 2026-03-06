@@ -24,8 +24,6 @@ in
         swayimg
         # Video player
         mpv
-        # PDF Reader
-        sioyek
       ]
       # Screen recording
       ++ (lib.optional cfg.obs.enable obs-studio)
