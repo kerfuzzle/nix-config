@@ -28,6 +28,9 @@ in
         "match:class org.pwmt.zathura" = [
           "idle_inhibit focus"
         ];
+        "match:class sioyek" = [
+          "idle_inhibit focus"
+        ];
         # Auto resize qalculate
         "match:class qalculate.*" = [
           "float on"
@@ -70,6 +73,7 @@ in
       "match:class firefox, match:title (.*)(Apple.Music)(.*)"
       "match:class firefox, match:title (.*)(\\.pdf)(.*)"
       "match:class org.pwmt.zathura"
+      "match:class sioyek"
       "match:class discord"
       "match:class Code"
       "match:class .texpresso-wrapped"
