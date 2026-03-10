@@ -24,7 +24,9 @@ in
   services.udev.packages = with pkgs; [ numworks-udev-rules ];
 
   # Set hibernate timer for suspend-then-hibernate
-  systemd.sleep.extraConfig = "HibernateDelaySec=30m";
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+  };
 
   # Host specific configuration options, disables/enables config within FLAKE/modules/nixos
   hostConfig = {
@@ -76,7 +78,7 @@ in
 
     nvidia = {
       enable = true;
-      beta = false;
+      beta = true;
       hybrid = {
         # Use offload hybrid graphics, use `nvidia-offload COMMAND` to run on dGPU
         enable = true;

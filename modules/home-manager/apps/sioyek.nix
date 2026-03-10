@@ -3,7 +3,10 @@
   programs.sioyek = {
     enable = true;
     config = with config.lib.stylix.colors.withHashtag; {
-      startup_commands = "toggle_custom_color";
+      startup_commands = [
+        "toggle_custom_color"
+        "toggle_synctex"
+      ];
       background_color = base00;
       text_highlight_color = base0A;
       visual_mark_color = base02;
