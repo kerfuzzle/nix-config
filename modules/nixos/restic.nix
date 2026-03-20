@@ -67,7 +67,8 @@ in
       ];
 
       # Prevents the system from sleeping whilst backing up
-      inhibitsSleep = true;
+      # -- Seems to be broken at the moment --
+      # inhibitsSleep = true;
     };
 
     systemd.services =
