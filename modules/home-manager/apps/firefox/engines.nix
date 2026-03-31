@@ -260,5 +260,26 @@ in
       updateInterval = weekly;
       definedAliases = [ "${prefix}pdb" ];
     };
+
+    Wikitionary = {
+      urls = [
+        {
+          template = "https://en.wiktionary.org/wiki/Special:Search";
+          params = [
+            {
+              name = "search";
+              value = "{searchTerms}";
+            }
+            {
+              name = "fulltext";
+              value = "Search";
+            }
+          ];
+        }
+      ];
+      icon = "https://en.wiktionary.org/static/favicon/wiktionary/en.ico";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}dict" ];
+    };
   };
 }

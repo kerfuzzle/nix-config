@@ -41,6 +41,7 @@ in
 
       userDirs = {
         enable = true;
+        setSessionVariables = true;
         # Automatically create directories if they don't exist
         createDirectories = true;
         music = homeDir + "/media/music";

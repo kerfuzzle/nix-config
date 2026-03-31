@@ -75,6 +75,7 @@
         "privacy.globalprivacycontrol.enabled" = lock true;
         # Disable the weirdly named and annoying search engine dropdown
         "browser.urlbar.scotchBonnet.enableOverride" = lock false;
+        "browser.search.widget.new" = lock false;
         # Disable warning when visiting about:config
         "browser.aboutConfig.showWarning" = lock false;
         # Prevent the browser from closing when the last tab is closed
