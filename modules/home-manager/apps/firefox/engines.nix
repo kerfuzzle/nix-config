@@ -205,7 +205,7 @@ in
           ];
         }
       ];
-      icon = "https://www.wolframalpha.com/_next/static/images/favicon_1zbE9hjk.ico";
+      icon = "https://www.wolframalpha.com/_next/static/images/favicon_b48d893b991ff67016124a4d51822e63.ico";
       updateInterval = weekly;
       definedAliases = [ "${prefix}wa" ];
     };

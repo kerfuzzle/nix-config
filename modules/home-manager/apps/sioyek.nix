@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.sioyek = {
-    enable = true;
+    enable = false;
     config = with config.lib.stylix.colors.withHashtag; {
       startup_commands = [
         "toggle_custom_color"
