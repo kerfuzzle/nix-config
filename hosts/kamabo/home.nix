@@ -80,6 +80,5 @@
         ",Home, exec, ${playerctl} previous"
         ",End, exec, ${playerctl} next"
       ];
-      misc.vfr = true;
     };
 }
