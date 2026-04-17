@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -17,7 +18,7 @@ in
       with pkgs;
       [
         # Simple CLI music player
-        kew
+        inputs.kew.packages.${pkgs.stdenv.hostPlatform.system}.default
         # Fully featured CLI music player
         musikcube
         # Tool for interating with media players

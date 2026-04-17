@@ -956,6 +956,43 @@
         "type": "github"
       }
     },
+    "kew": {
+      "inputs": {
+        "kew-src": "kew-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776343740,
+        "narHash": "sha256-fJc1A7I1NzaMEZYp9bMZKf7fXxE8S1MDzMMsUPshtic=",
+        "owner": "ravachol",
+        "repo": "kew",
+        "rev": "3b245532ab1d47b28a6f5eb2ae148dda9bf79776",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ravachol",
+        "repo": "kew",
+        "type": "github"
+      }
+    },
+    "kew-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776343740,
+        "narHash": "sha256-fJc1A7I1NzaMEZYp9bMZKf7fXxE8S1MDzMMsUPshtic=",
+        "owner": "ravachol",
+        "repo": "kew",
+        "rev": "3b245532ab1d47b28a6f5eb2ae148dda9bf79776",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ravachol",
+        "repo": "kew",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -1211,6 +1248,7 @@
         "hyprsplit": "hyprsplit",
         "hyprsunset": "hyprsunset",
         "impermanence": "impermanence",
+        "kew": "kew",
         "lanzaboote": "lanzaboote",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_2",

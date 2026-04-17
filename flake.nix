@@ -115,6 +115,11 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    kew = {
+      url = "github:ravachol/kew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
