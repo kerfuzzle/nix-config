@@ -11,7 +11,7 @@
       stylix.enable = true;
       # Follow system colour scheme
       base16.name = hostConfig.theming.base16.name;
-      wallpaper = lib.custom.configRoot + /resources/walls/nix-frappe.png;
+      wallpaper = lib.custom.configRoot + /resources/walls/frieren.jpg;
     };
 
     batteryNotifier.enable = true;

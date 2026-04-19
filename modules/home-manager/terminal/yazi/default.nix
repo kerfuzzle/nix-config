@@ -18,33 +18,15 @@ in
     };
   };
 
-  config = {
-    home.packages = with pkgs; [
-      wl-clipboard
-      trash-cli
-      ouch
-    ];
+  config.programs.yazi = {
+    enable = true;
 
-    programs.yazi = {
-      enable = true;
+    shellWrapperName = "y";
 
-      shellWrapperName = "y";
-
-      plugins = {
-        inherit (pkgs.yaziPlugins)
-          smart-enter
-          smart-paste
-          wl-clipboard
-          restore
-          ouch
-          ;
-      };
-
-      theme = {
-        indicator.padding = lib.mkIf (!cfg.roundedIndicator) {
-          open = "█";
-          close = "█";
-        };
+    theme = {
+      indicator.padding = lib.mkIf (!cfg.roundedIndicator) {
+        open = "█";
+        close = "█";
       };
     };
   };

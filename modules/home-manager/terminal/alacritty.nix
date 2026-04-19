@@ -6,7 +6,7 @@
 {
   programs.alacritty = {
     enable = true;
-    package = pkgs.alacritty;
+    package = pkgs.alacritty-graphics;
     settings = {
       window = {
         # Override stylix default
