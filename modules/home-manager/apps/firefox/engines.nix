@@ -61,7 +61,7 @@ in
     "nixpkgs PR" = {
       urls = [
         {
-          template = "https://nixpkgs-tracker.ocfox.me";
+          template = "https://ocfox.me/nixpkgs-tracker";
           params = [
             {
               name = "pr";
