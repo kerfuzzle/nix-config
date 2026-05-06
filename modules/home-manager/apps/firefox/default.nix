@@ -6,6 +6,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = ".mozilla/firefox";
 
     profiles."${config.home.username}" = {
       # userChrome = builtins.readFile ./gwfox-chrome.css;

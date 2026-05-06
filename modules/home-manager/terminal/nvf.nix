@@ -127,7 +127,7 @@
           format.type = [ "nixfmt" ];
           lsp.servers = [ "nixd" ];
         };
-        ts.enable = true;
+        typescript.enable = true;
         lua.enable = true;
         html.enable = true;
         css.enable = true;
