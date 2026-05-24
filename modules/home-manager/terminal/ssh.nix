@@ -8,7 +8,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks =
+    settings =
       # Setup aliases for tailscale devices as well as default ssh users
       (lib.mapAttrs (name: value: {
         inherit (value) user;
