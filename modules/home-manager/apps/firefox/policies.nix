@@ -71,6 +71,11 @@
       {
         # Enable userChrome.css
         "toolkit.legacyUserProfileCustomizations.stylesheets" = lock true;
+        "svg.context-properties.content.enabled" = lock true;
+        "widget.gtk.rounded-bottom-corners.enabled" = lock true;
+        "gwfox.bms" = lock true;
+        "gwfox.newtab" = lock true;
+        "browser.tabs.allow_transparent_browser" = lock true;
         # Enable Global Privacy Control
         "privacy.globalprivacycontrol.enabled" = lock true;
         # Disable the weirdly named and annoying search engine dropdown
@@ -112,6 +117,7 @@
         # Clean up new tab page
         "browser.newtabpage.activity-stream.feeds.section.topstories" = lock false;
         "browser.newtabpage.activity-stream.feeds.snippets" = lock false;
+        "browser.newtabpage.activity-stream.nova.enabled" = lock false;
         "browser.newtabpage.activity-stream.section.highlights.includePocket" = lock false;
         "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = lock false;
         "browser.newtabpage.activity-stream.section.highlights.includeDownloads" = lock false;
