@@ -35,7 +35,7 @@ in
 
     hyprland = {
       enable = true;
-      mainMonitorLeft = true;
+      mainMonitorLeft = false;
       monitors = [
         {
           # Laptop built-in display
