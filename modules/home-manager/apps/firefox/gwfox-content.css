@@ -10,7 +10,7 @@
   --bg1: light-dark(rgba(70, 70, 70, .08), rgba(170, 170, 170, .08));
   --bg2: light-dark(rgba(70, 70, 70, .15), rgba(170, 170, 170, .15));
   --bg3: light-dark(rgba(70, 70, 70, .2), rgba(170, 170, 170, .2));
-  --bg4: light-dark(rgba(255, 255, 255, .98), rgba(25, 25, 25, .99));
+  --bg4: light-dark(rgba(255, 255, 255, 1), rgba(25, 25, 25, 1));
   --bg5: light-dark(#fafafa, #1e2022);
   --bg6: light-dark(#f5f5f5, #282a2c);
   --bg7: color-mix(in srgb, var(--bg0), transparent 75%);
@@ -44,11 +44,10 @@
   --newtab-primary-action-background: var(--color-accent-primary) !important;
   --button-text-color-primary: #fff !important;
   --border-color: rgba(105, 105, 105, .2) !important;
-  --newtab-background-color: var(--toolbox-bgcolor) !important;
   @media -moz-pref("gwfox.blur") {
   --bf2: blur(15px);
   --bf3: blur(30px);
-  --bg4: light-dark(rgba(255, 255, 255, .75), rgba(15, 15, 12, .75));
+  --bg4: light-dark(rgba(255, 255, 255, .75), rgba(25, 25, 25, .75));
   --bg5: light-dark(rgba(255, 255, 255, .75), rgba(15, 15, 15, .75));
   --bg6: light-dark(rgba(255, 255, 255, .6), rgba(15, 15, 15, .6));
   @media (-moz-mac-tahoe-theme) {
@@ -60,7 +59,7 @@
   }
   @media (-moz-platform: windows) {
   --bs1: 0 45px 65px rgba(0, 0, 0, .35), 0 0 0 1px rgba(0, 0, 0, .17);
-  --bs2: 0 45px 65px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .15);
+  --bs2: 0 45px 65px rgba(0, 0, 0, .45), 0 0 0 1px rgba(205, 205, 205, .15);
   }
   @media (-moz-platform: linux) {
   --bs1: 0 2px 15px rgba(0, 0, 0, .2), 0 0 0 1px rgba(0, 0, 0, .058);
@@ -371,7 +370,7 @@ button:not(.toggle-button) {
   background-color: var(--bg1) !important;
 }
 moz-message-bar {
-  border: none !important;  
+  border: none !important;
 }
 }
 
@@ -395,7 +394,11 @@ moz-message-bar {
   --box-border: none !important;
   --box-group-border: none !important;
   --promo-background-color: var(--bg1) !important;
+@media not -moz-pref("gwfox.atbc") {
+  --background-color-canvas: light-dark(#fff, #191919) !important;
 }
+}
+#backup-toggle-scheduled-button,
 #setting-control-verifiedManage,
 #setting-control-syncChangeOptions,
 #setting-control-dohAdvancedButton,
@@ -415,7 +418,7 @@ moz-message-bar {
   margin-top: 0 !important;
 }
 moz-message-bar {
-  border: none !important;  
+  border: none !important;
 }
 moz-box-item {
   padding-inline-start: 0 !important;
@@ -530,12 +533,6 @@ body {
 .info, .info-border, .promo-visible, .promo-dismiss {
   display: none !important;
 }
-
-@media (-moz-platform: windows) {
-.search-handoff-button {
-  background-color: #2c2c2c !important;
-}
-}
 }
 
 @-moz-document url-prefix("about:newtab"), url-prefix("about:home") {
@@ -545,6 +542,10 @@ body {
 @media (prefers-color-scheme: dark) {
   background-image: var(--newtab-wallpaper, ""), repeating-linear-gradient(-45deg, var(--newtab-wallpaper-color, "") 0 250px, #191919 0 500px) !important;
 }
+}
+
+button {
+  font-weight: normal !important;
 }
 
 *[style*="18c7861f-0c9d-48d4-a98c-fb8999e331bd.avif"] {
@@ -850,6 +851,49 @@ body {
 .category-header, .category-list, ~ * {
   display: none !important;
 }
+}
+}
+
+.category-header {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+> .wallpapers-reset {
+  font-size: 0 !important;
+  width: 32px !important; 
+  height: 16px !important;
+  background: light-dark(rgba(0, 0, 0, .08), rgba(255, 255, 255, .08)) !important;
+  border-radius: 12px !important;
+  position: relative !important;
+  outline: 1px solid light-dark(rgba(0, 0, 0, .18), rgba(255, 255, 255, .18)) !important;
+  outline-offset: -1px !important;
+  cursor: auto !important;
+  order: -1;
+&::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: light-dark(rgba(0, 0, 0, .18), rgba(255, 255, 255, .18));
+  border-radius: 50%;
+}
+:root:has(body[style*="background"]) & {
+  background: var(--color-accent-primary) !important;
+  outline: none !important;
+&:hover { background: var(--color-accent-primary-hover) !important; }
+&:active { background: var(--color-accent-primary-active) !important; }
+&::before {
+  transform: translateX(16px);
+  background: white;
+}
+}
+}
+> [data-l10n-id="newtab-wallpaper-title"] {
+  order: -1;
+  margin-inline-start: 7.5px;
 }
 }
 

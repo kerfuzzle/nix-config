@@ -8,7 +8,7 @@
     user = "nas";
   };
   rockenberg = {
-    ipv4 = "100.72.76.107";
+    ipv4 = "100.73.59.52";
     user = "kerfuzzle";
   };
 }

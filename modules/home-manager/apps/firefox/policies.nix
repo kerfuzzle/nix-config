@@ -73,9 +73,6 @@
         "toolkit.legacyUserProfileCustomizations.stylesheets" = lock true;
         "svg.context-properties.content.enabled" = lock true;
         "widget.gtk.rounded-bottom-corners.enabled" = lock true;
-        "gwfox.bms" = lock true;
-        "gwfox.newtab" = lock true;
-        "browser.tabs.allow_transparent_browser" = lock true;
         # Enable Global Privacy Control
         "privacy.globalprivacycontrol.enabled" = lock true;
         # Disable the weirdly named and annoying search engine dropdown
