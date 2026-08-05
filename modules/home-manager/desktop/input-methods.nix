@@ -30,7 +30,7 @@
             ShareInputState = "No";
             ShowInputMethodInfomation = true;
             # Lowercase attirubute name is intentional below
-            showInputMethodInformationWhenFocusIn = true;
+            showInputMethodInformationWhenFocusIn = false;
             CompactInputMethodInformation = false;
             ShowPreeditForPassword = false;
           };
