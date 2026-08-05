@@ -29,7 +29,7 @@
           Behavior = {
             ShareInputState = "No";
             ShowInputMethodInfomation = true;
-            # Lowercase attirubute name is intentional below
+            # Lowercase atttribute name is intentional below
             showInputMethodInformationWhenFocusIn = false;
             CompactInputMethodInformation = false;
             ShowPreeditForPassword = false;
