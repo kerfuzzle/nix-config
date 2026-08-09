@@ -28,5 +28,7 @@ in
     (mkExtension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}" false)
     # Summary of important terms in a ToS
     (mkExtension "terms-of-service-didnt-read" "jid0-3GUEt1r69sQNSrca5p8kx9Ezc3U@jetpack" false)
+    # Yomitan dictionary pop-up
+    (mkExtension "yomitan" "{6b733b82-9261-47ee-a595-2dda294a4d08}" false)
   ];
 }

@@ -281,5 +281,14 @@ in
       updateInterval = weekly;
       definedAliases = [ "${prefix}dict" ];
     };
+
+    jisho = {
+      urls = lib.singleton {
+        template = "https://jisho.org/search/{searchTerms}";
+      };
+      icon = "https://assets.jisho.org/assets/favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico";
+      updateInterval = weekly;
+      definedAliases = [ "${prefix}ji" ];
+    };
   };
 }
