@@ -5,6 +5,7 @@
   ...
 }:
 {
+  # Desktop entries found in ~/.nix-profile/share/applications
   xdg.desktopEntries =
     let
       alacritty = lib.getExe config.programs.alacritty.package;
@@ -18,6 +19,8 @@
         "pcmanfm-desktop-pref"
         "kvantummanager"
         "nixos-manual"
+        "org.fcitx.fcitx5-migrator"
+        "kbd-layout-viewer5"
       ];
     in
     {
