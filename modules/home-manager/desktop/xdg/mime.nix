@@ -22,7 +22,11 @@
       let
         # Converts into attrset with mime types as keys and applications as values, see https://github.com/spikespaz/dotfiles/blob/e157a2e30296c59e4d8078e0dcca02595569ae1e/users/jacob/mimeApps.nix
         invertAssociations =
-          assoc: assoc |> (lib.mapAttrsToList mapMimeListToXDGAttrs) |> lib.flatten |> lib.zipAttrs;
+          assoc:
+          assoc
+          |> (lib.mapAttrsToList mapMimeListToXDGAttrs)
+          |> lib.flatten
+          |> lib.zipAttrs;
         mapMimeListToXDGAttrs =
           name:
           map (mime: {

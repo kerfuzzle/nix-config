@@ -22,7 +22,12 @@
         type == "directory"
         || (type == "regular" && name != "default.nix" && strings.hasSuffix ".nix" name);
     in
-    dir: dir |> builtins.readDir |> filterAttrs isValidImport |> attrNames |> map (n: dir + "/${n}");
+    dir:
+    dir
+    |> builtins.readDir
+    |> filterAttrs isValidImport
+    |> attrNames
+    |> map (n: dir + "/${n}");
 
   # Split a string at multiple delimiters, discarding the delimiters
   splitStringByDelimiters =
