@@ -102,6 +102,12 @@ let
         "magic" = "*";
       };
   };
+
+  windowRewrite = {
+    "(.*)Mozilla Firefox" = "Firefox";
+    "(.*)Discord" = "Discord";
+    "(.*)org.pwmt.zathura" = "Zathura";
+  };
 in
 {
   stylix.targets.waybar.enable = false;
@@ -120,7 +126,9 @@ in
         position = "top";
         modules-left = [
           "hyprland/workspaces"
+          "niri/workspaces"
           "hyprland/window"
+          "niri/window"
           "mpris"
           "systemd-failed-units"
         ];
@@ -157,13 +165,8 @@ in
             format-icons = icons.mkFormatDenary numMonitors workspacesPerMonitor;
           };
 
-        "hyprland/window" = {
-          rewrite = {
-            "(.*)Mozilla Firefox" = "Firefox";
-            "(.*)Discord" = "Discord";
-            "(.*)org.pwmt.zathura" = "Zathura";
-          };
-        };
+        "hyprland/window".rewrite = windowRewrite;
+        "niri/window".rewrite = windowRewrite;
 
         systemd-failed-units = with icons.systemd; {
           hide-on-ok = true;

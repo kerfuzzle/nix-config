@@ -35,8 +35,8 @@
       }
       {
         label = "hyprland-exit";
-        text = "Exit Hyprland";
-        action = "hyprctl dispatch exit";
+        text = "Exit";
+        action = "niri msg action quit -s";
         keybind = "6";
       }
     ];
