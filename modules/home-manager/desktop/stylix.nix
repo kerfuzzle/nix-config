@@ -45,6 +45,7 @@ in
       enable = true;
       image = cfg.wallpaper;
       base16Scheme = cfg.base16.palette;
+      polarity = "dark";
       icons = {
         enable = true;
         package = pkgs.colloid-icon-theme.override {

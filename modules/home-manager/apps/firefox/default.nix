@@ -9,8 +9,8 @@
     configPath = ".mozilla/firefox";
 
     profiles."${config.home.username}" = {
-      userChrome = builtins.readFile ./gwfox-chrome.css;
-      userContent = builtins.readFile ./gwfox-content.css;
+      userChrome = builtins.readFile ./FoxOne-chrome.css;
+      userContent = builtins.readFile ./FoxOne-content.css;
 
       settings = {
         # See policies.nix for system wide settings
