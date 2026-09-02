@@ -63,7 +63,10 @@
 
       treesitter.context.enable = true;
 
-      statusline.lualine.enable = true;
+      statusline.lualine = {
+        enable = true;
+        integrations.breadcrumbs.nvim-navic.enable = true;
+      };
 
       utility = {
         diffview-nvim.enable = true;
@@ -79,8 +82,6 @@
       };
 
       ui = {
-        # Breadcrumbs at the top
-        breadcrumbs.enable = true;
         # Highlight detected colour codes in correct colour
         colorizer.enable = true;
         # Highlight repeat uses of the same word
