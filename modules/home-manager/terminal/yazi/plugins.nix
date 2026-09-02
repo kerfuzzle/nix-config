@@ -45,11 +45,6 @@
       rec {
         prepend_preloaders = builtins.map mkMimeMediainfo [
           "{audio,video,image}/*"
-          "application/subrip"
-          "application/postscript"
-          "application/illustrator"
-          "application/dvb.ait"
-          "application/vnd.adobe.illustrator"
           "image/x-eps"
           "application/eps"
           "*.{ai,eps,ait}"

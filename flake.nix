@@ -95,12 +95,6 @@
       };
     };
 
-    # Hyprland Plugins
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
-
     # Automatic global theming
     stylix = {
       url = "github:nix-community/stylix";
