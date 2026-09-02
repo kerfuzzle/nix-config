@@ -1,5 +1,5 @@
 { pkgs, ... }:
 {
-  allowedUnfreePkgs = [ "discord-canary" ];
+  allowedUnfreePkgs = [ "discord-canary" "discord-canary-unwrapped" ];
   home.packages = [ pkgs.discord-canary ];
 }
