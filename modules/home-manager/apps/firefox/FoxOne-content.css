@@ -91,11 +91,12 @@
     :root {
       /* FoxOne palette (userContent has no shared config with userChrome;
          keep in sync with the CONFIG block there) */
-      --uc-color-base:    #282828;
-      --uc-color-surface: #3c3836;
-      --uc-color-accent:  #fabd2f;
-      --uc-color-text:    #FFFFFF;
-      --uc-color-hover:   #7c6f64;
+      /* Color palette — change these five values to retheme FoxOne */
+      --uc-color-base:    #292c3c;   /* main background (toolbar, frame) */
+      --uc-color-surface: #303446;   /* secondary tone (borders, separators, focused URL field) */
+      --uc-color-accent:  #8caaee;   /* accent color (active tab, focus ring) */
+      --uc-color-text:    #FFFFFF;   /* primary text */
+      --uc-color-hover:   #7c6f64;   /* hover / highlight backgrounds */
 
       /* Page backgrounds */
       --in-content-page-background: var(--uc-color-base) !important;
