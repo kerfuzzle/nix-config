@@ -37,12 +37,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Scrolling window manager
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # -- Hypr Ecosystem
     # Doesn't follow nixpkgs to avoid caching issues
     hyprland.url = "github:hyprwm/Hyprland";
@@ -162,7 +156,6 @@
             inputs.home-manager.nixosModules.default
             inputs.stylix.nixosModules.stylix
             inputs.sops-nix.nixosModules.sops
-            inputs.niri-flake.nixosModules.niri
           ];
         };
         tentatek = nixpkgs.lib.nixosSystem {

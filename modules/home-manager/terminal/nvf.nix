@@ -132,6 +132,7 @@
         html.enable = true;
         css.enable = true;
         python.enable = true;
+        julia.enable = true;
       };
     };
   };

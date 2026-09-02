@@ -24,6 +24,8 @@ in
         swayimg
         # Video player
         mpv
+        # Video compressor
+        constrict
       ]
       # Screen recording
       ++ (lib.optional cfg.obs.enable obs-studio)

@@ -1,6 +1,6 @@
 { lib, ... }: {
-  programs.niri.settings.input = {
-    focus-follows-mouse.enable = true;
+  wayland.windowManager.niri.settings.input = {
+    focus-follows-mouse = { };
 
     keyboard.xkb = {
       layout = "gb";
@@ -12,13 +12,13 @@
 
     touchpad = {
       # Make touchpad taps act as clicks
-      tap = true;
+      tap = { };
       # Use two fingers for scrolling
       scroll-method = "two-finger";
       # Use number of fingers to determine press type instead of location
       click-method = "clickfinger";
       # Make scrolling move view instead of content
-      natural-scroll = false;
+      # natural-scroll = false;
 
       scroll-factor = 0.9;
     };

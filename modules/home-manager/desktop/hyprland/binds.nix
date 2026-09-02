@@ -82,7 +82,7 @@
         "${mod}, S, togglespecialworkspace, magic"
         "${mod} SHIFT, S, movetoworkspace, special:magic"
         # Bind to move windows from unplugged monitors onto current monitor
-        "${mod} SHIFT, G, split:grabroguewindows"
+        # "${mod} SHIFT, G, split:grabroguewindows"
       ] # Adding binds to switch/move windows between workspaces
       ++ (builtins.concatLists (
         builtins.genList (
@@ -91,8 +91,8 @@
             ws = toString (x + 1);
           in
           [
-            "${mod}, ${ws}, split:workspace, ${toString ws}"
-            "${mod} SHIFT, ${ws}, split:movetoworkspace, ${toString ws}"
+            "${mod}, ${ws}, workspace, ${toString ws}"
+            "${mod} SHIFT, ${ws}, movetoworkspace, ${toString ws}"
           ]
         ) 5
       ));
