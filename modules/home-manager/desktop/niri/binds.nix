@@ -42,6 +42,8 @@
         "Mod+W".spawn-sh = mkTerminalLaunch yazi;
         # Unicode picker
         "Mod+U".spawn-sh = "${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}";
+        # Toggle Overview
+        "Mod+grave".toggle-overview = { };
 
         # -- Screenshots and screen recording
         "Mod+A".spawn = screenshot-copy;
@@ -50,12 +52,14 @@
         "Mod+Shift+C".spawn-sh = "${hyprpicker} -a -t";
 
         # -- Window/Workspace management
-        # Float window
-        "Mod+F".toggle-window-floating = { };
-        # Fullscreen
+        "Mod+F".maximize-column = { };
         "Mod+Shift+F".fullscreen-window = { };
-        # Close focused window
+        "Mod+V".toggle-window-floating = { };
         "Mod+C".close-window = { };
+
+        "Mod+0".expand-column-to-available-width = { };
+        "Mod+BracketLeft".consume-or-expel-window-left = { };
+        "Mod+BracketRight".consume-or-expel-window-right = { };
       }
       // (lib.mergeAttrsList (
         builtins.genList (
@@ -76,6 +80,11 @@
         XF86AudioPrev.spawn-sh = "${playerctl} previous";
         XF86AudioNext.spawn-sh = "${playerctl} next";
         XF86AudioPlay.spawn-sh = "${playerctl} play-pause";
+
+        # Laptop doesn't have media keys so these work as substitutes
+        Home.spawn-sh = "${playerctl} previous";
+        End.spawn-sh = "${playerctl} next";
+        Next.spawn-sh = "${playerctl} play-pause";
       })
     )
     // {
@@ -89,5 +98,25 @@
       "Ctrl+XF86AudioLowerVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%-";
       XF86AudioRaiseVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
       "Ctrl+XF86AudioRaiseVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%+";
+
+      "Mod+H".focus-column-left-or-last = { };
+      "Mod+L".focus-column-right-or-first = { };
+      "Mod+J".focus-window-or-workspace-down = { };
+      "Mod+K".focus-window-or-workspace-up = { };
+      "Mod+Shift+H".move-column-left-or-to-monitor-left = { };
+      "Mod+Shift+L".move-column-right-or-to-monitor-right = { };
+      "Mod+Shift+J".move-window-down-or-to-workspace-down = { };
+      "Mod+Shift+K".move-window-up-or-to-workspace-up = { };
+
+      "Mod+M".focus-monitor-next = { };
+      "Mod+Shift+M".move-column-to-monitor-next = { };
+
+      "Mod+Minus".set-column-width = "-10%";
+      "Mod+Equal".set-column-width = "+10%";
+      "Mod+Shift+Minus".set-window-height = "-10%";
+      "Mod+Shift+Equal".set-window-height = "+10%";
+
+      "Mod+WheelScrollDown".focus-workspace-down = { };
+      "Mod+WheelScrollUp".focus-workspace-up = { };
     };
 }

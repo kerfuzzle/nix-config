@@ -121,7 +121,7 @@
     let
       inherit (self) outputs;
       lib = nixpkgs.lib.extend (
-        self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; } // inputs.home-manager.lib
+        _: _: { custom = import ./lib { inherit (nixpkgs) lib; }; } // inputs.home-manager.lib
       );
     in
     {
@@ -139,7 +139,7 @@
             inputs.disko.nixosModules.default
             (import ./hosts/kamabo/disko.nix {
               device = "/dev/nvme0n1";
-              lib = nixpkgs.lib;
+              inherit (nixpkgs) lib;
             })
 
             ./hosts/kamabo/configuration.nix

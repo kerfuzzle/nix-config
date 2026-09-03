@@ -115,12 +115,12 @@
   --uc-autohide-nav-buttons: 0;
 
   /* Navigation buttons — remove back/forward/reload for mouse button and shortcut users (1 = hide, 0 = show) */
-  --uc-hide-nav-buttons: 0;
+  --uc-hide-nav-buttons: 1;
 
   /* URL-bar clutter icons — fully hide shield (tracking protection), reader
    * mode, translations, bookmark star and add-to-taskbar so they can't be
    * misclicked when aiming for the URL bar (1 = hide all, 0 = default reveal) */
-  --uc-hide-urlbar-buttons: 0;
+  --uc-hide-urlbar-buttons: 1;
 
   /* Pinned toolbar extension icons — hide and reveal on hamburger hover, to
    * keep the one-line layout clean (1 = hide + hover-reveal, 0 = always show) */

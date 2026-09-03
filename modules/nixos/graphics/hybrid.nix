@@ -82,6 +82,11 @@ in
             export AQ_DRM_DEVICES="/dev/dri/dgpu:/dev/dri/igpu"
             exec ${hyprland}
           '';
+
+          niri-igpu-wrapper = pkgs.writeShellScriptBin "niri-igpu" ''
+            exec niri-session
+          '';
+
           mkSessionPackage =
             {
               name,

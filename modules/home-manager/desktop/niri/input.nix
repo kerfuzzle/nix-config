@@ -1,6 +1,6 @@
 { lib, ... }: {
   wayland.windowManager.niri.settings.input = {
-    focus-follows-mouse = { };
+    # focus-follows-mouse = { };
 
     keyboard.xkb = {
       layout = "gb";
@@ -17,8 +17,6 @@
       scroll-method = "two-finger";
       # Use number of fingers to determine press type instead of location
       click-method = "clickfinger";
-      # Make scrolling move view instead of content
-      # natural-scroll = false;
 
       scroll-factor = 0.9;
     };

@@ -164,6 +164,7 @@ in
             };
             format-icons = icons.mkFormatDenary numMonitors workspacesPerMonitor;
           };
+        "niri/workspaces".hide-empty = true;
 
         "hyprland/window".rewrite = windowRewrite;
         "niri/window".rewrite = windowRewrite;
@@ -261,7 +262,7 @@ in
                 exec = lib.getExe gpuMonitorScript;
                 # Run every 30s, has to be long enough to prevent the nvidia-smi
                 # calls from keeping the GPU on
-                interval = 30;
+                interval = 60;
                 # Hide module if output is empty
                 hide-empty-text = true;
                 tooltip = false;
