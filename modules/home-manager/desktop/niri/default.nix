@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   hostConfig,
   ...
 }:
@@ -10,31 +9,23 @@
   wayland.windowManager.niri = {
     enable = true;
     settings = {
-      debug.ignore-drm-device = "/dev/dri/dgpu";
-      prefer-no-csd = true;
+      hotkey-overlay.skip-at-startup = true;
+
       cursor = {
         xcursor-size = 24;
         hide-when-typing = { };
         hide-after-inactive-ms = 3000;
       };
-      hotkey-overlay.skip-at-startup = true;
+
+      blur.offset = 2;
+      prefer-no-csd = true;
 
       _children = [
         {
-          window-rule._children = lib.singleton {
-            geometry-corner-radius = 5.;
-            clip-to-geometry = true;
+          include = {
+            _args = lib.singleton "/tmp/gpu.kdl";
+            _props.optional = true;
           };
-        }
-        {
-          window-rule._children = [
-            {
-              match._props = {
-                is-focused = false;
-              };
-            }
-            { opacity = 0.8; }
-          ];
         }
         {
           output = {
@@ -65,21 +56,6 @@
             };
         }
       ];
-
-      layout = with config.lib.stylix.colors.withHashtag; {
-        border = {
-          active-color = base0D;
-          width = 2;
-        };
-        focus-ring.off = { };
-        gaps = 5;
-        struts = {
-          left = 4;
-          right = 4;
-          top = 4;
-          bottom = 4;
-        };
-      };
     };
   };
 }

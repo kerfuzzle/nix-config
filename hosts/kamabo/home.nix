@@ -14,7 +14,10 @@
       wallpaper = lib.custom.configRoot + /resources/walls/frieren.jpg;
     };
 
-    batteryNotifier.enable = true;
+    batteryNotifier = {
+      hibernateThreshold = 7;
+      enable = true;
+    };
 
     hyprsunset = {
       enable = true;

@@ -6,6 +6,26 @@
 }:
 let
   cfg = config.hostConfig.nvidia;
+  mkSessionPackage =
+    {
+      name,
+      desc,
+      exec,
+    }:
+    let
+      formattedName = lib.replaceStrings [ " " ] [ "-" ] name;
+    in
+    # Write desktop file into share/wayland-sessions
+    (pkgs.writeTextDir "share/wayland-sessions/${formattedName}.desktop" ''
+      [Desktop Entry]
+      Name=${name}
+      Comment=${desc}
+      Exec=${exec}
+    '').overrideAttrs
+      (_: {
+        # Set providedSessions so that it is picked up by sessionPackages
+        passthru.providedSessions = [ formattedName ];
+      });
 in
 {
   config = lib.mkIf (cfg.enable && cfg.hybrid.enable) (
@@ -62,6 +82,63 @@ in
         );
       }
       # Only add hyprland wayland session entries if hyprland is enabled
+      (lib.mkIf config.programs.niri.enable (
+        let
+          # --- Create wrappers for niri with different GPUs
+          niri-session = lib.getExe' config.programs.niri.package "niri-session";
+
+          niri-igpu-wrapper = pkgs.writeShellScriptBin "niri-igpu" ''
+            echo "
+              debug {
+                ignore-drm-device \"/dev/dri/dgpu\"
+                render-drm-device \"/dev/dri/igpu\"
+              }
+            " > /tmp/gpu.kdl
+            exec ${niri-session}
+          '';
+
+          niri-hybrid-wrapper = pkgs.writeShellScriptBin "niri-hybrid" ''
+            rm /tmp/gpu.kdl
+            exec ${niri-session}
+          '';
+
+          niri-dgpu-wrapper = pkgs.writeShellScriptBin "niri-dgpu" ''
+            echo "
+              debug {
+                render-drm-device \"/dev/dri/dgpu\"
+              }
+            " > /tmp/gpu.kdl
+            exec ${niri-session}
+          '';
+
+        in
+        {
+          # Add wrappers to path incase they need to be launched from a shell
+          environment.systemPackages = [
+            niri-igpu-wrapper
+            niri-hybrid-wrapper
+            niri-dgpu-wrapper
+          ];
+
+          services.displayManager.sessionPackages = [
+            (mkSessionPackage {
+              name = "Niri iGPU";
+              desc = "Launch Niri with iGPU as primary renderer";
+              exec = lib.getExe niri-igpu-wrapper;
+            })
+            (mkSessionPackage {
+              name = "Niri Hybrid";
+              desc = "Launch Niri with both iGPU and dGPU";
+              exec = lib.getExe niri-hybrid-wrapper;
+            })
+            (mkSessionPackage {
+              name = "Niri dGPU";
+              desc = "Launch Niri with dGPU as primary renderer";
+              exec = lib.getExe niri-dgpu-wrapper;
+            })
+          ];
+        }
+      ))
       (lib.mkIf config.programs.hyprland.enable (
         let
           # --- Create wrappers for hyprland with different GPUs
@@ -78,35 +155,10 @@ in
             exec ${hyprland}
           '';
           # Primary renderer is dGPU, secondary is iGPU (Needs to be there otherwise builtin display doesn't work)
-          hyprland-dgpu-wrapper = pkgs.writeShellScriptBin "hyprland-hybrid" ''
+          hyprland-dgpu-wrapper = pkgs.writeShellScriptBin "hyprland-dgpu" ''
             export AQ_DRM_DEVICES="/dev/dri/dgpu:/dev/dri/igpu"
             exec ${hyprland}
           '';
-
-          niri-igpu-wrapper = pkgs.writeShellScriptBin "niri-igpu" ''
-            exec niri-session
-          '';
-
-          mkSessionPackage =
-            {
-              name,
-              desc,
-              exec,
-            }:
-            let
-              formattedName = lib.replaceStrings [ " " ] [ "-" ] name;
-            in
-            # Write desktop file into share/wayland-sessions
-            (pkgs.writeTextDir "share/wayland-sessions/${formattedName}.desktop" ''
-              [Desktop Entry]
-              Name=${name}
-              Comment=${desc}
-              Exec=${exec}
-            '').overrideAttrs
-              (_: {
-                # Set providedSessions so that it is picked up by sessionPackages
-                passthru.providedSessions = [ formattedName ];
-              });
         in
         {
           # Add wrappers to path incase they need to be launched from a shell
@@ -123,7 +175,7 @@ in
               exec = lib.getExe hyprland-igpu-wrapper;
             })
             (mkSessionPackage {
-              name = "Hyprland Multi GPU";
+              name = "Hyprland Hybrid";
               desc = "Launch hyprland with both iGPU and dGPU";
               exec = lib.getExe hyprland-hybrid-wrapper;
             })

@@ -1,0 +1,108 @@
+{ lib, ... }:
+let
+  mkSimple = prop: regex: { ${prop} = regex; };
+  mkWindowRule =
+    {
+      match ? [ ],
+      exclude ? [ ],
+      properties,
+    }:
+    {
+      window-rule._children =
+        (map (rule: {
+          match._props = rule;
+        }) match)
+        ++ (map (rule: {
+          exclude._props = rule;
+        }) exclude)
+        ++ lib.singleton properties;
+    };
+in
+{
+  wayland.windowManager.niri.settings._children = [
+    (mkWindowRule {
+      properties = {
+        # Applies to all windows
+        geometry-corner-radius = 5.;
+        clip-to-geometry = true;
+        draw-border-with-background = false;
+        background-effect.blur = true;
+      };
+    })
+    (mkWindowRule {
+      match = lib.singleton { is-focused = false; };
+      exclude = [
+        (mkSimple "app-id" "org\\.pwmt\\.zathura")
+        (mkSimple "app-id" "sioyek")
+        (mkSimple "app-id" "\.texpresso-wrapped")
+        (mkSimple "title" "YouTube")
+        (mkSimple "title" "\\.pdf")
+        (mkSimple "title" "Apple.Music")
+        (mkSimple "title" "^Picture-in-Picture")
+      ];
+      properties.opacity = 0.8;
+    })
+    (mkWindowRule {
+      match = lib.singleton { is-floating = true; };
+      properties.background-effect.xray = false;
+    })
+    (mkWindowRule {
+      match = [
+        {
+          app-id = "Alacritty";
+          title = "peaclock";
+        }
+        (mkSimple "app-id" "qalculate")
+      ];
+      properties = {
+        open-floating = true;
+        default-column-width.fixed = 520;
+        default-window-height.fixed = 180;
+        default-floating-position._props = {
+          x = 30;
+          y = 30;
+          relative-to = "bottom-right";
+        };
+      };
+    })
+    (mkWindowRule {
+      match = lib.singleton (mkSimple "app-id" "epsilon");
+      properties.open-floating = true;
+    })
+    (mkWindowRule {
+      match = lib.singleton (mkSimple "app-id" "thunderbird");
+      properties = {
+        open-fullscreen = false;
+        open-maximized-to-edges = false;
+        open-floating = false;
+      };
+    })
+    (mkWindowRule {
+      match = lib.singleton {
+        app-id = "^firefox$";
+        title = "^Picture-in-Picture$";
+      };
+      properties = {
+        open-floating = true;
+        default-column-width.proportion = 0.25;
+        default-window-height.proportion = 0.25;
+        default-floating-position._props = {
+          x = 30;
+          y = 30;
+          relative-to = "bottom-right";
+        };
+      };
+    })
+    (mkWindowRule {
+      match = lib.singleton (mkSimple "app-id" "anki");
+      exclude = lib.singleton (mkSimple "title" "- Anki$");
+      properties = {
+        default-column-width.proportion = 0.5;
+        default-window-height.proportion = 1.0;
+        open-fullscreen = false;
+        open-maximized-to-edges = false;
+        open-floating = false;
+      };
+    })
+  ];
+}

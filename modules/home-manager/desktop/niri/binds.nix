@@ -25,8 +25,11 @@
       brightnessctl = lib.getExe pkgs.brightnessctl;
 
       mkTerminalLaunch = app: "${alacritty} -e ${app}";
+      addProp =
+        name: value: bind:
+        lib.recursiveUpdate bind { _props.${name} = value; };
     in
-    lib.mapAttrs (_: value: value // { _props.repeat = false; }) (
+    lib.mapAttrs (_: addProp "repeat" false) (
       {
         # Terminal
         "Mod+Q".spawn = alacritty;
@@ -54,7 +57,8 @@
         # -- Window/Workspace management
         "Mod+F".maximize-column = { };
         "Mod+Shift+F".fullscreen-window = { };
-        "Mod+V".toggle-window-floating = { };
+        "Mod+Shift+V".toggle-window-floating = { };
+        "Mod+V".switch-focus-between-floating-and-tiling = { };
         "Mod+C".close-window = { };
 
         "Mod+0".expand-column-to-available-width = { };
@@ -73,7 +77,7 @@
           }
         ) 5
       ))
-      // (lib.mapAttrs (_: value: value // { _props.allow-when-locked = true; }) {
+      // (lib.mapAttrs (_: addProp "allow-when-locked" true) {
         # --- Binds that work when locked
         XF86AudioMicMute.spawn-sh = "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
         XF86AudioMute.spawn-sh = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -89,16 +93,6 @@
     )
     // {
       # --- Repeating binds
-      # Brightness control, + CTRL for fine adjustment
-      XF86MONBrightnessDown.spawn-sh = "${brightnessctl} s 5%- -n 1";
-      "Ctrl+XF86MonBrightnessDown".spawn-sh = "${brightnessctl} s 1%- -n 1";
-      XF86MONBrightnessUp.spawn-sh = "${brightnessctl} s 5%+ -n 1";
-      "Ctrl+XF86MonBrightnessUp".spawn-sh = "${brightnessctl} s 1%+ -n 1";
-      XF86AudioLowerVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-      "Ctrl+XF86AudioLowerVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%-";
-      XF86AudioRaiseVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-      "Ctrl+XF86AudioRaiseVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%+";
-
       "Mod+H".focus-column-left-or-last = { };
       "Mod+L".focus-column-right-or-first = { };
       "Mod+J".focus-window-or-workspace-down = { };
@@ -118,5 +112,18 @@
 
       "Mod+WheelScrollDown".focus-workspace-down = { };
       "Mod+WheelScrollUp".focus-workspace-up = { };
-    };
+    }
+    // (lib.mapAttrs (_: addProp "allow-when-locked" true) {
+      # --- Binds that work when locked and that repeat
+      # Brightness control, + CTRL for fine adjustment
+      XF86MONBrightnessDown.spawn-sh = "${brightnessctl} s 5%- -n 1";
+      "Ctrl+XF86MonBrightnessDown".spawn-sh = "${brightnessctl} s 1%- -n 1";
+      XF86MONBrightnessUp.spawn-sh = "${brightnessctl} s 5%+ -n 1";
+      "Ctrl+XF86MonBrightnessUp".spawn-sh = "${brightnessctl} s 1%+ -n 1";
+      # Volume control
+      XF86AudioLowerVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+      "Ctrl+XF86AudioLowerVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%-";
+      XF86AudioRaiseVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+      "Ctrl+XF86AudioRaiseVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%+";
+    });
 }

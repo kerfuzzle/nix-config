@@ -1,6 +1,6 @@
 { lib, ... }: {
   wayland.windowManager.niri.settings.input = {
-    # focus-follows-mouse = { };
+    disable-power-key-handling = { };
 
     keyboard.xkb = {
       layout = "gb";

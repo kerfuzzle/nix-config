@@ -50,6 +50,17 @@
         }
       ];
 
+      autocmds = [
+        {
+          event = [ "VimEnter" ];
+          command = "silent exec \"!alacritty msg config 'window.padding.y=0' 'window.padding.x=0'\"";
+        }
+        {
+          event = [ "VimLeave" ];
+          command = "silent exec \"!alacritty msg config --reset\"";
+        }
+      ];
+
       autocomplete.blink-cmp = {
         enable = true;
         setupOpts.completion.ghost_text.enabled = true;
@@ -83,7 +94,14 @@
 
       ui = {
         # Highlight detected colour codes in correct colour
-        colorizer.enable = true;
+        colorizer = {
+          enable = true;
+          # Disable colour names everywhere apart from in css files
+          setupOpts = {
+            user_default_options.names = false;
+            filetypes.css.names = true;
+          };
+        };
         # Highlight repeat uses of the same word
         illuminate.enable = true;
       };
