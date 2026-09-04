@@ -69,6 +69,11 @@
         };
       in
       {
+        # Make ctrl + tab cycle through recent tabs
+        "browser.ctrlTab.sortByRecentlyUsed" = lock true;
+        "browser.ctrlTab.maxPreviews" = lock 5;
+        # Disable tab groups since the extension is better
+        "browser.tabs.groups.enabled" = lock false;
         # Enable userChrome.css
         "toolkit.legacyUserProfileCustomizations.stylesheets" = lock true;
         "svg.context-properties.content.enabled" = lock true;
