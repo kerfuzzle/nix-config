@@ -34,7 +34,7 @@ in
       exclude = [
         (mkSimple "app-id" "org\\.pwmt\\.zathura")
         (mkSimple "app-id" "sioyek")
-        (mkSimple "app-id" "\.texpresso-wrapped")
+        (mkSimple "app-id" "texpresso")
         (mkSimple "title" "YouTube")
         (mkSimple "title" "\\.pdf")
         (mkSimple "title" "Apple.Music")
