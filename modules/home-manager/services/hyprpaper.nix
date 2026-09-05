@@ -7,7 +7,7 @@
 }:
 {
   services.hyprpaper = {
-    enable = true;
+    enable = lib.mkForce false;
     package = inputs.hyprpaper.packages.${pkgs.stdenv.hostPlatform.system}.hyprpaper;
     settings = {
       ipc = false;
