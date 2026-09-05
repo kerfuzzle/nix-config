@@ -3,6 +3,7 @@
   wayland.windowManager.niri.settings.layout = with config.lib.stylix.colors.withHashtag; {
     border = {
       active-color = base0D;
+      urgent-color = base08;
       width = 2;
     };
     focus-ring.off = { };

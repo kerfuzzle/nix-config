@@ -60,6 +60,10 @@ window#waybar {
   box-shadow: inset 0 -2px #758ece;
 }
 
+#workspaces button.urgent {
+  color: #e78284;
+}
+
 #workspaces button.empty {
   color: #3b4766;
 }

@@ -75,7 +75,7 @@
             "Mod+${toString ws}".focus-workspace = ws;
             "Mod+Shift+${toString ws}".move-column-to-workspace = ws;
           }
-        ) 5
+        ) 9
       ))
       // (lib.mapAttrs (_: addProp "allow-when-locked" true) {
         # --- Binds that work when locked
