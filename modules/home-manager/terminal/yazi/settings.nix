@@ -19,7 +19,7 @@
       {
         edit = [
           {
-            run = "${lib.getExe config.programs.nvf.settings.vim.build.finalPackage} -o \"%s\"";
+            run = "${lib.getExe config.programs.nvf.settings.vim.build.finalPackage} -o %s";
             desc = "Edit with nvim";
             block = true;
             for = "unix";
@@ -27,7 +27,7 @@
         ];
         open = [
           {
-            run = "${handlr} open \"%s1\"";
+            run = "${handlr} open %s1";
             desc = "Open";
             orphan = true;
             for = "unix";
@@ -35,14 +35,14 @@
         ];
         imageEdit = [
           {
-            run = "${gimp} \"%s\"";
+            run = "${gimp} %s";
             desc = "Edit with GIMP";
             orphan = true;
           }
         ];
         browser = [
           {
-            run = "${lib.getExe config.programs.firefox.finalPackage} \"%s\"";
+            run = "${lib.getExe config.programs.firefox.finalPackage} %s";
             desc = "Open in browser";
             orphan = true;
           }
