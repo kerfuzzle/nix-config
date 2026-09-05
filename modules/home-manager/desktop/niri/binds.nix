@@ -24,7 +24,43 @@
       playerctl = lib.getExe pkgs.playerctl;
       brightnessctl = lib.getExe pkgs.brightnessctl;
 
-      mkTerminalLaunch = app: "${alacritty} -e ${app}";
+      mkTerminalLaunch = app: {
+        _args = [
+          (toString alacritty)
+          "-e"
+          (toString app)
+        ];
+      };
+
+      mkBrightness = value: {
+        _args = [
+          (toString brightnessctl)
+          "s"
+          value
+          "-n"
+          "1"
+        ];
+      };
+
+      mkWirePlumber = args: {
+        _args = [ (toString wpctl) ] ++ args;
+      };
+
+      mkVolume =
+        value:
+        mkWirePlumber [
+          "set-volume"
+          "@DEFAULT_AUDIO_SINK@"
+          value
+        ];
+
+      mkPlayer = action: {
+        _args = [
+          (toString playerctl)
+          action
+        ];
+      };
+
       addProp =
         name: value: bind:
         lib.recursiveUpdate bind { _props.${name} = value; };
@@ -42,9 +78,15 @@
         # Power menu
         "Mod+Escape".spawn-sh = "pidof wlogout || ${wlogout} -b 1 -L 500 -R 500";
         # File manager
-        "Mod+W".spawn-sh = mkTerminalLaunch yazi;
+        "Mod+W".spawn = mkTerminalLaunch yazi;
         # Unicode picker
-        "Mod+U".spawn-sh = "${unipicker} --command '${fuzzel} --dmenu' --copy-command ${wl-copy}";
+        "Mod+U".spawn._args = [
+          (toString unipicker)
+          "--command"
+          "${fuzzel} --dmenu"
+          "--copy-command"
+          (toString wl-copy)
+        ];
         # Toggle Overview
         "Mod+grave".toggle-overview = { };
 
@@ -52,7 +94,11 @@
         "Mod+A".spawn = screenshot-copy;
         "Mod+Shift+A".spawn = screenshot-swappy;
         "Mod+Shift+P".spawn = screen-record;
-        "Mod+Shift+C".spawn-sh = "${hyprpicker} -a -t";
+        "Mod+Shift+C".spawn._args = [
+          (toString hyprpicker)
+          "-a"
+          "-t"
+        ];
 
         # -- Window/Workspace management
         "Mod+F".maximize-column = { };
@@ -64,6 +110,8 @@
         "Mod+0".expand-column-to-available-width = { };
         "Mod+BracketLeft".consume-or-expel-window-left = { };
         "Mod+BracketRight".consume-or-expel-window-right = { };
+        "Mod+Shift+BracketLeft".swap-window-left = { };
+        "Mod+Shift+BracketRight".swap-window-right = { };
       }
       // (lib.mergeAttrsList (
         builtins.genList (
@@ -79,16 +127,24 @@
       ))
       // (lib.mapAttrs (_: addProp "allow-when-locked" true) {
         # --- Binds that work when locked
-        XF86AudioMicMute.spawn-sh = "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-        XF86AudioMute.spawn-sh = "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        XF86AudioPrev.spawn-sh = "${playerctl} previous";
-        XF86AudioNext.spawn-sh = "${playerctl} next";
-        XF86AudioPlay.spawn-sh = "${playerctl} play-pause";
+        XF86AudioMicMute.spawn = mkWirePlumber [
+          "set-mute"
+          "@DEFAULT_AUDIO_SOURCE@"
+          "toggle"
+        ];
+        XF86AudioMute.spawn = mkWirePlumber [
+          "set-mute"
+          "@DEFAULT_AUDIO_SINK@"
+          "toggle"
+        ];
+        XF86AudioPrev.spawn = mkPlayer "previous";
+        XF86AudioNext.spawn = mkPlayer "next";
+        XF86AudioPlay.spawn = mkPlayer "play-pause";
 
         # Laptop doesn't have media keys so these work as substitutes
-        Home.spawn-sh = "${playerctl} previous";
-        End.spawn-sh = "${playerctl} next";
-        Next.spawn-sh = "${playerctl} play-pause";
+        Home.spawn = mkPlayer "previous";
+        End.spawn = mkPlayer "next";
+        Next.spawn = mkPlayer "play-pause";
       })
     )
     // {
@@ -116,14 +172,14 @@
     // (lib.mapAttrs (_: addProp "allow-when-locked" true) {
       # --- Binds that work when locked and that repeat
       # Brightness control, + CTRL for fine adjustment
-      XF86MONBrightnessDown.spawn-sh = "${brightnessctl} s 5%- -n 1";
-      "Ctrl+XF86MonBrightnessDown".spawn-sh = "${brightnessctl} s 1%- -n 1";
-      XF86MONBrightnessUp.spawn-sh = "${brightnessctl} s 5%+ -n 1";
-      "Ctrl+XF86MonBrightnessUp".spawn-sh = "${brightnessctl} s 1%+ -n 1";
+      XF86MONBrightnessDown.spawn = mkBrightness "5%-";
+      "Ctrl+XF86MonBrightnessDown".spawn = mkBrightness "1%-";
+      XF86MONBrightnessUp.spawn = mkBrightness "5%+";
+      "Ctrl+XF86MonBrightnessUp".spawn = mkBrightness "1%+";
       # Volume control
-      XF86AudioLowerVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-      "Ctrl+XF86AudioLowerVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%-";
-      XF86AudioRaiseVolume.spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-      "Ctrl+XF86AudioRaiseVolume".spawn-sh = "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 1%+";
+      XF86AudioLowerVolume.spawn = mkVolume "5%-";
+      "Ctrl+XF86AudioLowerVolume".spawn = mkVolume "1%-";
+      XF86AudioRaiseVolume.spawn = mkVolume "5%+";
+      "Ctrl+XF86AudioRaiseVolume".spawn = mkVolume "1%+";
     });
 }
