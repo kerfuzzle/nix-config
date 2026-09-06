@@ -32,6 +32,7 @@ in
     (mkWindowRule {
       match = lib.singleton { is-focused = false; };
       exclude = [
+        # Stop these apps/titles from having inactive translucency
         (mkSimple "app-id" "org\\.pwmt\\.zathura")
         (mkSimple "app-id" "sioyek")
         (mkSimple "app-id" "texpresso")
@@ -69,6 +70,7 @@ in
       match = lib.singleton (mkSimple "app-id" "epsilon");
       properties.open-floating = true;
     })
+    # thunderbird is weirdly sized by default
     (mkWindowRule {
       match = lib.singleton (mkSimple "app-id" "thunderbird");
       properties = {
@@ -77,6 +79,7 @@ in
         open-floating = false;
       };
     })
+    # Float firefox PiP
     (mkWindowRule {
       match = lib.singleton {
         app-id = "^firefox$";
@@ -93,6 +96,7 @@ in
         };
       };
     })
+    # Stop anki child windows from being huge
     (mkWindowRule {
       match = lib.singleton (mkSimple "app-id" "anki");
       exclude = lib.singleton (mkSimple "title" "- Anki$");
@@ -102,6 +106,18 @@ in
         open-fullscreen = false;
         open-maximized-to-edges = false;
         open-floating = false;
+      };
+    })
+    # Make anki sync status reasonably sized
+    (mkWindowRule {
+      match = [
+        (mkSimple "app-id" "anki")
+        (mkSimple "title" "Syncing")
+      ];
+      properties = {
+        open-floating = true;
+        default-column-width.fixed = 400;
+        default-window-height.fixed = 100;
       };
     })
   ];
