@@ -70,7 +70,7 @@ in
           read-data() {
             # Trims battery name from start of output
             # Example bat0: "Discharging, 12%, 00:58:01 remaining"
-            IFS=: read -r _ bat0 < <(acpi -b | sed -n 2p)
+            IFS=: read -r _ bat0 < <(acpi -b | grep % | head -n 1)
             # Splits on ", "
             # Example val: "12%", status: "Discharging", remaining: "00:58:01 remaining"
             IFS=', ' read -r status val remaining <<<"$bat0"
