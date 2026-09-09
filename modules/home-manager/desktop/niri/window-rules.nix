@@ -102,6 +102,7 @@ in
       exclude = [
         (mkSimple "title" "- Anki$")
         (mkSimple "title" "Checking")
+        (mkSimple "title" "Syncing")
       ];
       properties = {
         default-column-width.proportion = 0.5;
@@ -113,10 +114,16 @@ in
     })
     # Make anki sync status reasonably sized
     (mkWindowRule {
-      match = lib.singleton {
-        app-id = "anki";
-        title = "Checking";
-      };
+      match = [
+        {
+          app-id = "anki";
+          title = "Checking";
+        }
+        {
+          app-id = "anki";
+          title = "Syncing";
+        }
+      ];
       properties = {
         open-floating = true;
         default-column-width.fixed = 400;
