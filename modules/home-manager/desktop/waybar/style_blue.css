@@ -57,6 +57,9 @@ window#waybar {
 #workspaces button.active, #workspaces button.focused {
   color: #758ece;
   font-weight: bolder;
+}
+
+#workspaces button.focused {
   box-shadow: inset 0 -2px #758ece;
 }
 
