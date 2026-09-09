@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  nixosConfig,
   ...
 }:
 {
@@ -23,6 +24,7 @@
       wpctl = lib.getExe' pkgs.wireplumber "wpctl";
       playerctl = lib.getExe pkgs.playerctl;
       brightnessctl = lib.getExe pkgs.brightnessctl;
+      loginctl = lib.getExe' nixosConfig.systemd.package "loginctl";
 
       mkTerminalLaunch = app: {
         _args = [
@@ -77,6 +79,11 @@
         "Mod+X".spawn = qalculate;
         # Power menu
         "Mod+Escape".spawn-sh = "pidof wlogout || ${wlogout} -b 1 -L 500 -R 500";
+        # Lock session
+        "XF86MenuKB".spawn._args = [
+          (toString loginctl)
+          "lock-session"
+        ];
         # File manager
         "Mod+W".spawn = mkTerminalLaunch yazi;
         # Unicode picker

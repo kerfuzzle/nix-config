@@ -110,10 +110,10 @@ in
     })
     # Make anki sync status reasonably sized
     (mkWindowRule {
-      match = [
-        (mkSimple "app-id" "anki")
-        (mkSimple "title" "Syncing")
-      ];
+      match = lib.singleton {
+        app-id = "anki";
+        title = "Syncing";
+      };
       properties = {
         open-floating = true;
         default-column-width.fixed = 400;
