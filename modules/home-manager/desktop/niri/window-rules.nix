@@ -99,7 +99,10 @@ in
     # Stop anki child windows from being huge
     (mkWindowRule {
       match = lib.singleton (mkSimple "app-id" "anki");
-      exclude = lib.singleton (mkSimple "title" "- Anki$");
+      exclude = [
+        (mkSimple "title" "- Anki$")
+        (mkSimple "title" "Checking")
+      ];
       properties = {
         default-column-width.proportion = 0.5;
         default-window-height.proportion = 1.0;
@@ -112,7 +115,7 @@ in
     (mkWindowRule {
       match = lib.singleton {
         app-id = "anki";
-        title = "Syncing";
+        title = "Checking";
       };
       properties = {
         open-floating = true;
