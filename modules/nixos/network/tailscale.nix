@@ -31,6 +31,7 @@
       useRoutingFeatures = "client";
       extraSetFlags = [
         "--operator=${config.hostConfig.username}"
+        "--exit-node-allow-lan-access"
       ];
     };
   };
