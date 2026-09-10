@@ -98,8 +98,9 @@
         "Mod+grave".toggle-overview = { };
 
         # -- Screenshots and screen recording
-        "Mod+A".spawn = screenshot-copy;
+        "Mod+A".screenshot = { };
         "Mod+Shift+A".spawn = screenshot-swappy;
+        "Mod+Shift+S".screenshot-window = { };
         "Mod+Shift+P".spawn = screen-record;
         "Mod+Shift+C".spawn._args = [
           (toString hyprpicker)

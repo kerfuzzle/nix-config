@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   hostConfig,
   ...
 }:
@@ -10,6 +11,7 @@
     enable = true;
     settings = {
       hotkey-overlay.skip-at-startup = true;
+      screenshot-path = config.xdg.userDirs.pictures + "/screenshot_%d-%m-%Y_%H:%M:%S.png";
 
       cursor = {
         xcursor-size = 24;
