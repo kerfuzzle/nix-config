@@ -103,6 +103,9 @@ in
         (mkSimple "title" "- Anki$")
         (mkSimple "title" "Checking")
         (mkSimple "title" "Syncing")
+        (mkSimple "title" "Options")
+        (mkSimple "title" "Rename")
+        (mkSimple "title" "Export")
       ];
       properties = {
         default-column-width.proportion = 0.5;
@@ -110,6 +113,26 @@ in
         open-fullscreen = false;
         open-maximized-to-edges = false;
         open-floating = false;
+      };
+    })
+    # Make anki options window float
+    (mkWindowRule {
+      match = [
+        {
+          app-id = "anki";
+          title = "Options";
+        }
+        {
+          app-id = "anki";
+          title = "Export";
+        }
+      ];
+      properties = {
+        default-column-width.fixed = 780;
+        default-window-height.fixed = 975;
+        open-fullscreen = false;
+        open-maximized-to-edges = false;
+        open-floating = true;
       };
     })
     # Make anki sync status reasonably sized
@@ -122,6 +145,10 @@ in
         {
           app-id = "anki";
           title = "Syncing";
+        }
+        {
+          app-id = "anki";
+          title = "Rename";
         }
       ];
       properties = {
