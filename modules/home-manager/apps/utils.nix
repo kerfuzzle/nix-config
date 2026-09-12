@@ -12,6 +12,8 @@
       anki
       # Disk usage analyser
       qdirstat
+      # Torrent client
+      qbittorrent
     ]
     ++ (lib.optional hostConfig.printing.scanners.enable pkgs.simple-scan);
 }
