@@ -1,6 +1,8 @@
 { pkgs, lib, ... }: {
   home.sessionVariables."GTK_IM_MODULE" = lib.mkForce "";
 
+  stylix.targets.fcitx5.enable = false;
+
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -34,6 +36,11 @@
             CompactInputMethodInformation = false;
             ShowPreeditForPassword = false;
           };
+        };
+
+        addons.classicui.globalSection = {
+          UseDarkTheme = true;
+          UseAccentColor = false;
         };
       };
     };
