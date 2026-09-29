@@ -3,15 +3,15 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    wl-clipboard
-    trash-cli
-    ouch
-    mediainfo
-    imagemagick
-  ];
-
   programs.yazi = {
+    extraPackages = with pkgs; [
+      wl-clipboard
+      trash-cli
+      ouch
+      mediainfo
+      imagemagick
+    ];
+
     plugins = {
       inherit (pkgs.yaziPlugins)
         smart-enter

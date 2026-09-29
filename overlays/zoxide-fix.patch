@@ -1,0 +1,22 @@
+diff --git a/yazi-plugin/preset/plugins/zoxide.lua b/yazi-plugin/preset/plugins/zoxide.lua
+index c017937f..b11fcae5 100644
+--- a/yazi-plugin/preset/plugins/zoxide.lua
++++ b/yazi-plugin/preset/plugins/zoxide.lua
+@@ -89,7 +89,7 @@ end
+ ---@param cwd string
+ ---@return boolean
+ function M.is_empty(cwd)
+-	local child = Command("zoxide"):arg({ "query", "-l", "--exclude", cwd }):stdout(Command.PIPED):spawn()
++	local child = Command("zoxide"):arg({ "query", "-l", "-a", "--exclude", cwd }):stdout(Command.PIPED):spawn()
+ 	if not child then
+ 		return true
+ 	end
+@@ -103,7 +103,7 @@ end
+ ---@return string?, Error?
+ function M.run_with(cwd)
+ 	local child, err = Command("zoxide")
+-		:arg({ "query", "-i", "--exclude", cwd })
++		:arg({ "query", "-i", "-a", "--exclude", cwd })
+ 		:env("SHELL", "sh")
+ 		:env("CLICOLOR", 1)
+ 		:env("CLICOLOR_FORCE", 1)

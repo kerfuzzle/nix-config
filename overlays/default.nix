@@ -18,6 +18,12 @@ rec {
     #     allowBuiltinFetchGit = true;
     #   };
     # });
+
+    yazi = prev.yazi.override (prev-args: {
+      yazi-unwrapped = prev-args.yazi-unwrapped.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ (lib.singleton ./zoxide-fix.patch);
+      });
+    });
   };
 
   stable-packages = final: _prev: {
