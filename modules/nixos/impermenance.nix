@@ -37,6 +37,8 @@ in
         ++ (optional config.boot.lanzaboote.enable config.boot.lanzaboote.pkiBundle)
         # Tailscale auth
         ++ (optional config.services.tailscale.enable "/var/lib/tailscale")
+        # Mullvad configuration
+        ++ (optional config.services.mullvad-vpn.enable "/etc/mullvad-vpn")
         # Allows tuigreet to remember previous user/session
         ++ (optional config.services.greetd.enable {
           directory = "/var/cache/tuigreet";
