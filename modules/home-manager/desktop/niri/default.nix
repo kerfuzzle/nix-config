@@ -34,8 +34,9 @@
             _args = [ "eDP-1" ];
             mode = "1920x1080@60.003";
             position._props = {
-              x = 0;
+              x = if hostConfig.hyprland.mainMonitorLeft then builtins.div 3840 1.5 |> builtins.floor else 0;
               y = 0;
+
             };
             hot-corners.off = { };
           };
@@ -45,12 +46,12 @@
             let
               width = 3840;
             in
-            rec {
+            {
               _args = [ "Microstep MAG274UPF CC2H974200553" ];
               mode = "${toString width}x2160@144.000";
               position._props = {
                 x =
-                  if hostConfig.hyprland.mainMonitorLeft then builtins.div width scale |> builtins.floor else 1920;
+                  if hostConfig.hyprland.mainMonitorLeft then 0 else 1920;
                 y = 0;
               };
               scale = 1.5;
