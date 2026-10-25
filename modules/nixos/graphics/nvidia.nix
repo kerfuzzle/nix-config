@@ -35,7 +35,7 @@ in
       "nvidia-persistenced"
     ];
 
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
 
     hardware.nvidia = {
       modesetting.enable = true;

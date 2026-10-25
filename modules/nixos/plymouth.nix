@@ -30,11 +30,6 @@ in
       };
 
       consoleLogLevel = 3;
-      initrd = {
-        verbose = false;
-        # Load in stage 1 for LUKS
-        systemd.enable = true;
-      };
       kernelParams = [
         "quiet"
         "splash"
