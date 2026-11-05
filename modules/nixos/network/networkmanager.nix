@@ -107,6 +107,8 @@ in
 
     networking.networkmanager = {
       enable = true;
+      # Generate a stable MAC address per wifi network
+      wifi.macAddress = "stable-ssid";
       ensureProfiles = {
         # Point network manager to the enviroment file made by sops
         environmentFiles = [ config.sops.templates.ssid-list.path ];
