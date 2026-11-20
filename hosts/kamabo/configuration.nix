@@ -82,13 +82,14 @@ in
       hybrid = {
         # Use offload hybrid graphics, use `nvidia-offload COMMAND` to run on dGPU
         enable = true;
+
         # BDF bus IDs obtained from `lspci -d ::03xx' in format `domain:bus:device.function`
         nvidiaBdfBusId = "0000:01:00.0";
         intelBdfBusId = "0000:00:02.0";
       };
     };
 
-    droidcam.enable = false;
+    droidcam.enable = true;
 
     iosSupport.enable = true;
 
